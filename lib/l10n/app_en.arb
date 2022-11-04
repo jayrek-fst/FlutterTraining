@@ -1,0 +1,218 @@
+{
+    "raw_tutorial_welcome_message": "Welcome to BRIDGE LAND! This is the app Fumiya devised as a communication tool that connects Philippines and Japan. You can enjoy the following contents on this app by Registration (¥500/month) as a BUDDY(member)",
+     "@raw_tutorial_welcome_message": {
+        "description": "Tutorial welcome message"
+     },
+     "raw_common_subscribe_payment_note": "※To enjoy limited contents, it is necessary to do BUDDY REGISTRATION (¥500/month)",
+     "@raw_common_subscribe_payment_note": {
+        "description": "Subscription payment note"
+     },
+     "raw_common_subscribe_benefits_one": "Live streaming for BUDDY only",
+     "@raw_common_subscribe_benefits_one": {
+        "description": "Subscribed user benefit one"
+     },
+     "raw_common_subscribe_benefits_two": "Joining group chat to talk with BUDDYs",
+     "@raw_common_subscribe_benefits_two": {
+        "description": "Subscribed user benefit two"
+     },
+     "raw_common_subscribe_benefits_three": "Events for BUDDY only",
+     "@raw_common_subscribe_benefits_three": {
+        "description": "Subscribed user benefit three"
+     },
+     "raw_tutorial_two_message": "Share the premium live-streaming, limited guerilla live-streaming with BUDDY.",
+     "@raw_tutorial_two_message": {
+        "description": "Tutorial two message"
+     },
+     "raw_tutorial_three_message": "Discuss topics with other BUDDYs and members of KAPE TAYO HOUSE, anytime anywhere!",
+     "@raw_tutorial_three_message": {
+        "description": "Tutorial three message"
+     },
+     "raw_member_only_content": "Contents for Members Only",
+     "@raw_member_only_content": {
+        "description": "Content for members only"
+     },
+     "raw_common_next": "Next",
+     "@raw_common_next": {
+        "description": "Next screen"
+     },
+     "raw_common_enter": "Enter",
+     "@raw_common_enter": {
+        "description": "Enter screen"
+     },
+     "raw_sign_in_header": "Login/Registration",
+     "@raw_sign_in_header": {
+        "description": "Sign in header"
+     },
+     "raw_common_billing_subscription_message": "You can join and browse the limited contents if you do BUDDY REGISTRATION (¥500/month).",
+     "@raw_common_billing_subscription_message": {
+        "description": "Billing subscription message"
+     },
+    "raw_sign_up_header": "Registration",
+     "@raw_sign_up_header": {
+        "description": "Sign up header"
+     },
+    "raw_sign_in_click_here": "Have you done BUDDY REGISTRATION?",
+     "@raw_sign_in_click_here": {
+        "description": "Sign in click here"
+     },
+    "raw_common_sign_in": "Login",
+     "@raw_common_sign_in": {
+        "description": "Sign in"
+     },
+     "raw_sign_in_forgot_password": "Forgot Password?",
+     "@raw_sign_in_forgot_password": {
+        "description": "Sign in forgot password"
+     },
+    "raw_common_email": "Email",
+     "@raw_common_email": {
+        "description": "Email"
+     },
+    "raw_common_password": "Password",
+     "@raw_common_password": {
+        "description": "Password"
+     },
+    "raw_sign_up_header_description": "Provisional Registration",
+     "@raw_sign_up_header_description": {
+        "description": "Sign up header description"
+     },
+    "raw_sign_up_message": "We will send verification email. Please input all items.",
+     "@raw_sign_up_message": {
+        "description": "Sign up message"
+     },
+    "raw_common_confirm": "Confirm",
+     "@raw_common_confirm": {
+        "description": "Confirm"
+     },
+    "raw_common_hint_password": "※8 to 16 alphanumeric characters",
+     "@raw_common_hint_password": {
+        "description": "Hint password"
+     },
+    "raw_common_confirm_password": "Password Confirmation",
+     "@raw_common_confirm_password": {
+        "description": "Password confirm"
+     },
+     "raw_sign_up_verification_header": "Email has sent!",
+     "@raw_sign_up_verification_header": {
+        "description": "Sign up verification header"
+     },
+     "raw_sign_up_verification_description": "We sent a verification email to the registered email. Please access the URL on the email to verify within 24 hours.",
+     "@raw_sign_up_verification_description": {
+        "description": "Sign up verification message"
+     },
+     "raw_sign_up_verification_completed": "If you have already done email verification",
+     "@raw_sign_up_verification_completed": {
+        "description": "Sign up verification completed"
+     },
+     "raw_sign_up_verification_message": "In the following cases, please verify the newly received e-mail by clicking the \"Resend verification e-mail\" link below.",
+     "@raw_sign_up_verification_message": {
+        "description": "Sign up verification message"
+     },
+     "raw_sign_up_verification_message_bullet_1": "24 hours elapsed",
+     "@raw_sign_up_verification_message_bullet_1": {
+        "description": "Sign up verification message bullet 1"
+     },
+     "raw_sign_up_verification_message_bullet_2": "Haven't you received email after more than 30 minutes?",
+     "@raw_sign_up_verification_message_bullet_2": {
+        "description": "Sign up verification message bullet 2"
+     },
+     "raw_sign_up_verification_resend": "Resend verification e-mail",
+     "@raw_sign_up_verification_resend": {
+        "description": "Sign up verification resend"
+     },
+     "raw_sign_up_verification_inquiry": "If you do not receive a verification email other than the above, it might be due to one of the following reasons",
+     "@raw_sign_up_verification_inquiry": {
+        "description": "Sign up verification inquiry"
+     },
+     "raw_sign_up_verification_inquiry_bullet_1": "Your registered e-mail address has been entered incorrectly.",
+     "@raw_sign_up_verification_inquiry_bullet_1": {
+        "description": "Sign up verification inquiry bullet 1"
+     },
+    "raw_sign_up_verification_inquiry_bullet_2": "Receiving list settings on the carrier mail (@docomo.ne.jp, @ezweb.ne.jp, @softbank.ne.jp, @icloud.com) side are not set.",
+     "@raw_sign_up_verification_inquiry_bullet_2": {
+        "description": "Sign up verification inquiry bullet 2"
+     },
+    "raw_sign_up_verification_inquiry_bullet_3": "The email is sorted into spam.",
+     "@raw_sign_up_verification_inquiry_bullet_3": {
+        "description": "Sign up verification inquiry bullet 3"
+     },
+    "raw_sign_up_verification_inquiry_bullet_4": "Unable to receive mail because the mail capacity has reached the limit.",
+     "@raw_sign_up_verification_inquiry_bullet_4": {
+        "description": "Sign up verification inquiry bullet 4"
+     },
+    "raw_sign_up_verification_inquiry_2": "If you don't receive the email, please contact us from ",
+     "@raw_sign_up_verification_inquiry_2": {
+        "description": "Sign up verification inquiry 2"
+     },
+    "raw_sign_up_verification_contact_inquiry": "inquiry form.",
+     "@raw_sign_up_verification_contact_inquiry": {
+        "description": "Sign up verification contact inquiry"
+     },
+    "raw_sign_up_verification_contact_us": "",
+     "@raw_sign_up_verification_contact_us": {
+        "description": "Sign up verification contact us"
+     },
+    "raw_common_validation_invalid_empty_email": "Please input Email",
+     "@raw_common_validation_invalid_empty_email": {
+        "description": "Common validation invalid empty email"
+     },
+    "raw_common_validation_invalid_empty_password": "Please input Password",
+     "@raw_common_validation_invalid_empty_password": {
+        "description": "Common validation invalid empty password"
+     },
+    "raw_common_validation_invalid_format_email": "Invalid Email",
+     "@raw_common_validation_invalid_format_email": {
+        "description": "Common validation invalid format email"
+     },
+    "raw_common_validation_invalid_format_password": "Invalid Password",
+     "@raw_common_validation_invalid_format_password": {
+        "description": "Common validation invalid format password"
+     },
+    "raw_common_invalid_confirm_password": "Password does not match",
+     "@raw_common_invalid_confirm_password": {
+        "description": "Common invalid confirm password"
+     },
+    "raw_common_input_confirm_password": "Please input Confirmation Password",
+     "@raw_common_input_confirm_password": {
+        "description": "Common input confirm password"
+     },
+    "raw_common_reset_password": "Reset Password",
+     "@raw_common_reset_password": {
+        "description": "Common reset password"
+     },
+    "raw_reset_password_description": "Please input registered email and tap the \"Send\" button. We will send URL on the email for reset password.",
+     "@raw_reset_password_description": {
+        "description": "Reset password description"
+     },
+    "raw_common_reset_password_note": "※Please set your device to receive e-mails from \"noreply@fumiya-9f207.firebaseapp.com\".",
+     "@raw_common_reset_password_note": {
+        "description": "Common reset password note"
+     },
+    "raw_common_next": "Next",
+     "@raw_common_next": {
+        "description": "Next"
+     },
+    "raw_reset_password_verification_header": "Sent email for reset password",
+     "@raw_reset_password_verification_header": {
+        "description": "Reset password verification header"
+     },
+    "raw_reset_password_verification_description": "The email for reset password is sent to entered email.",
+     "@raw_reset_password_verification_description": {
+        "description": "Reset password verification description"
+     },
+    "raw_reset_password_verification_message": "Please access the URL on the email to reset password.",
+     "@raw_reset_password_verification_message": {
+        "description": "Reset password verification message"
+     },
+    "raw_reset_password_verification_note_1": "※Please note that it may take some time for us to send to your e-mail.",
+     "@raw_reset_password_verification_note_1": {
+        "description": "Reset password verification note 1"
+     },
+    "raw_reset_password_verification_note_2": "※URL on the verification email is valid for 24 hours. If you do not access the URL within the validity period, please start the procedure again from the beginning.",
+     "@raw_reset_password_verification_note_2": {
+        "description": "Reset password verification note 2"
+     },
+    "raw_common_back_to_login": "Back to Login page",
+     "@raw_common_back_to_login": {
+        "description": "Common back to login"
+     }
+}

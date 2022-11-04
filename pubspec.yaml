@@ -1,0 +1,46 @@
+name: fumiya_flutter
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.2 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
+  cupertino_icons: ^1.0.2
+  flutter_form_builder: ^7.7.0
+  form_builder_validators: ^8.3.0
+  equatable: ^2.0.5
+  flutter_bloc: ^8.1.1
+  firebase_core: ^2.1.1
+  cloud_firestore: ^4.0.4
+  firebase_auth: ^4.1.1
+  firebase_dynamic_links: ^5.0.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  generate: true
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Futura
+      fonts:
+        - asset: assets/fonts/futura.ttf
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/noto_sans_jp.otf
