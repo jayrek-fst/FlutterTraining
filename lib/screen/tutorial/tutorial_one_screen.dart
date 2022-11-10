@@ -27,7 +27,7 @@ class TutorialOneScreen extends StatelessWidget {
               child: Image.asset(ImagePathUtil.appImagePath)),
           Container(
               color: AppColorUtil.appBlueColor,
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              padding: const EdgeInsets.all(20),
               height: MediaQuery.of(context).size.height,
               child: Column(children: [
                 Text(appLocalizations.raw_tutorial_welcome_message,

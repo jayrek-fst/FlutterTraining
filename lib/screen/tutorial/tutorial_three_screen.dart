@@ -32,8 +32,7 @@ class TutorialThreeScreen extends StatelessWidget {
                           color: AppColorUtil.appBlueDarkColor))),
               Container(
                   color: Colors.white,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  padding: const EdgeInsets.all(20),
                   height: MediaQuery.of(context).size.height,
                   child: Column(children: [
                     SizedBox(

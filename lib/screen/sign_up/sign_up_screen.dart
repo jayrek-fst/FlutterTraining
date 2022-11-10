@@ -32,39 +32,38 @@ class SignUpScreen extends StatelessWidget {
             backgroundColor: Colors.white,
             title: Text(appLocalizations.raw_sign_in_header,
                 style: const TextStyle(color: AppColorUtil.appBlueDarkColor))),
-        body: ListView(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics()),
-            children: [
-              Container(
-                  height: MediaQuery.of(context).size.height,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  child: Column(children: [
-                    Text(appLocalizations.raw_sign_up_header_description),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 30),
-                        child: Image.asset(ImagePathUtil.stepOnePath)),
-                    Text(appLocalizations.raw_sign_up_message),
-                    const SizedBox(height: 20),
-                    FormBuilder(
-                        key: _formKey,
-                        child: BlocConsumer<AuthBloc, AuthState>(
-                            listener: (context, state) {
-                              if (state is AuthUserUnAuthenticated) {
-                                Navigator.of(context)
-                                    .pushNamed(RouteUtil.signUpVerification);
-                              }
-                              if (state is AuthExceptionOccurred) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(state.message)));
-                              }
-                            },
-                            builder: (context, state) =>
-                                _signUpForm(context, appLocalizations, state)))
-                  ]))
-            ]));
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: ListView(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              children: [
+                Column(children: [
+                  Text(appLocalizations.raw_sign_up_header_description),
+                  Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 30),
+                      child: Image.asset(ImagePathUtil.stepOnePath)),
+                  Text(appLocalizations.raw_sign_up_message),
+                  const SizedBox(height: 20),
+                  FormBuilder(
+                      key: _formKey,
+                      child: BlocConsumer<AuthBloc, AuthState>(
+                          listener: (context, state) {
+                            if (state is AuthUserUnAuthenticated) {
+                              Navigator.of(context)
+                                  .pushNamed(RouteUtil.signUpVerification);
+                            }
+                            if (state is AuthExceptionOccurred) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(state.message)));
+                            }
+                          },
+                          builder: (context, state) =>
+                              _signUpForm(context, appLocalizations, state)))
+                ])
+              ]),
+        ));
   }
 
   Widget _signUpForm(BuildContext context, AppLocalizations appLocalizations,

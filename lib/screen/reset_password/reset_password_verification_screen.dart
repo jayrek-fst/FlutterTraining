@@ -20,40 +20,39 @@ class ResetPasswordVerificationScreen extends StatelessWidget {
             backgroundColor: Colors.white,
             title: Text(appLocalizations.raw_common_reset_password,
                 style: const TextStyle(color: AppColorUtil.appBlueDarkColor))),
-        body: ListView(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics()),
-            children: [
-              Container(
-                  height: MediaQuery.of(context).size.height,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  child: Column(children: [
-                    Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 30),
-                        child: Text(appLocalizations
-                            .raw_reset_password_verification_header)),
-                    Text(appLocalizations
-                        .raw_reset_password_verification_description),
-                    const SizedBox(height: 20),
-                    Text(appLocalizations
-                        .raw_reset_password_verification_message),
-                    const SizedBox(height: 20),
-                    Text(appLocalizations
-                        .raw_reset_password_verification_note_1),
-                    const SizedBox(height: 20),
-                    Text(appLocalizations
-                        .raw_reset_password_verification_note_2),
-                    const SizedBox(height: 30),
-                    TextButton(
-                        onPressed: () => Navigator.of(context)
-                            .pushNamedAndRemoveUntil(
-                                RouteUtil.signIn, (route) => false),
-                        child: Text(appLocalizations.raw_common_back_to_login,
-                            style: underlineTextStyle)),
-                    const SizedBox(height: 20)
-                  ]))
-            ]));
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: ListView(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              children: [
+                Column(children: [
+                  Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 30),
+                      child: Text(appLocalizations
+                          .raw_reset_password_verification_header)),
+                  Text(appLocalizations
+                      .raw_reset_password_verification_description),
+                  const SizedBox(height: 20),
+                  Text(appLocalizations
+                      .raw_reset_password_verification_message),
+                  const SizedBox(height: 20),
+                  Text(appLocalizations
+                      .raw_reset_password_verification_note_1),
+                  const SizedBox(height: 20),
+                  Text(appLocalizations
+                      .raw_reset_password_verification_note_2),
+                  const SizedBox(height: 30),
+                  TextButton(
+                      onPressed: () => Navigator.of(context)
+                          .pushNamedAndRemoveUntil(
+                              RouteUtil.signIn, (route) => false),
+                      child: Text(appLocalizations.raw_common_back_to_login,
+                          style: underlineTextStyle)),
+                  const SizedBox(height: 20)
+                ])
+              ]),
+        ));
   }
 }

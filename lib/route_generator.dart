@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fumiya_flutter/screen/sign_up/sign_up_details_confirmation_screen.dart';
+import 'package:fumiya_flutter/screen/sign_up/sign_up_details_screen.dart';
 
 import 'screen/dashboard/dashboard_screen.dart';
 import 'screen/reset_password/reset_password_screen.dart';
@@ -30,6 +32,13 @@ class RouteGenerator {
       case RouteUtil.signUp:
         return RouteAnimationUtil(
             child: SignUpScreen(), direction: AxisDirection.left);
+      case RouteUtil.signUpDetails:
+        return RouteAnimationUtil(
+            child: SignUpDetailsScreen(), direction: AxisDirection.left);
+      case RouteUtil.signUpDetailsConfirmation:
+        return RouteAnimationUtil(
+            child: SignUpDetailsConfirmationScreen(),
+            direction: AxisDirection.left);
       case RouteUtil.signUpVerification:
         return RouteAnimationUtil(
             child: const SignUpVerificationScreen(),

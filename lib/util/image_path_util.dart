@@ -7,6 +7,8 @@ class ImagePathUtil {
 //sign up stepper
   static const stepOnePath = 'assets/images/step_one_img.png';
   static const stepTwoPath = 'assets/images/step_two_img.png';
+  static const stepFourPath = 'assets/images/step_four_img.png';
+  static const stepFivePath = 'assets/images/step_five_img.png';
 
 //unselected bottom navigation item
   static const mapUnselectedPath = 'assets/images/map_unselected_img.png';

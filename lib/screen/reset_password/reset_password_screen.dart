@@ -26,36 +26,35 @@ class ResetPasswordScreen extends StatelessWidget {
             backgroundColor: Colors.white,
             title: Text(appLocalizations.raw_common_reset_password,
                 style: const TextStyle(color: AppColorUtil.appBlueDarkColor))),
-        body: ListView(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics()),
-            children: [
-              Container(
-                  height: MediaQuery.of(context).size.height,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                  child: Column(children: [
-                    Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 30),
-                        child:
-                            Text(appLocalizations.raw_common_reset_password)),
-                    Text(appLocalizations.raw_reset_password_description),
-                    const SizedBox(height: 20),
-                    FormBuilder(
-                        key: formKey,
-                        child: Column(children: [
-                          _emailFormBuilderTextField(context, appLocalizations),
-                          const SizedBox(height: 10),
-                          Text(appLocalizations.raw_common_reset_password_note),
-                          const SizedBox(height: 10),
-                          ElevatedButtonWidget(
-                              label: appLocalizations.raw_common_next,
-                              onPressed: () => Navigator.of(context).pushNamed(
-                                  RouteUtil.resetPasswordVerification))
-                        ]))
-                  ]))
-            ]));
+        body: Padding(
+          padding: const EdgeInsets.all(20),
+          child: ListView(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              children: [
+                Column(children: [
+                  Padding(
+                      padding: const EdgeInsets.only(top: 10, bottom: 30),
+                      child:
+                          Text(appLocalizations.raw_common_reset_password)),
+                  Text(appLocalizations.raw_reset_password_description),
+                  const SizedBox(height: 20),
+                  FormBuilder(
+                      key: formKey,
+                      child: Column(children: [
+                        _emailFormBuilderTextField(context, appLocalizations),
+                        const SizedBox(height: 10),
+                        Text(appLocalizations.raw_common_reset_password_note),
+                        const SizedBox(height: 10),
+                        ElevatedButtonWidget(
+                            label: appLocalizations.raw_common_next,
+                            onPressed: () => Navigator.of(context).pushNamed(
+                                RouteUtil.resetPasswordVerification))
+                      ]))
+                ])
+              ]),
+        ));
   }
 
   Widget _emailFormBuilderTextField(

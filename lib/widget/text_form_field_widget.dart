@@ -8,14 +8,14 @@ class TextFormFieldWidget extends StatelessWidget {
       {Key? key,
       required this.name,
       required this.textInputType,
-      required this.validator,
+      this.validator,
       this.hint = '',
       this.suffixIcon,
       this.isObscure = false})
       : super(key: key);
   final String name;
   final TextInputType textInputType;
-  final String? Function(String?) validator;
+  final String? Function(String?)? validator;
   final Widget? suffixIcon;
   final bool isObscure;
   final String hint;
