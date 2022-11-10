@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 import '../../domain/repository/auth_repository.dart';
 import '../datasource/remote/auth/auth_remote_datasource.dart';
@@ -13,7 +12,6 @@ class AuthRepositoryImpl implements AuthRepository {
       {required String email, required String password}) async {
     UserCredential userCredential =
         await _authRemoteDataSource.signIn(email: email, password: password);
-    debugPrint('AuthRepositoryImpl: $userCredential');
     return userCredential;
   }
 

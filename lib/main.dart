@@ -7,7 +7,6 @@ import 'package:fumiya_flutter/bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
 import 'package:fumiya_flutter/bloc/toggle_bloc/toggle_bloc.dart';
 import 'package:fumiya_flutter/business_logic/cubit/password_toggle_cubit.dart';
 import 'package:fumiya_flutter/data/repository/user_repository_impl.dart';
-import 'package:fumiya_flutter/data/repository/auth_repository_impl.dart';
 import 'package:fumiya_flutter/domain/use_case/app_use_cases.dart';
 import 'package:fumiya_flutter/util/app_color_util.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -36,11 +35,8 @@ class MyApp extends StatelessWidget {
       child: MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => AuthBloc(
-                  userRepository:
-                      RepositoryProvider.of<UserRepositoryImpl>(context),
-                  appUseCases: RepositoryProvider.of<AppUseCases>(context)),
-            ),
+                create: (context) => AuthBloc(
+                    appUseCases: RepositoryProvider.of<AppUseCases>(context))),
             BlocProvider(create: (context) => ToggleBloc()),
             BlocProvider(create: (context) => BottomNavBloc()),
             BlocProvider(create: (context) => PasswordToggleCubit())

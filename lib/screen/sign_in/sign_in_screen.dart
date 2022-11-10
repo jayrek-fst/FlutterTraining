@@ -65,6 +65,10 @@ class SignInScreen extends StatelessWidget {
                                 const SnackBar(
                                     content: Text('No user information yet!')));
                           }
+                          if (state is AuthExceptionOccurred) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(state.message)));
+                          }
                           if (state is AuthUserEmailUnVerified) {
                             _showSignInDialog(
                                 context,
