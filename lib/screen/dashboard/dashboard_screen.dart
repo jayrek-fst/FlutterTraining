@@ -57,16 +57,16 @@ class DashboardScreen extends StatelessWidget {
   void _onTappedEvent(int index, BuildContext context) {
     switch (index) {
       case 0:
-        context.read<BottomNavBloc>().add(BottomNavMapEvent());
+        context.read<BottomNavBloc>().add(BottomNavMapTapped());
         break;
       case 1:
-        context.read<BottomNavBloc>().add(BottomNavParkEvent());
+        context.read<BottomNavBloc>().add(BottomNavParkTapped());
         break;
       case 2:
-        context.read<BottomNavBloc>().add(BottomNavStationEvent());
+        context.read<BottomNavBloc>().add(BottomNavStationTapped());
         break;
       case 3:
-        context.read<BottomNavBloc>().add(BottomNavBaseEvent());
+        context.read<BottomNavBloc>().add(BottomNavBaseTapped());
         break;
     }
   }

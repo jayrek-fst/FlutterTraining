@@ -7,10 +7,10 @@ abstract class BottomNavEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class BottomNavMapEvent extends BottomNavEvent {}
+class BottomNavMapTapped extends BottomNavEvent {}
 
-class BottomNavParkEvent extends BottomNavEvent {}
+class BottomNavParkTapped extends BottomNavEvent {}
 
-class BottomNavStationEvent extends BottomNavEvent {}
+class BottomNavStationTapped extends BottomNavEvent {}
 
-class BottomNavBaseEvent extends BottomNavEvent {}
+class BottomNavBaseTapped extends BottomNavEvent {}

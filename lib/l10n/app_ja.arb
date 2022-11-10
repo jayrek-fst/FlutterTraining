@@ -52,5 +52,15 @@
     "raw_reset_password_verification_message": "メール本文に掲載されているURLへアクセスいただき、再発行の手続きを行ってください",
     "raw_reset_password_verification_note_1": "※メールの返信はお時間がかかる場合がございますので、あらかじめご了承ください。",
     "raw_reset_password_verification_note_2": "※折り返しメールのURLの有効期間は24時間以内となります。有効期間内にアクセスいただけなかった場合は、再度最初からお手続きください。",
-    "raw_common_back_to_login": "Loginページへ戻る"
+    "raw_common_back_to_login": "Loginページへ戻る",
+    "raw_common_close": "閉じる",
+    "raw_sign_in_dialog_btn_resend": "再送",
+    "raw_sign_in_dialog_message_email_unverified": "メールアドレスに届いたURLを確認してください",
+    "raw_sign_in_dialog_title_login_error": "ログインエラー",
+    "raw_sign_up_dialog_title_confirmation_registration": "登録情報確認",
+    "raw_sign_up_dialog_message_register_confirmation": "下記の内容で登録します。{twoLine}メールアドレス：{email} {oneLine}パスワード：セキュリティ保護のため表示しておりません",
+    "raw_common_cancel": "キャンセル",
+    "raw_common_ok": "OK",
+    "raw_sign_in_dialog_title_resend_result": "認証メールを送りました",
+    "raw_verification_authentication_sent": "ご登録済みのメールアドレスをご確認ください。"
 }

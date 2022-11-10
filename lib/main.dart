@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fumiya_flutter/bloc/auth_bloc/auth_bloc.dart';
 import 'package:fumiya_flutter/bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
 import 'package:fumiya_flutter/bloc/toggle_bloc/toggle_bloc.dart';
+import 'package:fumiya_flutter/business_logic/cubit/password_toggle_cubit.dart';
+import 'package:fumiya_flutter/data/repository/user_repository_impl.dart';
+import 'package:fumiya_flutter/data/repository/auth_repository_impl.dart';
+import 'package:fumiya_flutter/domain/use_case/app_use_cases.dart';
 import 'package:fumiya_flutter/util/app_color_util.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -23,44 +28,57 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => ToggleBloc()),
-          BlocProvider(create: (context) => BottomNavBloc())
-        ],
-        child: MaterialApp(
-            title: StringConstants.appName,
-            theme: ThemeData(
-                fontFamily: StringConstants.fontNotoSans,
-                primaryColor: AppColorUtil.appBlueColor,
-                primarySwatch: Colors.blue,
-                scaffoldBackgroundColor: Colors.white,
-                textTheme: const TextTheme(
-                    headline6:
-                        TextStyle(fontSize: 30, fontWeight: FontWeight.w400),
-                    bodyText2: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white)),
-                appBarTheme: const AppBarTheme(
-                    titleTextStyle:
-                        TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
-                    backgroundColor: AppColorUtil.appBlueDarkColor),
-                elevatedButtonTheme: ElevatedButtonThemeData(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColorUtil.appBlueDarkColor,
-                        minimumSize: const Size(double.infinity, 50),
-                        side: const BorderSide(width: 1, color: Colors.white),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0))))),
-            onGenerateRoute: RouteGenerator.generateRoute,
-            supportedLocales: L10n.lang,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate
-            ],
-            home: const TutorialOneScreen()));
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(create: (context) => UserRepositoryImpl()),
+        RepositoryProvider(create: (context) => AppUseCases())
+      ],
+      child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => AuthBloc(
+                  userRepository:
+                      RepositoryProvider.of<UserRepositoryImpl>(context),
+                  appUseCases: RepositoryProvider.of<AppUseCases>(context)),
+            ),
+            BlocProvider(create: (context) => ToggleBloc()),
+            BlocProvider(create: (context) => BottomNavBloc()),
+            BlocProvider(create: (context) => PasswordToggleCubit())
+          ],
+          child: MaterialApp(
+              title: StringConstants.appName,
+              theme: ThemeData(
+                  fontFamily: StringConstants.fontNotoSans,
+                  primaryColor: AppColorUtil.appBlueColor,
+                  primarySwatch: Colors.blue,
+                  scaffoldBackgroundColor: Colors.white,
+                  textTheme: const TextTheme(
+                      headline6:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.w400),
+                      bodyText2: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white)),
+                  appBarTheme: const AppBarTheme(
+                      titleTextStyle:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                      backgroundColor: AppColorUtil.appBlueDarkColor),
+                  elevatedButtonTheme: ElevatedButtonThemeData(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColorUtil.appBlueDarkColor,
+                          minimumSize: const Size(double.infinity, 50),
+                          side: const BorderSide(width: 1, color: Colors.white),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0))))),
+              onGenerateRoute: RouteGenerator.generateRoute,
+              supportedLocales: L10n.lang,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate
+              ],
+              home: const TutorialOneScreen())),
+    );
   }
 }

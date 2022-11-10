@@ -214,5 +214,59 @@
     "raw_common_back_to_login": "Back to Login page",
      "@raw_common_back_to_login": {
         "description": "Common back to login"
+     },
+    "raw_common_close": "Close",
+     "@raw_common_close": {
+        "description": "Common close"
+     },
+   "raw_sign_in_dialog_btn_resend": "Resend",
+     "@raw_sign_in_dialog_btn_resend": {
+        "description": "Common resend"
+     },
+   "raw_sign_in_dialog_message_email_unverified": "Please check the URL sent to your email address.",
+     "@raw_sign_in_dialog_message_email_unverified": {
+        "description": "Sign in dialog message email unverified"
+     },
+   "raw_sign_in_dialog_title_login_error": "Login Error",
+     "@raw_sign_in_dialog_title_login_error": {
+        "description": "Sign in dialog title login error"
+     },
+   "raw_sign_up_dialog_title_confirmation_registration": "Confirmation",
+     "@raw_sign_up_dialog_title_confirmation_registration": {
+        "description": "Sign up dialog title confirmation registration"
+     },
+   "raw_sign_up_dialog_message_register_confirmation": "You are registered with the information below. {twoLine}Email: {email} {oneLine}Password: Password is not displayed for security",
+     "@raw_sign_up_dialog_message_register_confirmation": {
+        "description": "Sign up dialog message confirmation registration",
+        "placeholders": {
+              "email": {
+                "type": "String",
+                "example": "ex@mailinator.com"
+              },
+              "oneLine": {
+                "type": "String",
+                "example": " "
+              },
+              "twoLine": {
+                "type": "String",
+                "example": " "
+              }
+            }
+     },
+   "raw_common_cancel": "Cancel",
+     "@raw_common_cancel": {
+        "description": "Common cancel"
+     },
+   "raw_common_ok": "OK",
+     "@raw_common_ok": {
+        "description": "Common ok"
+     },
+   "raw_sign_in_dialog_title_resend_result": "Email Verification Sent",
+     "@raw_sign_in_dialog_title_resend_result": {
+        "description": "Email verification sent dialog title"
+     },
+   "raw_verification_authentication_sent": "Please check registered email",
+     "@raw_verification_authentication_sent": {
+        "description": "Email verification sent dialog message"
      }
 }

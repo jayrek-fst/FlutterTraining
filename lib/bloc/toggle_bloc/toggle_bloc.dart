@@ -7,10 +7,10 @@ part 'toggle_state.dart';
 
 class ToggleBloc extends Bloc<ToggleEvent, ToggleState> {
   ToggleBloc() : super(ToggleInitial()) {
-    on<ToggleSignUpEvent>((event, emit) {
+    on<ToggleSignedUp>((event, emit) {
       emit(event.toggleState);
     });
-    on<ToggleSignInEvent>((event, emit) {
+    on<ToggleSignedIn>((event, emit) {
       emit(event.toggleState);
     });
   }

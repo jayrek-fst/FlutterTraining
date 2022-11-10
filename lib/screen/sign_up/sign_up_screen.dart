@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:fumiya_flutter/bloc/toggle_bloc/toggle_bloc.dart';
+
+import '../../bloc/auth_bloc/auth_bloc.dart';
+import '../../bloc/toggle_bloc/toggle_bloc.dart';
 import '../../util/app_color_util.dart';
 import '../../util/image_path_util.dart';
 import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
+import '../../widget/alert_dialog_widget.dart';
 import '../../widget/toggle_password_widget.dart';
 import '../../widget/elevated_button_widget.dart';
 import '../../widget/text_form_field_widget.dart';
@@ -16,7 +18,7 @@ import '../../widget/text_form_field_widget.dart';
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
 
-  final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
+  final GlobalKey<FormBuilderState> _formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
@@ -47,21 +49,77 @@ class SignUpScreen extends StatelessWidget {
                     Text(appLocalizations.raw_sign_up_message),
                     const SizedBox(height: 20),
                     FormBuilder(
-                        key: formKey,
-                        child: Column(children: [
-                          _emailFormBuilderTextField(context, appLocalizations),
-                          const SizedBox(height: 10),
-                          _passwordFormBuilderTextField(
-                              context, appLocalizations),
-                          const SizedBox(height: 10),
-                          _confirmPasswordFormBuilderTextField(
-                              context, appLocalizations),
-                          ElevatedButtonWidget(
-                              label: appLocalizations.raw_common_confirm,
-                              onPressed: () => _validateForm(context))
-                        ]))
+                        key: _formKey,
+                        child: BlocConsumer<AuthBloc, AuthState>(
+                            listener: (context, state) {
+                              if (state is AuthUserUnAuthenticated) {
+                                Navigator.of(context)
+                                    .pushNamed(RouteUtil.signUpVerification);
+                              }
+                              if (state is AuthExceptionOccurred) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(state.message)));
+                              }
+                            },
+                            builder: (context, state) =>
+                                _signUpForm(context, appLocalizations, state)))
                   ]))
             ]));
+  }
+
+  Widget _signUpForm(BuildContext context, AppLocalizations appLocalizations,
+      AuthState state) {
+    return Stack(children: [
+      Column(children: [
+        _emailFormBuilderTextField(context, appLocalizations),
+        const SizedBox(height: 10),
+        _passwordFormBuilderTextField(context, appLocalizations),
+        const SizedBox(height: 10),
+        _confirmPasswordFormBuilderTextField(context, appLocalizations),
+        ElevatedButtonWidget(
+            label: appLocalizations.raw_common_confirm,
+            onPressed: () {
+              if (_formKey.currentState!.saveAndValidate()) {
+                FocusScope.of(context).unfocus();
+                _showSignUpDialog(context, appLocalizations);
+              }
+            })
+      ]),
+      if (state is AuthLoading)
+        const Center(
+            child: CircularProgressIndicator(
+                backgroundColor: AppColorUtil.appBlueDarkColor))
+    ]);
+  }
+
+  Future _showSignUpDialog(
+      BuildContext context, AppLocalizations appLocalizations) {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) => AlertDialogWidget(
+                title: appLocalizations
+                    .raw_sign_up_dialog_title_confirmation_registration,
+                message: appLocalizations
+                    .raw_sign_up_dialog_message_register_confirmation(
+                        _formKey
+                            .currentState!.fields[StringConstants.email]!.value
+                            .toString(),
+                        '\n',
+                        '\n\n'),
+                widgetActions: [
+                  TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text(appLocalizations.raw_common_cancel)),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        context
+                            .read<AuthBloc>()
+                            .add(AuthSignUp(formKey: _formKey));
+                      },
+                      child: Text(appLocalizations.raw_common_ok))
+                ]));
   }
 
   Widget _emailFormBuilderTextField(
@@ -103,7 +161,7 @@ class SignUpScreen extends StatelessWidget {
             textInputType: TextInputType.visiblePassword,
             hint: appLocalizations.raw_common_hint_password,
             suffixIcon: InkWell(
-                onTap: () => context.read<ToggleBloc>().add(ToggleSignUpEvent(
+                onTap: () => context.read<ToggleBloc>().add(ToggleSignedUp(
                     toggleState: ToggleSignUpState(
                         togglePassword: !isPasswordToggle,
                         toggleConfirmPassword: isConfirmPasswordToggle))),
@@ -141,7 +199,7 @@ class SignUpScreen extends StatelessWidget {
             textInputType: TextInputType.visiblePassword,
             hint: appLocalizations.raw_common_hint_password,
             suffixIcon: InkWell(
-                onTap: () => context.read<ToggleBloc>().add(ToggleSignUpEvent(
+                onTap: () => context.read<ToggleBloc>().add(ToggleSignedUp(
                     toggleState: ToggleSignUpState(
                         togglePassword: isPasswordToggle,
                         toggleConfirmPassword: !isConfirmPasswordToggle))),
@@ -155,21 +213,12 @@ class SignUpScreen extends StatelessWidget {
                   errorText: appLocalizations
                       .raw_common_validation_invalid_format_password),
               FormBuilderValidators.equal(
-                  formKey.currentState!.fields[StringConstants.password]!.value
+                  _formKey.currentState!.fields[StringConstants.password]!.value
                       .toString(),
                   errorText:
                       appLocalizations.raw_common_invalid_confirm_password)
             ]));
       })
     ]);
-  }
-
-  void _validateForm(BuildContext context) {
-    if (formKey.currentState!.saveAndValidate()) {
-      debugPrint(formKey.currentState!.value[StringConstants.email]);
-      debugPrint(formKey.currentState!.value[StringConstants.password]);
-      debugPrint(formKey.currentState!.value[StringConstants.confirmPassword]);
-      Navigator.of(context).pushNamed(RouteUtil.signUpVerification);
-    }
   }
 }

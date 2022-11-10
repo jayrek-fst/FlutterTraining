@@ -4,19 +4,19 @@ abstract class ToggleEvent extends Equatable {
   const ToggleEvent();
 }
 
-class ToggleSignInEvent extends ToggleEvent {
+class ToggleSignedIn extends ToggleEvent {
   final ToggleSignInState toggleState;
 
-  const ToggleSignInEvent({required this.toggleState});
+  const ToggleSignedIn({required this.toggleState});
 
   @override
   List<Object?> get props => [toggleState];
 }
 
-class ToggleSignUpEvent extends ToggleEvent {
+class ToggleSignedUp extends ToggleEvent {
   final ToggleSignUpState toggleState;
 
-  const ToggleSignUpEvent({required this.toggleState});
+  const ToggleSignedUp({required this.toggleState});
 
   @override
   List<Object?> get props => [toggleState];

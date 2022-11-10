@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../util/app_color_util.dart';
+import '../../util/route_util.dart';
 import '../../util/text_style_util.dart';
 
 class ResetPasswordVerificationScreen extends StatelessWidget {
@@ -46,7 +47,9 @@ class ResetPasswordVerificationScreen extends StatelessWidget {
                         .raw_reset_password_verification_note_2),
                     const SizedBox(height: 30),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.of(context)
+                            .pushNamedAndRemoveUntil(
+                                RouteUtil.signIn, (route) => false),
                         child: Text(appLocalizations.raw_common_back_to_login,
                             style: underlineTextStyle)),
                     const SizedBox(height: 20)

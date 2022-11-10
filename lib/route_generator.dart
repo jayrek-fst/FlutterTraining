@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'screen/dashboard/dashboard_screen.dart';
-import 'screen/resetPassword/reset_password_screen.dart';
-import 'screen/resetPassword/reset_password_verification_screen.dart';
-import 'screen/signIn/sign_in_screen.dart';
-import 'screen/signUp/sign_up_verification_screen.dart';
-import 'screen/signUp/sign_up_screen.dart';
+import 'screen/reset_password/reset_password_screen.dart';
+import 'screen/reset_password/reset_password_verification_screen.dart';
+import 'screen/sign_in/sign_in_screen.dart';
+import 'screen/sign_up/sign_up_screen.dart';
+import 'screen/sign_up/sign_up_verification_screen.dart';
 import 'screen/tutorial/tutorial_one_screen.dart';
 import 'screen/tutorial/tutorial_three_screen.dart';
 import 'screen/tutorial/tutorial_two_screen.dart';
@@ -42,7 +42,8 @@ class RouteGenerator {
             child: ResetPasswordScreen(), direction: AxisDirection.left);
       case RouteUtil.resetPasswordVerification:
         return RouteAnimationUtil(
-            child: ResetPasswordVerificationScreen(), direction: AxisDirection.left);
+            child: const ResetPasswordVerificationScreen(),
+            direction: AxisDirection.left);
       default:
         return MaterialPageRoute(
             builder: (_) =>
