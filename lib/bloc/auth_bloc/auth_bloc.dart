@@ -14,6 +14,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AppUseCases appUseCases;
 
+
   AuthBloc({required this.appUseCases}) : super(AuthUserUnAuthenticated()) {
     on<CheckAuthUser>((event, emit) => _checkAuthUser(event, emit));
     on<AuthSignIn>((event, emit) => _onSignedIn(event, emit));

@@ -10,7 +10,7 @@ import '../../business_logic/cubit/password_toggle_cubit.dart';
 import '../../util/app_color_util.dart';
 import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
-import '../../util/text_style_util.dart';
+import '../../util/style_util.dart';
 import '../../widget/alert_dialog_widget.dart';
 import '../../widget/common_widget.dart';
 import '../../widget/toggle_password_widget.dart';
@@ -34,77 +34,78 @@ class SignInScreen extends StatelessWidget {
             backgroundColor: Colors.white,
             title: Text(appLocalizations.raw_sign_in_header,
                 style: const TextStyle(color: AppColorUtil.appBlueDarkColor))),
-        body: Padding(
-            padding: const EdgeInsets.all(20),
-            child:
-                BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
-              if (state is AuthUserAuthenticated) {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    RouteUtil.dashboard, (route) => false);
-              }
-              if (state is UserInfoNotExisted) {
-                Navigator.of(context).pushNamed(RouteUtil.signUpDetails);
-              }
-              if (state is AuthExceptionOccurred) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(state.message)));
-              }
-              if (state is AuthUserEmailUnVerified) {
-                _showSignInDialog(
-                    context,
-                    appLocalizations.raw_sign_in_dialog_title_login_error,
-                    appLocalizations
-                        .raw_sign_in_dialog_message_email_unverified,
-                    actions: [
-                      TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: Text(appLocalizations.raw_common_close)),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            context
-                                .read<AuthBloc>()
-                                .add(AuthSendEmailVerification());
-                          },
-                          child: Text(
-                              appLocalizations.raw_sign_in_dialog_btn_resend))
-                    ]);
-              }
-              if (state is AuthEmailVerificationSent) {
-                _showSignInDialog(
-                    context,
-                    appLocalizations.raw_sign_in_dialog_title_resend_result,
-                    appLocalizations.raw_verification_authentication_sent,
-                    actions: [
-                      TextButton(
-                          onPressed: () => Navigator.of(context).pop(),
-                          child: Text(appLocalizations.raw_common_close))
-                    ]);
-              }
-            }, builder: (context, state) {
-              return Stack(children: [
-                SingleChildScrollView(
-                    child: Column(mainAxisSize: MainAxisSize.max, children: [
-                  Text(
-                      appLocalizations.raw_common_billing_subscription_message),
-                  ElevatedButtonWidget(
-                      label: appLocalizations.raw_sign_up_header,
-                      onPressed: () =>
-                          Navigator.of(context).pushNamed(RouteUtil.signUp)),
-                  Text('———  ${appLocalizations.raw_sign_in_click_here}  ———'),
-                  const SizedBox(height: 20),
-                  FormBuilder(
-                      key: _formKey,
-                      child: _signInForm(context, appLocalizations, state)),
+        body: BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
+          if (state is AuthUserAuthenticated) {
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil(RouteUtil.dashboard, (route) => false);
+          }
+          if (state is UserInfoNotExisted) {
+            Navigator.of(context).pushNamed(RouteUtil.signUpDetails);
+          }
+          if (state is AuthExceptionOccurred) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.message)));
+          }
+          if (state is AuthUserEmailUnVerified) {
+            _showSignInDialog(
+                context,
+                appLocalizations.raw_sign_in_dialog_title_login_error,
+                appLocalizations.raw_sign_in_dialog_message_email_unverified,
+                actions: [
                   TextButton(
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(RouteUtil.resetPassword),
-                      child: Text(appLocalizations.raw_sign_in_forgot_password,
-                          style: underlineTextStyle))
-                ])),
-                if (state is AuthLoading) progressDialog()
-              ]);
-            })));
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text(appLocalizations.raw_common_close)),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        context
+                            .read<AuthBloc>()
+                            .add(AuthSendEmailVerification());
+                      },
+                      child:
+                          Text(appLocalizations.raw_sign_in_dialog_btn_resend))
+                ]);
+          }
+          if (state is AuthEmailVerificationSent) {
+            _showSignInDialog(
+                context,
+                appLocalizations.raw_sign_in_dialog_title_resend_result,
+                appLocalizations.raw_verification_authentication_sent,
+                actions: [
+                  TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text(appLocalizations.raw_common_close))
+                ]);
+          }
+        }, builder: (context, state) {
+          return Stack(children: [
+            SingleChildScrollView(
+                child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(mainAxisSize: MainAxisSize.max, children: [
+                Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Text(appLocalizations
+                        .raw_common_billing_subscription_message)),
+                ElevatedButtonWidget(
+                    label: appLocalizations.raw_sign_up_header,
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed(RouteUtil.signUp)),
+                Text('———  ${appLocalizations.raw_sign_in_click_here}  ———'),
+                const SizedBox(height: 20),
+                FormBuilder(
+                    key: _formKey,
+                    child: _signInForm(context, appLocalizations, state)),
+                TextButton(
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(RouteUtil.resetPassword),
+                    child: Text(appLocalizations.raw_sign_in_forgot_password,
+                        style: underlineTextStyle))
+              ]),
+            )),
+            if (state is AuthLoading) progressDialog()
+          ]);
+        }));
   }
 
   Widget _signInForm(BuildContext context, AppLocalizations appLocalizations,

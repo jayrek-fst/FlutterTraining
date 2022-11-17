@@ -1,17 +1,21 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fumiya_flutter/common/exception/send_reset_password_exception.dart';
 
+import '../../common/exception/send_reset_password_exception.dart';
 import '../../common/exception/sign_in_with_email_and_password_exception.dart';
 import '../../common/exception/sign_up_with_email_and_password_exception.dart';
+import '../../data/datasource/remote/auth/auth_remote_datasource_impl.dart';
+import '../../data/datasource/remote/user/user_remote_datasource_impl.dart';
 import '../../data/model/user_model.dart';
 import '../../data/repository/auth_repository_impl.dart';
 import '../../data/repository/user_repository_impl.dart';
+import '../repository/auth_repository.dart';
+import '../repository/user_repository.dart';
 
 class AppUseCases {
-  final AuthRepositoryImpl authRepository;
-  final UserRepositoryImpl userRepository;
-
-  AppUseCases({required this.authRepository, required this.userRepository});
+  final AuthRepository authRepository =
+      AuthRepositoryImpl(authRemoteDataSource: AuthRemoteDataSourceImpl());
+  final UserRepository userRepository =
+      UserRepositoryImpl(userRemoteDataSource: UserRemoteDataSourceImpl());
 
   Future<UserCredential> signInUseCase(
       {required String email, required String password}) async {

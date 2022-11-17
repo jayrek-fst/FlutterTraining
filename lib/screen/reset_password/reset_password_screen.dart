@@ -30,50 +30,50 @@ class ResetPasswordScreen extends StatelessWidget {
             backgroundColor: Colors.white,
             title: Text(appLocalizations.raw_common_reset_password,
                 style: const TextStyle(color: AppColorUtil.appBlueDarkColor))),
-        body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: SingleChildScrollView(
-                child: BlocConsumer<AuthBloc, AuthState>(
-                    listener: (context, state) {
-              if (state is AuthPasswordEmailVerificationSent) {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    RouteUtil.resetPasswordVerification, (route) => false);
-              }
-              if (state is AuthExceptionOccurred) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(state.message)));
-              }
-            }, builder: (context, state) {
-              return Stack(children: [
-                Column(children: [
-                  Padding(
-                      padding: const EdgeInsets.only(top: 10, bottom: 30),
-                      child: Text(appLocalizations.raw_common_reset_password)),
-                  Text(appLocalizations.raw_reset_password_description),
-                  const SizedBox(height: 20),
-                  FormBuilder(
-                      key: formKey,
-                      child: Column(children: [
-                        _emailFormBuilderTextField(context, appLocalizations),
-                        const SizedBox(height: 10),
-                        Text(appLocalizations.raw_common_reset_password_note),
-                        const SizedBox(height: 10),
-                        ElevatedButtonWidget(
-                            label: appLocalizations.raw_common_next,
-                            onPressed: () {
-                              FocusScope.of(context).unfocus();
-                              if (formKey.currentState!.saveAndValidate()) {
-                                context.read<AuthBloc>().add(
-                                    AuthSendResetPassword(
-                                        email: formKey.currentState
-                                            ?.value[StringConstants.email]));
-                              }
-                            })
-                      ]))
-                ]),
-                if (state is AuthLoading) progressDialog()
-              ]);
-            }))));
+        body: SingleChildScrollView(
+            child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
+            if (state is AuthPasswordEmailVerificationSent) {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  RouteUtil.resetPasswordVerification, (route) => false);
+            }
+            if (state is AuthExceptionOccurred) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.message)));
+            }
+          }, builder: (context, state) {
+            return Stack(children: [
+              Column(children: [
+                Padding(
+                    padding: const EdgeInsets.only(top: 20, bottom: 30),
+                    child: Text(appLocalizations.raw_common_reset_password)),
+                Text(appLocalizations.raw_reset_password_description),
+                const SizedBox(height: 20),
+                FormBuilder(
+                    key: formKey,
+                    child: Column(children: [
+                      _emailFormBuilderTextField(context, appLocalizations),
+                      const SizedBox(height: 10),
+                      Text(appLocalizations.raw_common_reset_password_note),
+                      const SizedBox(height: 10),
+                      ElevatedButtonWidget(
+                          label: appLocalizations.raw_common_next,
+                          onPressed: () {
+                            FocusScope.of(context).unfocus();
+                            if (formKey.currentState!.saveAndValidate()) {
+                              context.read<AuthBloc>().add(
+                                  AuthSendResetPassword(
+                                      email: formKey.currentState
+                                          ?.value[StringConstants.email]));
+                            }
+                          })
+                    ]))
+              ]),
+              if (state is AuthLoading) progressDialog()
+            ]);
+          }),
+        )));
   }
 
   Widget _emailFormBuilderTextField(

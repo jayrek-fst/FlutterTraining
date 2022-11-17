@@ -10,7 +10,7 @@ import '../../util/gender_value_util.dart';
 import '../../util/image_path_util.dart';
 import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
-import '../../util/text_style_util.dart';
+import '../../util/style_util.dart';
 import '../../widget/common_widget.dart';
 import '../../widget/elevated_button_widget.dart';
 
@@ -34,49 +34,47 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
             backgroundColor: Colors.white,
             title: Text(appLocalizations.raw_sign_up_header,
                 style: const TextStyle(color: AppColorUtil.appBlueDarkColor))),
-        body: Padding(
-            padding: const EdgeInsets.all(20),
-            child:
-                BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
-              if (state is AuthUserAuthenticated) {
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    RouteUtil.dashboard, (route) => false);
-              }
-              if (state is AuthExceptionOccurred) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(state.message)));
-              }
-            }, builder: (context, state) {
-              return Stack(children: [
-                SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(
-                        parent: AlwaysScrollableScrollPhysics()),
-                    child: Column(children: [
-                      Text(appLocalizations.raw_sign_up_input_header),
-                      Padding(
-                          padding: const EdgeInsets.only(top: 10, bottom: 30),
-                          child: Image.asset(ImagePathUtil.stepFivePath)),
-                      const SizedBox(height: 20),
-                      _nickNameWidget(appLocalizations, userModel),
-                      const SizedBox(height: 20),
-                      _fullNameWidget(appLocalizations, userModel),
-                      const SizedBox(height: 20),
-                      _kanaFullNameWidget(
-                          appLocalizations, userModel.kanaFullName!),
-                      const SizedBox(height: 20),
-                      _genderWidget(context, appLocalizations, userModel),
-                      const SizedBox(height: 20),
-                      _addressNote(appLocalizations),
-                      const SizedBox(height: 20),
-                      _addressInfoListWidget(
-                          appLocalizations, userModel.address!),
-                      _phoneNumberWidget(appLocalizations, userModel),
-                      _linksWidget(appLocalizations),
-                      _buttonWidget(context, appLocalizations, userModel)
-                    ])),
-                if (state is AuthLoading) progressDialog()
-              ]);
-            })));
+        body: BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
+          if (state is AuthUserAuthenticated) {
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil(RouteUtil.dashboard, (route) => false);
+          }
+          if (state is AuthExceptionOccurred) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.message)));
+          }
+        }, builder: (context, state) {
+          return Stack(children: [
+            SingleChildScrollView(
+                child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(children: [
+                Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Text(appLocalizations.raw_sign_up_input_header)),
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 30),
+                    child: Image.asset(ImagePathUtil.stepFivePath)),
+                const SizedBox(height: 20),
+                _nickNameWidget(appLocalizations, userModel),
+                const SizedBox(height: 20),
+                _fullNameWidget(appLocalizations, userModel),
+                const SizedBox(height: 20),
+                _kanaFullNameWidget(appLocalizations, userModel.kanaFullName!),
+                const SizedBox(height: 20),
+                _genderWidget(context, appLocalizations, userModel),
+                const SizedBox(height: 20),
+                _addressNote(appLocalizations),
+                const SizedBox(height: 20),
+                _addressInfoListWidget(appLocalizations, userModel.address!),
+                _phoneNumberWidget(appLocalizations, userModel),
+                _linksWidget(appLocalizations),
+                _buttonWidget(context, appLocalizations, userModel)
+              ]),
+            )),
+            if (state is AuthLoading) progressDialog()
+          ]);
+        }));
   }
 
   _setUserValue(String? value) {

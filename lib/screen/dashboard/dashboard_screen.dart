@@ -5,7 +5,7 @@ import '../../bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
 import '../../util/app_color_util.dart';
 import '../../util/image_path_util.dart';
 import '../../util/string_constants.dart';
-import '../../util/text_style_util.dart';
+import '../../util/style_util.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -93,11 +93,11 @@ class DashboardScreen extends StatelessWidget {
                 style: TextStyle(color: Colors.black)));
       case NavItem.park:
         return const Center(
-            child: Text(StringConstants.park,
+            child: Text('Park is Under Construction!',
                 style: TextStyle(color: Colors.black)));
       case NavItem.station:
         return const Center(
-            child: Text(StringConstants.station,
+            child: Text('Station is Under Construction!',
                 style: TextStyle(color: Colors.black)));
       case NavItem.base:
         return const Center(

@@ -9,7 +9,7 @@ import '../../util/gender_value_util.dart';
 import '../../util/image_path_util.dart';
 import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
-import '../../util/text_style_util.dart';
+import '../../util/style_util.dart';
 import '../../widget/common_widget.dart';
 import '../../widget/elevated_button_widget.dart';
 import '../../widget/text_form_field_widget.dart';
@@ -31,53 +31,51 @@ class SignUpDetailsScreen extends StatelessWidget {
             backgroundColor: Colors.white,
             title: Text(appLocalizations.raw_sign_up_header,
                 style: const TextStyle(color: AppColorUtil.appBlueDarkColor))),
-        body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: ListView(
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                children: [
-                  Column(children: [
-                    Text(appLocalizations.raw_sign_up_input_header),
-                    Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 30),
-                        child: Image.asset(ImagePathUtil.stepFourPath)),
-                    const SizedBox(height: 20),
-                    FormBuilder(
-                        key: _formKey,
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _nickNameWidget(appLocalizations),
-                              const SizedBox(height: 20),
-                              _fullNameWidget(appLocalizations),
-                              const SizedBox(height: 20),
-                              _kanaFullNameWidget(appLocalizations),
-                              const SizedBox(height: 20),
+        body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(children: [
+          Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Text(appLocalizations.raw_sign_up_input_header)),
+          Padding(
+                padding: const EdgeInsets.only(bottom: 30),
+                child: Image.asset(ImagePathUtil.stepFourPath)),
+          const SizedBox(height: 20),
+          FormBuilder(
+                key: _formKey,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _nickNameWidget(appLocalizations),
+                      const SizedBox(height: 20),
+                      _fullNameWidget(appLocalizations),
+                      const SizedBox(height: 20),
+                      _kanaFullNameWidget(appLocalizations),
+                      const SizedBox(height: 20),
 
-                              ///birthdate here
+                      ///birthdate here
 
-                              _genderWidget(context, appLocalizations),
-                              const SizedBox(height: 20),
-                              _addressNote(appLocalizations),
-                              const SizedBox(height: 20),
-                              _postalCodeWidget(appLocalizations),
-                              const SizedBox(height: 20),
-                              _prefectureWidget(appLocalizations),
-                              const SizedBox(height: 20),
-                              _cityWidget(appLocalizations),
-                              const SizedBox(height: 20),
-                              _addressNumberWidget(appLocalizations),
-                              const SizedBox(height: 20),
-                              _addressStructureWidget(appLocalizations),
-                              const SizedBox(height: 20),
-                              _phoneNumberWidget(appLocalizations),
-                              _linksWidget(appLocalizations),
-                              _buttonWidget(context, appLocalizations)
-                            ]))
-                  ])
-                ])));
+                      _genderWidget(context, appLocalizations),
+                      const SizedBox(height: 20),
+                      _addressNote(appLocalizations),
+                      const SizedBox(height: 20),
+                      _postalCodeWidget(appLocalizations),
+                      const SizedBox(height: 20),
+                      _prefectureWidget(appLocalizations),
+                      const SizedBox(height: 20),
+                      _cityWidget(appLocalizations),
+                      const SizedBox(height: 20),
+                      _addressNumberWidget(appLocalizations),
+                      const SizedBox(height: 20),
+                      _addressStructureWidget(appLocalizations),
+                      const SizedBox(height: 20),
+                      _phoneNumberWidget(appLocalizations),
+                      _linksWidget(appLocalizations),
+                      _buttonWidget(context, appLocalizations)
+                    ]))
+        ]),
+            )));
   }
 
   _nickNameWidget(AppLocalizations appLocalizations) =>
@@ -144,7 +142,6 @@ class SignUpDetailsScreen extends StatelessWidget {
           Flexible(
               child: TextFormFieldWidget(
                   name: StringConstants.kanaLastName,
-
                   textInputType: TextInputType.text)),
           SizedBox(width: 20),
           Flexible(
@@ -155,26 +152,23 @@ class SignUpDetailsScreen extends StatelessWidget {
       ]);
 
   _genderWidget(BuildContext context, AppLocalizations appLocalizations) =>
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(appLocalizations.raw_common_gender),
-          FormBuilderSegmentedControl<String>(
-              padding: const EdgeInsets.all(0),
-              initialValue: GenderValueUtil().genderList(context).asMap()[2],
-              name: StringConstants.gender,
-              selectedColor: AppColorUtil.appBlueDarkColor,
-              options: GenderValueUtil()
-                  .genderList(context)
-                  .map((gender) => FormBuilderFieldOption(
-                      value: gender,
-                      child: SizedBox(
-                          height: 30, child: Center(child: Text(gender)))))
-                  .toList(),
-              decoration: const InputDecoration(
-                  border: InputBorder.none, filled: false)),
-        ],
-      );
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(appLocalizations.raw_common_gender),
+        FormBuilderSegmentedControl<String>(
+            padding: const EdgeInsets.all(0),
+            initialValue: GenderValueUtil().genderList(context).asMap()[2],
+            name: StringConstants.gender,
+            selectedColor: AppColorUtil.appBlueDarkColor,
+            options: GenderValueUtil()
+                .genderList(context)
+                .map((gender) => FormBuilderFieldOption(
+                    value: gender,
+                    child: SizedBox(
+                        height: 30, child: Center(child: Text(gender)))))
+                .toList(),
+            decoration:
+                const InputDecoration(border: InputBorder.none, filled: false))
+      ]);
 
   _addressNote(AppLocalizations appLocalizations) => Container(
       padding: const EdgeInsets.all(5),
@@ -311,8 +305,10 @@ class SignUpDetailsScreen extends StatelessWidget {
             firstName: _formKey.currentState?.value[StringConstants.firstName],
             lastName: _formKey.currentState?.value[StringConstants.lastName]),
         kanaFullName: KanaFullName(
-            firstNameKana: checkValueNotNull(StringConstants.kanaFirstName).toString(),
-            lastNameKana: checkValueNotNull(StringConstants.kanaLastName).toString()),
+            firstNameKana:
+                checkValueNotNull(StringConstants.kanaFirstName).toString(),
+            lastNameKana:
+                checkValueNotNull(StringConstants.kanaLastName).toString()),
         sex: _formKey.currentState?.value[StringConstants.gender],
         phoneNumber: _formKey.currentState?.value[StringConstants.phoneNumber],
         address: Address(

@@ -6,6 +6,7 @@ import '../../util/app_color_util.dart';
 import '../../util/image_path_util.dart';
 import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
+import '../../util/style_util.dart';
 import '../../widget/elevated_button_widget.dart';
 
 class TutorialThreeScreen extends StatelessWidget {
@@ -20,31 +21,27 @@ class TutorialThreeScreen extends StatelessWidget {
             automaticallyImplyLeading: false,
             title: Text(appLocalizations.raw_member_only_content),
             centerTitle: true),
-        body: ListView(
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics()),
-            children: [
-              Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(appLocalizations.raw_tutorial_three_message,
-                      style: const TextStyle(
-                          color: AppColorUtil.appBlueDarkColor))),
-              Container(
-                  color: Colors.white,
-                  padding: const EdgeInsets.all(20),
-                  height: MediaQuery.of(context).size.height,
-                  child: Column(children: [
-                    SizedBox(
-                        height: 500,
-                        child: Image.asset(ImagePathUtil.tutorialImage3Path)),
-                    ElevatedButtonWidget(
-                        fontFamily: StringConstants.fontFutura,
-                        label: appLocalizations.raw_common_enter.toUpperCase(),
-                        onPressed: () => Navigator.of(context)
-                            .pushNamedAndRemoveUntil(
-                                RouteUtil.signIn, (route) => false))
-                  ]))
-            ]));
+        body: SingleChildScrollView(
+            child: Column(children: [
+          Padding(
+              padding: const EdgeInsets.all(10),
+              child: Text(appLocalizations.raw_tutorial_three_message,
+                  style:
+                      const TextStyle(color: AppColorUtil.appBlueDarkColor))),
+          Container(
+              decoration: backgroundGradient(),
+              padding: const EdgeInsets.all(20),
+              child: Column(children: [
+                SizedBox(
+                    height: 500,
+                    child: Image.asset(ImagePathUtil.tutorialImage3Path)),
+                ElevatedButtonWidget(
+                    fontFamily: StringConstants.fontFutura,
+                    label: appLocalizations.raw_common_enter.toUpperCase(),
+                    onPressed: () => Navigator.of(context)
+                        .pushNamedAndRemoveUntil(
+                            RouteUtil.signIn, (route) => false))
+              ]))
+        ])));
   }
 }

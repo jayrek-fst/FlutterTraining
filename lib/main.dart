@@ -8,10 +8,6 @@ import 'bloc/auth_bloc/auth_bloc.dart';
 import 'bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
 import 'bloc/toggle_bloc/toggle_bloc.dart';
 import 'business_logic/cubit/password_toggle_cubit.dart';
-import 'data/datasource/remote/auth/auth_remote_datasource_impl.dart';
-import 'data/datasource/remote/user/user_remote_datasource_impl.dart';
-import 'data/repository/auth_repository_impl.dart';
-import 'data/repository/user_repository_impl.dart';
 import 'domain/use_case/app_use_cases.dart';
 import 'l10n/l10n.dart';
 import 'route_generator.dart';
@@ -33,11 +29,7 @@ class MyApp extends StatelessWidget {
     return MultiRepositoryProvider(
         providers: [
           RepositoryProvider(
-              create: (context) => AppUseCases(
-                  authRepository: AuthRepositoryImpl(
-                      authRemoteDataSource: AuthRemoteDataSourceImpl()),
-                  userRepository: UserRepositoryImpl(
-                      userRemoteDataSource: UserRemoteDataSourceImpl())))
+              create: (context) => AppUseCases())
         ],
         child: MultiBlocProvider(
             providers: [

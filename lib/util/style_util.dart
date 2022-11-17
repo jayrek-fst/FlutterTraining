@@ -11,9 +11,8 @@ TextStyle hintTextStyle = const TextStyle(
     fontWeight: FontWeight.w400,
     color: AppColorUtil.appBlueAccentColor);
 
-TextStyle inputTextFormFieldTextStyle = const TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w600);
+TextStyle inputTextFormFieldTextStyle =
+    const TextStyle(fontSize: 14, fontWeight: FontWeight.w600);
 
 TextStyle bottomNavBarItemTextStyle = const TextStyle(
     fontFamily: StringConstants.fontFutura,
@@ -42,3 +41,9 @@ InputDecoration textFormFieldDecoration(String hint, Widget? suffixIcon) {
           borderSide:
               BorderSide(color: AppColorUtil.appOrangeColor, width: 2)));
 }
+
+Decoration backgroundGradient() => const BoxDecoration(
+    gradient: LinearGradient(
+        colors: [Colors.white, AppColorUtil.appBlueColor],
+        begin: Alignment.bottomCenter,
+        end: Alignment.topCenter));

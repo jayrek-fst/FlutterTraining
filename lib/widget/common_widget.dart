@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../util/app_color_util.dart';
 import '../util/image_path_util.dart';
-import '../util/text_style_util.dart';
+import '../util/style_util.dart';
 
 Widget subscriptionBenefitsItem(BuildContext context, String description) =>
     ListTile(
