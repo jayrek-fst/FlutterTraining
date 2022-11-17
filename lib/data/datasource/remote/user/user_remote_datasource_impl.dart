@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:fumiya_flutter/data/datasource/remote/user/user_remote_datasource.dart';
+import 'package:fumiya_flutter/data/model/user_model.dart';
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
-  final _auth = FirebaseAuth.instance;
-  final CollectionReference _userCollection =
-      FirebaseFirestore.instance.collection('users');
+  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   _getFirebaseUser() {
     try {
@@ -57,28 +57,62 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future sendEmailVerificationLink() async {
     try {
-      // final settings = ActionCodeSettings(
-      //     url: 'https://devjayrek.page.link/c2Sd',
-      //     androidPackageName: 'com.jayrek.flutter_training',
-      //     handleCodeInApp: true,
-      //     androidMinimumVersion: '28',
-      //     androidInstallApp: true);
-      // final String email = _getFirebaseUser().email;
-      // await _auth.sendSignInLinkToEmail(
-      //     email: email, actionCodeSettings: settings);
+      /*final settings = ActionCodeSettings(
+          url: 'https://devjayrek.page.link/c2Sd',
+          androidPackageName: 'com.jayrek.flutter_training',
+          handleCodeInApp: true,
+          androidMinimumVersion: '28',
+          dynamicLinkDomain: 'devjayrek.page.link',
+          iOSBundleId: 'com.jayrek.flutterTraining',
+          androidInstallApp: true);
+      final String email = _getFirebaseUser().email;
+      await _auth.sendSignInLinkToEmail(
+          email: email, actionCodeSettings: settings);*/
 
       await _getFirebaseUser().sendEmailVerification();
+    } catch (e) {
+      debugPrint('verification: ${e.toString()}');
+      throw Exception(e.toString());
+    }
+  }
+
+  @override
+  Future<UserModel?> getUserInfo() async {
+    try {
+      final uid = _getFirebaseUser().uid;
+      final ref = _firebaseFirestore.collection('users').doc(uid).withConverter(
+        fromFirestore: UserModel.fromFirestore,
+        toFirestore: (UserModel userModel, _) => userModel.toFirestore(),
+      );
+      final docSnap = await ref.get();
+      UserModel? user = docSnap.data(); // Convert to City object
+      // if (city != null) {
+      //   print(city);
+      // } else {
+      //   print("No such document.");
+      // }
+      //
+      //
+      // final uid = _getFirebaseUser().uid;
+      //  var snapshot = await _userCollection.doc(uid).get();
+      //  final userModel = snapshot.data() as Map<String, dynamic>;
+
+      return user;
     } catch (e) {
       throw Exception(e.toString());
     }
   }
 
   @override
-  Future<DocumentSnapshot<Object?>> getUserInfo() async {
+  Future<void> saveUserInfo(UserModel userModel) async {
     try {
-      final uid = _getFirebaseUser().uid;
-      return await _userCollection.doc(uid).get();
+      userModel.uid = _getFirebaseUser().uid;
+      userModel.mail = _getFirebaseUser().email;
+      userModel.createdAt = Timestamp.now();
+      userModel.updatedAt = Timestamp.now();
+      await _firebaseFirestore.collection('users').doc(userModel.uid).set(userModel.toJson());
     } catch (e) {
+      debugPrint(e.toString());
       throw Exception(e.toString());
     }
   }

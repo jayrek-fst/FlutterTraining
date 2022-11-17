@@ -1,40 +1,46 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fumiya_flutter/data/datasource/remote/user/user_remote_datasource.dart';
-import 'package:fumiya_flutter/data/datasource/remote/user/user_remote_datasource_impl.dart';
+import 'package:fumiya_flutter/data/model/user_model.dart';
 
 import '../../domain/repository/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  final UserRemoteDataSource _userRemoteDataSource = UserRemoteDataSourceImpl();
+  final UserRemoteDataSource userRemoteDataSource;
+
+  UserRepositoryImpl({required this.userRemoteDataSource});
 
   @override
   Future<String> getUserEmail() {
-    return _userRemoteDataSource.getUserEmail();
+    return userRemoteDataSource.getUserEmail();
   }
 
   @override
   Future<String> getUserToken() {
-    return _userRemoteDataSource.getUserToken();
+    return userRemoteDataSource.getUserToken();
   }
 
   @override
   Future<String> getUserUid() {
-    return _userRemoteDataSource.getUserUid();
+    return userRemoteDataSource.getUserUid();
   }
 
   @override
   Future<bool> isUserEmailVerified() {
-    return _userRemoteDataSource.isUserEmailVerified();
+    return userRemoteDataSource.isUserEmailVerified();
   }
 
   @override
   Future sendEmailVerificationLink() {
-    return _userRemoteDataSource.sendEmailVerificationLink();
+    return userRemoteDataSource.sendEmailVerificationLink();
   }
 
   @override
-  Future<DocumentSnapshot<Object?>> getUserInfo() async {
-    final userInfo = await _userRemoteDataSource.getUserInfo();
+  Future<UserModel?> getUserInfo() async {
+    final userInfo = await userRemoteDataSource.getUserInfo();
     return userInfo;
+  }
+
+  @override
+  Future<void> saveUserInfo(UserModel userModel) async {
+    await userRemoteDataSource.saveUserInfo(userModel);
   }
 }

@@ -28,6 +28,7 @@ class TextFormFieldWidget extends StatelessWidget {
             validator: validator,
             keyboardType: textInputType,
             obscureText: isObscure,
+            initialValue: '',
             style: inputTextFormFieldTextStyle,
             onChanged: (_) => setState(() {}),
             decoration: textFormFieldDecoration(hint, suffixIcon)));

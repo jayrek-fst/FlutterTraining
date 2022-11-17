@@ -1,4 +1,5 @@
 class RouteUtil {
+  static const String splash = '/splash';
   static const String tutorialOne = '/tutorialOne';
   static const String tutorialTwo = '/tutorialTwo';
   static const String tutorialThree = '/tutorialThree';

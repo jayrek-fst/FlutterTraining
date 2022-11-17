@@ -268,5 +268,145 @@
    "raw_verification_authentication_sent": "Please check registered email",
      "@raw_verification_authentication_sent": {
         "description": "Email verification sent dialog message"
+     },
+   "raw_common_nick_name": "Nickname",
+     "@raw_common_nick_name": {
+        "description": "Common nickname"
+     },
+   "raw_common_required": "Required",
+     "@raw_common_required": {
+        "description": "Common required"
+     },
+   "raw_common_nick_name_note": "※ Nickname will be used on chat",
+     "@raw_common_nick_name_note": {
+        "description": "Common nickname note"
+     },
+   "raw_common_full_name": "Name",
+     "@raw_common_full_name": {
+        "description": "Common name"
+     },
+   "raw_common_full_name_kana": "Name kana",
+     "@raw_common_full_name_kana": {
+        "description": "Common name kana"
+     },
+   "raw_sign_up_input_note_address": "*Please be sure to enter your address if you wish to participate in a giveaway, as your address will be required. The benefits are delivered only in Japan.",
+     "@raw_sign_up_input_note_address": {
+        "description": "Sign up input note address"
+     },
+   "raw_common_label_address_postal_code": "Zip Code ",
+     "@raw_common_label_address_postal_code": {
+        "description": "Common postal code"
+     },
+   "raw_common_city": "City",
+     "@raw_common_city": {
+        "description": "Common city"
+     },
+   "raw_common_address_number": "Address Number",
+     "@raw_common_address_number": {
+        "description": "Common address number"
+     },
+   "raw_common_address_structure": "Building Name/ Room Number",
+     "@raw_common_address_structure": {
+        "description": "Common address structure"
+     },
+   "raw_common_phone_number": "Contact No.",
+     "@raw_common_phone_number": {
+        "description": "Common contact number"
+     },
+   "raw_common_about_terms": "About Terms",
+     "@raw_common_about_terms": {
+        "description": "Common about terms"
+     },
+   "raw_common_terms_of_service": "Terms of Service",
+     "@raw_common_terms_of_service": {
+        "description": "Common terms of service"
+     },
+   "raw_common_privacy": "Privacy Policy",
+     "@raw_common_privacy": {
+        "description": "Common privacy policy"
+     },
+   "raw_sign_up_input_label_accept": "Agree",
+     "@raw_sign_up_input_label_accept": {
+        "description": "Sign up input label accept"
+     },
+   "raw_common_agreed": "Agreed",
+     "@raw_common_agreed": {
+        "description": "Common agreed"
+     },
+   "raw_sign_up_input_header": "Input Member Information",
+     "@raw_sign_up_input_header": {
+        "description": "Input member information"
+     },
+   "raw_common_gender": "Gender",
+     "@raw_common_gender": {
+         "description": "Common gender"
+      },
+   "raw_common_gender_female": "Female",
+     "@raw_common_gender_female": {
+         "description": "Common gender female"
+      },
+   "raw_common_gender_male": "Male",
+     "@raw_common_gender_male": {
+         "description": "Common gender male"
+      },
+   "raw_common_gender_other": "Other",
+     "@raw_common_gender_other": {
+         "description": "Common gender other"
+     },
+   "raw_sign_up_input_label_address_prefecture": "Prefecture/Province",
+     "@raw_sign_up_input_label_address_prefecture": {
+         "description": "Prefecture"
+     },
+   "raw_sign_up_input_hint_last_name": "*Last Name",
+     "@raw_sign_up_input_hint_last_name": {
+         "description": "Hint last name"
+     },
+   "raw_sign_up_input_hint_first_name": "*First Name",
+     "@raw_sign_up_input_hint_first_name": {
+         "description": "Hint first name"
+     },
+   "raw_sign_up_input_hint_postal": "Ex) 1010021",
+     "@raw_sign_up_input_hint_postal": {
+         "description": "Hint postal code"
+     },
+   "raw_sign_up_input_hint_address_prefecture": "Ex) Tokyo",
+     "@raw_sign_up_input_hint_address_prefecture": {
+         "description": "Hint address prefecture"
+     },
+   "raw_sign_up_input_hint_address_city": "Ex) Chiyoda City",
+     "@raw_sign_up_input_hint_address_city": {
+         "description": "Hint address city"
+     },
+   "raw_sign_up_input_hint_address_number": "Ex) Sotokanda 2-9-3",
+     "@raw_sign_up_input_hint_address_number": {
+         "description": "Hint address number"
+     },
+   "raw_sign_up_input_hint_address_structure": "Ex) Union Building Kudo 603",
+     "@raw_sign_up_input_hint_address_structure": {
+         "description": "Hint address structure"
+     },
+   "raw_sign_up_input_hint_phone_number": "Ex) 09012345678",
+     "@raw_sign_up_input_hint_phone_number": {
+         "description": "Hint phone number"
+     },
+   "raw_invalid_nickname_empty": "Please input Nickname",
+     "@raw_invalid_nickname_empty": {
+         "description": "Invalid input nickname"
+     },
+   "raw_invalid_lastname_empty": "Please input Last Name",
+     "@raw_invalid_lastname_empty": {
+         "description": "Invalid input lastname"
+     },
+   "raw_invalid_firstname_empty": "Please input First Name",
+     "@raw_invalid_firstname_empty": {
+         "description": "Invalid input firstname"
+     },
+   "raw_validation_invalid_agree_terms": "Agreement is required",
+     "@raw_validation_invalid_agree_terms": {
+         "description": "Invalid agree terms"
+     },
+   "raw_sign_up_prelabel_back": "Correct Information",
+     "@raw_sign_up_prelabel_back": {
+         "description": "Correct inforamtiob button"
      }
 }

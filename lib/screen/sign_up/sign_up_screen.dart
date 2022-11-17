@@ -27,6 +27,9 @@ class SignUpScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: AppColorUtil.appBlueColor,
         appBar: AppBar(
+            leading: const BackButton(
+                color: AppColorUtil.appBlueDarkColor
+            ),
             elevation: 0,
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,

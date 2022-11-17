@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import '../../data/model/user_model.dart';
 
 abstract class UserRepository {
   Future<String> getUserUid();
@@ -11,5 +11,7 @@ abstract class UserRepository {
 
   Future sendEmailVerificationLink();
 
-  Future<DocumentSnapshot<Object?>> getUserInfo();
+  Future<UserModel?> getUserInfo();
+
+  Future<void> saveUserInfo(UserModel userModel);
 }

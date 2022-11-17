@@ -12,12 +12,12 @@ class AuthLoading extends AuthState {}
 class AuthUserUnAuthenticated extends AuthState {}
 
 class AuthUserAuthenticated extends AuthState {
-  const AuthUserAuthenticated(this.user);
-
-  final DocumentSnapshot<Object?> user;
-
-  @override
-  List<Object> get props => [user];
+  // const AuthUserAuthenticated(this.user);
+  //
+  // final UserModel user;
+  //
+  // @override
+  // List<Object> get props => [user];
 }
 
 class AuthUserEmailUnVerified extends AuthState {}
@@ -32,5 +32,7 @@ class AuthExceptionOccurred extends AuthState {
 }
 
 class AuthEmailVerificationSent extends AuthState {}
+
+class AuthPasswordEmailVerificationSent extends AuthState {}
 
 class UserInfoNotExisted extends AuthState {}

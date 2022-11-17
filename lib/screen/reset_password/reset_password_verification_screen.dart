@@ -52,7 +52,7 @@ class ResetPasswordVerificationScreen extends StatelessWidget {
                           style: underlineTextStyle)),
                   const SizedBox(height: 20)
                 ])
-              ]),
+              ])
         ));
   }
 }
