@@ -36,3 +36,7 @@ class AuthEmailVerificationSent extends AuthState {}
 class AuthPasswordEmailVerificationSent extends AuthState {}
 
 class UserInfoNotExisted extends AuthState {}
+
+class AuthEmailUpdated extends AuthState {}
+
+class AutPasswordUpdated extends AuthState {}

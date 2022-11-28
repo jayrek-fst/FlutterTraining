@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:fumiya_flutter/data/datasource/remote/user/user_remote_datasource.dart';
-import 'package:fumiya_flutter/data/model/user_model.dart';
+
+import '../../../../common/exception/sign_in_with_email_and_password_exception.dart';
+import '../../../model/user_model.dart';
+import 'user_remote_datasource.dart';
 
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -36,9 +37,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future<String> getUserEmail() {
+  Future<String> getUserEmail() async {
     try {
-      return _getFirebaseUser().email;
+      return await _getFirebaseUser().email;
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -68,10 +69,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       final String email = _getFirebaseUser().email;
       await _auth.sendSignInLinkToEmail(
           email: email, actionCodeSettings: settings);*/
-
-      await _getFirebaseUser().sendEmailVerification();
+      var user = await _getFirebaseUser();
+      await user.sendEmailVerification();
     } catch (e) {
-      debugPrint('verification: ${e.toString()}');
       throw Exception(e.toString());
     }
   }
@@ -81,9 +81,8 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     try {
       final uid = _getFirebaseUser().uid;
       final ref = _firebaseFirestore.collection('users').doc(uid).withConverter(
-        fromFirestore: UserModel.fromFirestore,
-        toFirestore: (UserModel userModel, _) => userModel.toFirestore(),
-      );
+          fromFirestore: UserModel.fromFirestore,
+          toFirestore: (UserModel userModel, _) => userModel.toFirestore());
       final docSnap = await ref.get();
       UserModel? user = docSnap.data(); // Convert to City object
       // if (city != null) {
@@ -110,10 +109,45 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       userModel.mail = _getFirebaseUser().email;
       userModel.createdAt = Timestamp.now();
       userModel.updatedAt = Timestamp.now();
-      await _firebaseFirestore.collection('users').doc(userModel.uid).set(userModel.toJson());
+      await _firebaseFirestore
+          .collection('users')
+          .doc(userModel.uid)
+          .set(userModel.toJson());
     } catch (e) {
-      debugPrint(e.toString());
       throw Exception(e.toString());
+    }
+  }
+
+  @override
+  Future updateUserEmail(String newEmail) async {
+    try {
+      var user = await _getFirebaseUser();
+      await user.updateEmail(newEmail);
+
+      var uid = await getUserUid();
+      var email = await getUserEmail();
+
+      var userMap = {'mail': email, 'updatedAt': Timestamp.now()};
+      await _firebaseFirestore
+          .collection('users')
+          .doc(uid)
+          .set(userMap, SetOptions(merge: true));
+    } on FirebaseAuthException catch (e) {
+      throw SignInWithEmailAndPasswordException.fromCode(e.code);
+    } catch (e) {
+      throw const SignInWithEmailAndPasswordException();
+    }
+  }
+
+  @override
+  Future updateUserPassword(String password) async {
+    try {
+      var user = await _getFirebaseUser();
+      await user.updatePassword(password);
+    } on FirebaseAuthException catch (e) {
+      throw SignInWithEmailAndPasswordException.fromCode(e.code);
+    } catch (e) {
+      throw const SignInWithEmailAndPasswordException();
     }
   }
 }

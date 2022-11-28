@@ -1,4 +1,3 @@
-
 import '../../../model/user_model.dart';
 
 abstract class UserRemoteDataSource {
@@ -15,4 +14,8 @@ abstract class UserRemoteDataSource {
   Future<UserModel?> getUserInfo();
 
   Future<void> saveUserInfo(UserModel userModel);
+
+  Future updateUserEmail(String newEmail);
+
+  Future updateUserPassword(String password);
 }

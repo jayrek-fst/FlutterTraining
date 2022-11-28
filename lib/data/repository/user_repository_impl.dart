@@ -43,4 +43,14 @@ class UserRepositoryImpl implements UserRepository {
   Future<void> saveUserInfo(UserModel userModel) async {
     await userRemoteDataSource.saveUserInfo(userModel);
   }
+
+  @override
+  Future updateUserEmail(String newEmail) async {
+    await userRemoteDataSource.updateUserEmail(newEmail);
+  }
+
+  @override
+  Future updateUserPassword(String password) async {
+    await userRemoteDataSource.updateUserPassword(password);
+  }
 }

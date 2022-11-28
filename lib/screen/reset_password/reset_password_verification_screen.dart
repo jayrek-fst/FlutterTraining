@@ -6,7 +6,10 @@ import '../../util/route_util.dart';
 import '../../util/style_util.dart';
 
 class ResetPasswordVerificationScreen extends StatelessWidget {
-  const ResetPasswordVerificationScreen({Key? key}) : super(key: key);
+  const ResetPasswordVerificationScreen({Key? key, required this.type})
+      : super(key: key);
+
+  final String type;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +19,22 @@ class ResetPasswordVerificationScreen extends StatelessWidget {
         backgroundColor: AppColorUtil.appBlueColor,
         appBar: AppBar(
             elevation: 0,
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
+            leading: BackButton(
+                onPressed: () {
+                  int count = 0;
+                  Navigator.of(context).popUntil((_) => count++ >= 2);
+                },
+                color: type == RouteUtil.signIn
+                    ? AppColorUtil.appBlueDarkColor
+                    : Colors.white),
+            backgroundColor: type == RouteUtil.signIn
+                ? Colors.white
+                : AppColorUtil.appBlueDarkColor,
             title: Text(appLocalizations.raw_common_reset_password,
-                style: const TextStyle(color: AppColorUtil.appBlueDarkColor))),
+                style: TextStyle(
+                    color: type == RouteUtil.signIn
+                        ? AppColorUtil.appBlueDarkColor
+                        : Colors.white))),
         body: SingleChildScrollView(
             child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),

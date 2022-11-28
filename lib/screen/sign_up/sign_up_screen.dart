@@ -7,7 +7,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../bloc/auth_bloc/auth_bloc.dart';
 import '../../bloc/toggle_bloc/toggle_bloc.dart';
 import '../../util/app_color_util.dart';
-import '../../util/image_path_util.dart';
+import '../../util/asset_path_util.dart';
 import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
 import '../../widget/alert_dialog_widget.dart';
@@ -42,11 +42,12 @@ class SignUpScreen extends StatelessWidget {
                 child: Text(appLocalizations.raw_sign_up_header_description)),
             Padding(
                 padding: const EdgeInsets.only(bottom: 30),
-                child: Image.asset(ImagePathUtil.stepOnePath)),
+                child: Image.asset(AssetPathUtil.stepOnePath)),
             Text(appLocalizations.raw_sign_up_message),
             const SizedBox(height: 20),
             FormBuilder(
                 key: _formKey,
+                autovalidateMode: AutovalidateMode.disabled,
                 child: BlocConsumer<AuthBloc, AuthState>(
                     listener: (context, state) {
                       if (state is AuthUserUnAuthenticated) {

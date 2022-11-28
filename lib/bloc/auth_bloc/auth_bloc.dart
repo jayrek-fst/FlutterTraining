@@ -14,9 +14,8 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AppUseCases appUseCases;
 
-
   AuthBloc({required this.appUseCases}) : super(AuthUserUnAuthenticated()) {
-    on<CheckAuthUser>((event, emit) => _checkAuthUser(event, emit));
+    on<CheckAuthUser>((event, emit) => _onCheckAuthUser(event, emit));
     on<AuthSignIn>((event, emit) => _onSignedIn(event, emit));
     on<AuthSignUp>((event, emit) => _onSignedUp(event, emit));
     on<AuthSendEmailVerification>(
@@ -24,12 +23,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<UserInfoRegistration>((event, emit) => _onUserRegistration(event, emit));
     on<AuthSendResetPassword>(
         (event, emit) => _onSendResetPassword(event, emit));
+    on<AuthSignOut>((event, emit) => _onSignOut(event, emit));
+    on<AuthReSignIn>((event, emit) => _onReSignIn(event, emit));
+    on<AuthUpdateEmail>((event, emit) => _onUpdateEmail(event, emit));
+    on<AuthUpdatePassword>((event, emit) => _onUpdatePassword(event, emit));
   }
 
-  _checkAuthUser(CheckAuthUser event, Emitter<AuthState> emitter) async {
+  _onCheckAuthUser(CheckAuthUser event, Emitter<AuthState> emitter) async {
     emitter(AuthLoading());
     try {
-      await appUseCases.checkUserAuthenticated()
+      await appUseCases.checkUserAuthenticatedUseCase()
           ? emitter(AuthUserAuthenticated())
           : emitter(AuthUserUnAuthenticated());
     } catch (e) {
@@ -42,13 +45,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     Map<String, dynamic> formValue = event.formKey.currentState!.value;
     final email = formValue[StringConstants.email];
-    final password = formValue[StringConstants.email];
+    final password = formValue[StringConstants.password];
 
     try {
       await appUseCases.signInUseCase(email: email, password: password);
 
-      if (await appUseCases.isUserEmailVerified()) {
-        final user = await appUseCases.getUserInfo();
+      if (await appUseCases.isUserEmailVerifiedUseCase()) {
+        final user = await appUseCases.getUserInfoUseCase();
         user != null
             ? emitter(AuthUserAuthenticated())
             : emitter(UserInfoNotExisted());
@@ -65,10 +68,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     Map<String, dynamic> formValue = event.formKey.currentState!.value;
     final email = formValue[StringConstants.email];
-    final password = formValue[StringConstants.email];
+    final password = formValue[StringConstants.password];
 
     try {
-      await appUseCases.signUp(email: email, password: password);
+      await appUseCases.signUpUseCase(email: email, password: password);
       emitter(AuthUserUnAuthenticated());
     } catch (e) {
       emitter(AuthExceptionOccurred(e.toString()));
@@ -80,7 +83,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emitter(AuthLoading());
 
     try {
-      await appUseCases.sendEmailVerification();
+      await appUseCases.sendEmailVerificationUseCase();
       emitter(AuthEmailVerificationSent());
     } catch (e) {
       emitter(AuthExceptionOccurred(e.toString()));
@@ -95,7 +98,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     event.userModel.birthDate = BirthDate();
 
     try {
-      await appUseCases.saveUserInfo(event.userModel);
+      await appUseCases.saveUserInfoUseCase(event.userModel);
       emitter(AuthUserAuthenticated());
     } catch (e) {
       emitter(AuthExceptionOccurred(e.toString()));
@@ -106,15 +109,52 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       AuthSendResetPassword event, Emitter<AuthState> emitter) async {
     emitter(AuthLoading());
     try {
-      await appUseCases.resetPassword(event.email);
+      await appUseCases.resetPasswordUseCase(event.email);
       emitter(AuthPasswordEmailVerificationSent());
     } catch (e) {
       emitter(AuthExceptionOccurred(e.toString()));
     }
   }
 
-  @override
-  Future<void> close() {
-    return super.close();
+  _onSignOut(AuthSignOut event, Emitter<AuthState> emitter) async {
+    try {
+      await appUseCases.signOutUseCase();
+      emitter(AuthUserUnAuthenticated());
+    } catch (e) {
+      emitter(AuthExceptionOccurred(e.toString()));
+    }
+  }
+
+  _onReSignIn(AuthReSignIn event, Emitter<AuthState> emitter) async {
+    emitter(AuthLoading());
+    try {
+      await appUseCases.reSignInUseCase(event.password);
+
+      emitter(AuthUserAuthenticated());
+    } catch (e) {
+      emitter(AuthExceptionOccurred(e.toString()));
+    }
+  }
+
+  _onUpdateEmail(AuthUpdateEmail event, Emitter<AuthState> emitter) async {
+    emitter(AuthLoading());
+    try {
+      await appUseCases.updateUserEmailUseCase(event.email);
+      await appUseCases.sendEmailVerificationUseCase();
+      emitter(AuthEmailUpdated());
+    } catch (e) {
+      emitter(AuthExceptionOccurred(e.toString()));
+    }
+  }
+
+  _onUpdatePassword(
+      AuthUpdatePassword event, Emitter<AuthState> emitter) async {
+    emitter(AuthLoading());
+    try {
+      await appUseCases.updateUserPasswordUseCase(event.password);
+      emitter(AutPasswordUpdated());
+    } catch (e) {
+      emitter(AuthExceptionOccurred(e.toString()));
+    }
   }
 }

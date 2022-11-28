@@ -3,9 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
 import '../../util/app_color_util.dart';
-import '../../util/image_path_util.dart';
+import '../../util/asset_path_util.dart';
 import '../../util/string_constants.dart';
 import '../../util/style_util.dart';
+import '../base/base_screen.dart';
+import '../map/map_screen.dart';
+import '../park/park_screen.dart';
+import '../station/station_screen.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -36,20 +40,20 @@ class DashboardScreen extends StatelessWidget {
   List<BottomNavigationBarItem> _navBarItems() {
     return <BottomNavigationBarItem>[
       BottomNavigationBarItem(
-          icon: Image.asset(ImagePathUtil.mapUnselectedPath),
-          activeIcon: Image.asset(ImagePathUtil.mapSelectedPath),
+          icon: Image.asset(AssetPathUtil.mapUnselectedPath),
+          activeIcon: Image.asset(AssetPathUtil.mapSelectedPath),
           label: StringConstants.map),
       BottomNavigationBarItem(
-          icon: Image.asset(ImagePathUtil.parkUnselectedPath),
-          activeIcon: Image.asset(ImagePathUtil.parkSelectedPath),
+          icon: Image.asset(AssetPathUtil.parkUnselectedPath),
+          activeIcon: Image.asset(AssetPathUtil.parkSelectedPath),
           label: StringConstants.park),
       BottomNavigationBarItem(
-          icon: Image.asset(ImagePathUtil.stationUnselectedPath),
-          activeIcon: Image.asset(ImagePathUtil.stationSelectedPath),
+          icon: Image.asset(AssetPathUtil.stationUnselectedPath),
+          activeIcon: Image.asset(AssetPathUtil.stationSelectedPath),
           label: StringConstants.station),
       BottomNavigationBarItem(
-          icon: Image.asset(ImagePathUtil.baseUnselectedPath),
-          activeIcon: Image.asset(ImagePathUtil.baseSelectedPath),
+          icon: Image.asset(AssetPathUtil.baseUnselectedPath),
+          activeIcon: Image.asset(AssetPathUtil.baseSelectedPath),
           label: StringConstants.base)
     ];
   }
@@ -88,21 +92,13 @@ class DashboardScreen extends StatelessWidget {
   Widget _buildScreen(NavItem item) {
     switch (item) {
       case NavItem.map:
-        return const Center(
-            child: Text(StringConstants.map,
-                style: TextStyle(color: Colors.black)));
+        return const MapScreen();
       case NavItem.park:
-        return const Center(
-            child: Text('Park is Under Construction!',
-                style: TextStyle(color: Colors.black)));
+        return const ParkScreen();
       case NavItem.station:
-        return const Center(
-            child: Text('Station is Under Construction!',
-                style: TextStyle(color: Colors.black)));
+        return const StationScreen();
       case NavItem.base:
-        return const Center(
-            child: Text(StringConstants.base,
-                style: TextStyle(color: Colors.black)));
+        return const BaseScreen();
     }
   }
 }

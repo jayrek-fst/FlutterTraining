@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthRemoteDateSource {
+
   Future<UserCredential> signIn(
       {required String email, required String password});
 
@@ -9,4 +10,6 @@ abstract class AuthRemoteDateSource {
   Future<bool> checkUserAuthenticated();
 
   Future resetPassword(String email);
+
+  Future signOut();
 }

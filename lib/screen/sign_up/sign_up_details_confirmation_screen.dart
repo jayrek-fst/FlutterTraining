@@ -7,7 +7,7 @@ import '../../bloc/auth_bloc/auth_bloc.dart';
 import '../../data/model/user_model.dart';
 import '../../util/app_color_util.dart';
 import '../../util/gender_value_util.dart';
-import '../../util/image_path_util.dart';
+import '../../util/asset_path_util.dart';
 import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
 import '../../util/style_util.dart';
@@ -47,31 +47,33 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
           return Stack(children: [
             SingleChildScrollView(
                 child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(children: [
-                Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Text(appLocalizations.raw_sign_up_input_header)),
-                Padding(
-                    padding: const EdgeInsets.only(bottom: 30),
-                    child: Image.asset(ImagePathUtil.stepFivePath)),
-                const SizedBox(height: 20),
-                _nickNameWidget(appLocalizations, userModel),
-                const SizedBox(height: 20),
-                _fullNameWidget(appLocalizations, userModel),
-                const SizedBox(height: 20),
-                _kanaFullNameWidget(appLocalizations, userModel.kanaFullName!),
-                const SizedBox(height: 20),
-                _genderWidget(context, appLocalizations, userModel),
-                const SizedBox(height: 20),
-                _addressNote(appLocalizations),
-                const SizedBox(height: 20),
-                _addressInfoListWidget(appLocalizations, userModel.address!),
-                _phoneNumberWidget(appLocalizations, userModel),
-                _linksWidget(appLocalizations),
-                _buttonWidget(context, appLocalizations, userModel)
-              ]),
-            )),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(children: [
+                      Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child:
+                              Text(appLocalizations.raw_sign_up_input_header)),
+                      Padding(
+                          padding: const EdgeInsets.only(bottom: 30),
+                          child: Image.asset(AssetPathUtil.stepFivePath)),
+                      const SizedBox(height: 20),
+                      _nickNameWidget(appLocalizations, userModel),
+                      const SizedBox(height: 20),
+                      _fullNameWidget(appLocalizations, userModel),
+                      const SizedBox(height: 20),
+                      _kanaFullNameWidget(
+                          appLocalizations, userModel.kanaFullName!),
+                      const SizedBox(height: 20),
+                      _genderWidget(context, appLocalizations, userModel),
+                      const SizedBox(height: 20),
+                      _addressNote(appLocalizations),
+                      const SizedBox(height: 20),
+                      _addressInfoListWidget(
+                          appLocalizations, userModel.address!),
+                      _phoneNumberWidget(appLocalizations, userModel),
+                      _linksWidget(appLocalizations, context),
+                      _buttonWidget(context, appLocalizations, userModel)
+                    ]))),
             if (state is AuthLoading) progressDialog()
           ]);
         }));
@@ -214,21 +216,28 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
             _setUserValue(userModel.phoneNumber.toString())
           ]));
 
-  Widget _linksWidget(AppLocalizations appLocalizations) => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Row(children: [
-              Text(appLocalizations.raw_common_about_terms),
-              Container(
-                  color: AppColorUtil.appGreenColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Text(appLocalizations.raw_common_required))
-            ])),
-        itemLinkWidget(appLocalizations.raw_common_terms_of_service, () {}),
-        itemLinkWidget(appLocalizations.raw_common_privacy, () {})
-      ]));
+  Widget _linksWidget(
+          AppLocalizations appLocalizations, BuildContext context) =>
+      Padding(
+          padding: const EdgeInsets.symmetric(vertical: 30),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(children: [
+                  Text(appLocalizations.raw_common_about_terms),
+                  Container(
+                      color: AppColorUtil.appGreenColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Text(appLocalizations.raw_common_required))
+                ])),
+            itemLinkWidget(
+                appLocalizations.raw_common_terms_of_service,
+                () =>
+                    Navigator.of(context).pushNamed(RouteUtil.termsOfService)),
+            itemLinkWidget(appLocalizations.raw_common_privacy,
+                () => Navigator.of(context).pushNamed(RouteUtil.privacyPolicy))
+          ]));
 
   Widget _buttonWidget(BuildContext context, AppLocalizations appLocalizations,
           UserModel userModel) =>

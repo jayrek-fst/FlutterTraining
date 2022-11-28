@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fumiya_flutter/common/exception/send_reset_password_exception.dart';
-import 'package:fumiya_flutter/common/exception/sign_in_with_email_and_password_exception.dart';
-import 'package:fumiya_flutter/data/datasource/remote/user/user_remote_datasource_impl.dart';
+import 'package:flutter/material.dart';
 
+import '../../../../common/exception/send_reset_password_exception.dart';
+import '../../../../common/exception/sign_in_with_email_and_password_exception.dart';
 import '../../../../common/exception/sign_up_with_email_and_password_exception.dart';
 import '../user/user_remote_datasource.dart';
+import '../user/user_remote_datasource_impl.dart';
 import 'auth_remote_datasource.dart';
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDateSource {
@@ -19,8 +20,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDateSource {
           email: email, password: password);
       return response;
     } on FirebaseAuthException catch (e) {
+      debugPrint('AuthRemoteDataSourceImpl1: ${e.code}');
       throw SignInWithEmailAndPasswordException.fromCode(e.code);
-    } catch (_) {
+    } catch (e) {
+      debugPrint('AuthRemoteDataSourceImpl2: ${e.toString()}');
       throw const SignInWithEmailAndPasswordException();
     }
   }
@@ -55,5 +58,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDateSource {
     } catch (_) {
       throw const SendResetPasswordException();
     }
+  }
+
+  @override
+  Future signOut() async {
+    await _auth.signOut();
   }
 }

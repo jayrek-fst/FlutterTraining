@@ -9,4 +9,6 @@ abstract class AuthRepository {
   Future<bool> checkUserAuthenticated();
 
   Future resetPassword(String email);
+
+  Future signOut();
 }

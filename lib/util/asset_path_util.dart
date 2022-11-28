@@ -1,4 +1,4 @@
-class ImagePathUtil {
+class AssetPathUtil {
   static const appImagePath = 'assets/images/bridge_land_logo.png';
   static const checkBoxImagePath = 'assets/images/check_box_true.png';
   static const tutorialImage2Path = 'assets/images/tutorial_img_2.png';
@@ -21,4 +21,10 @@ class ImagePathUtil {
   static const parkSelectedPath = 'assets/images/park_selected_img.png';
   static const stationSelectedPath = 'assets/images/station_selected_img.png';
   static const baseSelectedPath = 'assets/images/base_selected_img.png';
+
+  static const menuUserPath = 'assets/images/menu_user_img.png';
+
+//local html file
+  static const privacyPolicyHtml = 'assets/local_html/privacypolicy.html';
+  static const termsOfServiceHtml = 'assets/local_html/kiyaku.html';
 }

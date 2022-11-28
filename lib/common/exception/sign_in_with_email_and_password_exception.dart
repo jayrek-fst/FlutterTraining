@@ -19,6 +19,9 @@ class SignInWithEmailAndPasswordException implements Exception {
       case 'wrong-password':
         return const SignInWithEmailAndPasswordException(
             'Incorrect password, please try again.');
+      case 'too-many-requests':
+        return const SignInWithEmailAndPasswordException(
+            'Too many requests, please try again later.');
       default:
         return const SignInWithEmailAndPasswordException();
     }

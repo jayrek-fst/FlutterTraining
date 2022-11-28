@@ -6,7 +6,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../bloc/auth_bloc/auth_bloc.dart';
 import '../../bloc/toggle_bloc/toggle_bloc.dart';
-import '../../business_logic/cubit/password_toggle_cubit.dart';
+import '../../business_logic/cubit/password_toggle_cubit/password_toggle_cubit.dart';
 import '../../util/app_color_util.dart';
 import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
@@ -81,28 +81,29 @@ class SignInScreen extends StatelessWidget {
           return Stack(children: [
             SingleChildScrollView(
                 child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(mainAxisSize: MainAxisSize.max, children: [
-                Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Text(appLocalizations
-                        .raw_common_billing_subscription_message)),
-                ElevatedButtonWidget(
-                    label: appLocalizations.raw_sign_up_header,
-                    onPressed: () =>
-                        Navigator.of(context).pushNamed(RouteUtil.signUp)),
-                Text('———  ${appLocalizations.raw_sign_in_click_here}  ———'),
-                const SizedBox(height: 20),
-                FormBuilder(
-                    key: _formKey,
-                    child: _signInForm(context, appLocalizations, state)),
-                TextButton(
-                    onPressed: () => Navigator.of(context)
-                        .pushNamed(RouteUtil.resetPassword),
-                    child: Text(appLocalizations.raw_sign_in_forgot_password,
-                        style: underlineTextStyle))
-              ]),
-            )),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(mainAxisSize: MainAxisSize.max, children: [
+                      Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Text(appLocalizations
+                              .raw_common_billing_subscription_message)),
+                      ElevatedButtonWidget(
+                          label: appLocalizations.raw_sign_up_header,
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(RouteUtil.signUp)),
+                      Text(
+                          '———  ${appLocalizations.raw_sign_in_click_here}  ———'),
+                      const SizedBox(height: 20),
+                      FormBuilder(
+                          key: _formKey,
+                          child: _signInForm(context, appLocalizations, state)),
+                      TextButton(
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(RouteUtil.resetPassword, arguments: RouteUtil.signIn),
+                          child: Text(
+                              appLocalizations.raw_common_forgot_password,
+                              style: underlineTextStyle))
+                    ]))),
             if (state is AuthLoading) progressDialog()
           ]);
         }));

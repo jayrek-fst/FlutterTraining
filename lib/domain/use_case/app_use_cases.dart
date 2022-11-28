@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 import '../../common/exception/send_reset_password_exception.dart';
 import '../../common/exception/sign_in_with_email_and_password_exception.dart';
@@ -12,8 +13,9 @@ import '../repository/auth_repository.dart';
 import '../repository/user_repository.dart';
 
 class AppUseCases {
-  final AuthRepository authRepository =
-      AuthRepositoryImpl(authRemoteDataSource: AuthRemoteDataSourceImpl());
+  final AuthRepository authRepository = AuthRepositoryImpl(
+      authRemoteDataSource: AuthRemoteDataSourceImpl(),
+      userRemoteDataSource: UserRemoteDataSourceImpl());
   final UserRepository userRepository =
       UserRepositoryImpl(userRemoteDataSource: UserRemoteDataSourceImpl());
 
@@ -26,16 +28,17 @@ class AppUseCases {
     }
   }
 
-  Future signUp({required String email, required String password}) async {
+  Future signUpUseCase(
+      {required String email, required String password}) async {
     try {
       await authRepository.signUp(email: email, password: password);
-      await sendEmailVerification();
+      await sendEmailVerificationUseCase();
     } on SignUpWithEmailAndPasswordException catch (e) {
       throw Exception(e.message);
     }
   }
 
-  Future sendEmailVerification() {
+  Future sendEmailVerificationUseCase() {
     try {
       return userRepository.sendEmailVerificationLink();
     } catch (e) {
@@ -43,7 +46,7 @@ class AppUseCases {
     }
   }
 
-  Future<bool> isUserEmailVerified() async {
+  Future<bool> isUserEmailVerifiedUseCase() async {
     try {
       return await userRepository.isUserEmailVerified();
     } catch (e) {
@@ -51,7 +54,7 @@ class AppUseCases {
     }
   }
 
-  Future<UserModel?> getUserInfo() async {
+  Future<UserModel?> getUserInfoUseCase() async {
     try {
       return await userRepository.getUserInfo();
     } catch (e) {
@@ -59,7 +62,7 @@ class AppUseCases {
     }
   }
 
-  Future<void> saveUserInfo(UserModel userModel) async {
+  Future<void> saveUserInfoUseCase(UserModel userModel) async {
     try {
       await userRepository.saveUserInfo(userModel);
     } catch (e) {
@@ -67,7 +70,7 @@ class AppUseCases {
     }
   }
 
-  Future<bool> checkUserAuthenticated() async {
+  Future<bool> checkUserAuthenticatedUseCase() async {
     try {
       final isVerified = await authRepository.checkUserAuthenticated();
       return isVerified ? true : false;
@@ -76,10 +79,40 @@ class AppUseCases {
     }
   }
 
-  Future resetPassword(String email) async {
+  Future resetPasswordUseCase(String email) async {
     try {
       await authRepository.resetPassword(email);
     } on SendResetPasswordException catch (e) {
+      throw Exception(e.message);
+    }
+  }
+
+  Future signOutUseCase() async {
+    await authRepository.signOut();
+  }
+
+  Future reSignInUseCase(String password) async {
+    try {
+      String email = await userRepository.getUserEmail();
+      debugPrint('email: $email');
+      await signInUseCase(email: email, password: password);
+    } on SignInWithEmailAndPasswordException catch (e) {
+      throw Exception(e.message);
+    }
+  }
+
+  Future updateUserEmailUseCase(String newEmail) async {
+    try {
+      await userRepository.updateUserEmail(newEmail);
+    } on SignInWithEmailAndPasswordException catch (e) {
+      throw Exception(e.message);
+    }
+  }
+
+  Future updateUserPasswordUseCase(String password) async {
+    try {
+      await userRepository.updateUserPassword(password);
+    } on SignInWithEmailAndPasswordException catch (e) {
       throw Exception(e.message);
     }
   }

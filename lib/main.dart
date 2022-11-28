@@ -7,7 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'bloc/auth_bloc/auth_bloc.dart';
 import 'bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
 import 'bloc/toggle_bloc/toggle_bloc.dart';
-import 'business_logic/cubit/password_toggle_cubit.dart';
+import 'business_logic/cubit/password_toggle_cubit/password_toggle_cubit.dart';
 import 'domain/use_case/app_use_cases.dart';
 import 'l10n/l10n.dart';
 import 'route_generator.dart';
@@ -27,10 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider(
-              create: (context) => AppUseCases())
-        ],
+        providers: [RepositoryProvider(create: (context) => AppUseCases())],
         child: MultiBlocProvider(
             providers: [
               BlocProvider(
@@ -47,7 +44,7 @@ class MyApp extends StatelessWidget {
                     fontFamily: StringConstants.fontNotoSans,
                     primaryColor: AppColorUtil.appBlueColor,
                     primarySwatch: Colors.blue,
-                    scaffoldBackgroundColor: Colors.white,
+                    scaffoldBackgroundColor: AppColorUtil.appBlueColor,
                     errorColor: AppColorUtil.appOrangeColor,
                     textTheme: const TextTheme(
                         headline6: TextStyle(
@@ -71,7 +68,13 @@ class MyApp extends StatelessWidget {
                     checkboxTheme: CheckboxThemeData(
                         checkColor: MaterialStateProperty.all(
                             AppColorUtil.appBlueColor),
-                        fillColor: MaterialStateProperty.all(Colors.white))),
+                        fillColor: MaterialStateProperty.all(Colors.white)),
+                    listTileTheme: const ListTileThemeData(
+                        textColor: Colors.white,
+                        iconColor: Colors.white,
+                        enableFeedback: false,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 5))),
                 onGenerateRoute: RouteGenerator.generateRoute,
                 initialRoute: RouteUtil.splash,
                 supportedLocales: L10n.lang,

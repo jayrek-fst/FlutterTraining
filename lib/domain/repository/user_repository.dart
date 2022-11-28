@@ -14,4 +14,8 @@ abstract class UserRepository {
   Future<UserModel?> getUserInfo();
 
   Future<void> saveUserInfo(UserModel userModel);
+
+  Future updateUserEmail(String newEmail);
+
+  Future updateUserPassword(String password);
 }

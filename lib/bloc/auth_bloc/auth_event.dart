@@ -46,3 +46,32 @@ class AuthSendResetPassword extends AuthEvent {
   @override
   List<Object?> get props => [email];
 }
+
+class AuthSignOut extends AuthEvent {}
+
+class AuthReSignIn extends AuthEvent {
+  final String password;
+
+  const AuthReSignIn({required this.password});
+
+  @override
+  List<Object?> get props => [password];
+}
+
+class AuthUpdateEmail extends AuthEvent {
+  final String email;
+
+  const AuthUpdateEmail({required this.email});
+
+  @override
+  List<Object?> get props => [email];
+}
+
+class AuthUpdatePassword extends AuthEvent {
+  final String password;
+
+  const AuthUpdatePassword({required this.password});
+
+  @override
+  List<Object?> get props => [password];
+}

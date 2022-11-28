@@ -59,9 +59,9 @@
      "@raw_common_sign_in": {
         "description": "Sign in"
      },
-     "raw_sign_in_forgot_password": "Forgot Password?",
-     "@raw_sign_in_forgot_password": {
-        "description": "Sign in forgot password"
+     "raw_common_forgot_password": "Forgot Password?",
+     "@raw_common_forgot_password": {
+        "description": "Common forgot password"
      },
     "raw_common_email": "Email",
      "@raw_common_email": {
@@ -155,7 +155,7 @@
      "@raw_common_validation_invalid_empty_email": {
         "description": "Common validation invalid empty email"
      },
-    "raw_common_validation_invalid_empty_password": "Please input Password",
+    "raw_common_validation_invalid_empty_password": "Please input password",
      "@raw_common_validation_invalid_empty_password": {
         "description": "Common validation invalid empty password"
      },
@@ -407,6 +407,112 @@
      },
    "raw_sign_up_prelabel_back": "Correct Information",
      "@raw_sign_up_prelabel_back": {
-         "description": "Correct inforamtiob button"
+         "description": "Correct inforamtion button"
+     },
+   "raw_common_user_information": "User Information",
+     "@raw_common_user_information": {
+         "description": "Common user information"
+     },
+   "raw_common_language_setting": "BASE Language Setting",
+     "@raw_common_language_setting": {
+         "description": "Common language setting"
+     },
+   "raw_common_about_app": "About",
+     "@raw_common_about_app": {
+         "description": "Common about app"
+     },
+   "raw_other_privacy_policy": "Privacy Policy",
+     "@raw_other_privacy_policy": {
+         "description": "Other screen privacy policy"
+     },
+   "raw_common_transaction_law": "Specified Commercial Transaction Act",
+     "@raw_other_transaction_law": {
+         "description": "Other screen specified commercial transaction act"
+     },
+   "raw_common_license_information": "License information",
+     "@raw_common_license_information": {
+         "description": "Common license information"
+     },
+   "raw_common_faq": "FAQ/Inquiry",
+     "@raw_common_faq": {
+         "description": "Common faq"
+     },
+   "raw_common_withdraw_account": "About withdraw account",
+     "@raw_common_withdraw_account": {
+         "description": "Common withdraw account"
+     },
+   "raw_common_withdraw_account": "About withdraw account",
+     "@raw_common_withdraw_account": {
+         "description": "Common withdraw account"
+     },
+   "raw_common_app_version": "App version",
+     "@raw_common_app_version": {
+         "description": "Common app version"
+     },
+   "raw_common_sign_out": "Logout",
+     "@raw_common_sign_out": {
+         "description": "Common sign out"
+     },
+   "raw_common_update_user_title": "Change User Information",
+     "@raw_common_update_user_title": {
+         "description": "Common update user information"
+     },
+   "raw_common_update_email": "Update Email",
+     "@raw_common_update_email": {
+         "description": "Common update email"
+     },
+   "raw_common_update_password": "Update Password",
+     "@raw_common_update_password": {
+         "description": "Common update password"
+     },
+   "raw_re_sign_in_update_password_description": "Please input Registered Email and Password to update",
+     "@raw_re_sign_in_update_password_description": {
+         "description": "Re sign in update password description"
+     },
+   "raw_update_email_current_email": "Current email:{oneLine}{email}",
+     "@raw_update_email_current_email": {
+         "description": "User current email",
+         "placeholders": {
+               "email": {
+                 "type": "String",
+                 "example": "ex@mailinator.com"
+               },
+               "oneLine": {
+                 "type": "String",
+                 "example": " "
+               }
+         }
+     },
+   "raw_common_new_email": "New Email",
+     "@raw_common_new_email": {
+         "description": "Common new email"
+     },
+   "raw_common_new_email_confirmation": "New Email(Confirmation)",
+     "@raw_common_new_email_confirmation": {
+         "description": "Common new email confirmation"
+     },
+   "raw_common_update": "Update",
+     "@raw_common_update": {
+         "description": "Common update"
+     },
+   "raw_common_new_password": "New Password",
+     "@raw_common_new_password": {
+         "description": "Common new password"
+     },
+   "raw_common_new_password_confirmation": "New Password(Confirmation)",
+     "@raw_common_new_password_confirmation": {
+         "description": "Common new password confirmation"
+     },
+   "raw_common_invalid_confirm_email": "Email does not match",
+     "@raw_common_invalid_confirm_email": {
+         "description": "Common invalid confirm email"
+     },
+   "raw_common_update_password_success": "Updated password",
+     "@raw_common_update_password_success": {
+         "description": "Common update password success"
+     },
+   "raw_common_update_email_success": "Updated email",
+     "@raw_common_update_email_success": {
+         "description": "Common update email success"
      }
 }

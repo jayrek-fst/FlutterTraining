@@ -7,8 +7,12 @@ class StringConstants {
 
   ///form builder text field name
   static const String email = 'email';
+  static const String newEmail = 'newEmail';
+  static const String newEmailConfirmation = 'newEmailConfirmation';
   static const String password = 'password';
   static const String confirmPassword = 'confirmPassword';
+  static const String newPassword = 'newPassword';
+  static const String newPasswordConfirmation = 'newPasswordConfirmation';
   static const String nickName = 'nickName';
   static const String lastName = 'lastName';
   static const String firstName = 'firstName';
@@ -24,11 +28,17 @@ class StringConstants {
   static const String phoneNumber = 'phoneNumber';
   static const String agreeCheckBox = 'agreeCheckBox';
 
-  ///bottom navigation label
+  ///navigation label
   static const String map = 'MAP';
   static const String park = 'PARK';
   static const String station = 'STATION';
   static const String base = 'BASE';
+  static const String other = 'Other';
+  static const String privacyPolicy = 'Privacy Policy';
+  static const String termsOfService = 'Terms of Service';
+  static const String userInformation = 'User Information';
+  static const String updateEmail = 'Update Email';
+  static const String updatePassword = 'Update Password';
 
   ///password pattern regex
   static const String passwordPatternRegEx =

@@ -14,6 +14,9 @@ TextStyle hintTextStyle = const TextStyle(
 TextStyle inputTextFormFieldTextStyle =
     const TextStyle(fontSize: 14, fontWeight: FontWeight.w600);
 
+TextStyle appBarTitleTextStyle =
+    const TextStyle(fontSize: 20, fontWeight: FontWeight.w400);
+
 TextStyle bottomNavBarItemTextStyle = const TextStyle(
     fontFamily: StringConstants.fontFutura,
     fontSize: 15,

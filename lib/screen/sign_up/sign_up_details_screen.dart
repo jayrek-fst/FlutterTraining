@@ -3,10 +3,10 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:fumiya_flutter/data/model/user_model.dart';
+import '../../data/model/user_model.dart';
 import '../../util/app_color_util.dart';
 import '../../util/gender_value_util.dart';
-import '../../util/image_path_util.dart';
+import '../../util/asset_path_util.dart';
 import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
 import '../../util/style_util.dart';
@@ -33,16 +33,16 @@ class SignUpDetailsScreen extends StatelessWidget {
                 style: const TextStyle(color: AppColorUtil.appBlueDarkColor))),
         body: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(children: [
-          Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(children: [
+            Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Text(appLocalizations.raw_sign_up_input_header)),
-          Padding(
+            Padding(
                 padding: const EdgeInsets.only(bottom: 30),
-                child: Image.asset(ImagePathUtil.stepFourPath)),
-          const SizedBox(height: 20),
-          FormBuilder(
+                child: Image.asset(AssetPathUtil.stepFourPath)),
+            const SizedBox(height: 20),
+            FormBuilder(
                 key: _formKey,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,11 +71,11 @@ class SignUpDetailsScreen extends StatelessWidget {
                       _addressStructureWidget(appLocalizations),
                       const SizedBox(height: 20),
                       _phoneNumberWidget(appLocalizations),
-                      _linksWidget(appLocalizations),
+                      _linksWidget(appLocalizations, context),
                       _buttonWidget(context, appLocalizations)
                     ]))
-        ]),
-            )));
+          ]),
+        )));
   }
 
   _nickNameWidget(AppLocalizations appLocalizations) =>
@@ -251,21 +251,27 @@ class SignUpDetailsScreen extends StatelessWidget {
             textInputType: TextInputType.phone)
       ]);
 
-  _linksWidget(AppLocalizations appLocalizations) => Padding(
-      padding: const EdgeInsets.symmetric(vertical: 30),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Row(children: [
-              Text(appLocalizations.raw_common_about_terms),
-              Container(
-                  color: AppColorUtil.appGreenColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  child: Text(appLocalizations.raw_common_required))
-            ])),
-        itemLinkWidget(appLocalizations.raw_common_terms_of_service, () {}),
-        itemLinkWidget(appLocalizations.raw_common_privacy, () {})
-      ]));
+  _linksWidget(AppLocalizations appLocalizations, BuildContext context) =>
+      Padding(
+          padding: const EdgeInsets.symmetric(vertical: 30),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(children: [
+                  Text(appLocalizations.raw_common_about_terms),
+                  Container(
+                      color: AppColorUtil.appGreenColor,
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Text(appLocalizations.raw_common_required))
+                ])),
+            itemLinkWidget(
+                appLocalizations.raw_common_terms_of_service,
+                () =>
+                    Navigator.of(context).pushNamed(RouteUtil.termsOfService)),
+            itemLinkWidget(appLocalizations.raw_common_privacy,
+                () => Navigator.of(context).pushNamed(RouteUtil.privacyPolicy))
+          ]));
 
   _buttonWidget(BuildContext context, AppLocalizations appLocalizations) =>
       Column(children: [

@@ -19,6 +19,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final Widget? suffixIcon;
   final bool isObscure;
   final String hint;
+  // final Function(String?)? onChange;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class TextFormFieldWidget extends StatelessWidget {
             obscureText: isObscure,
             initialValue: '',
             style: inputTextFormFieldTextStyle,
-            onChanged: (_) => setState(() {}),
+            // onChanged: onChange ?? (_) => setState(() {}),
             decoration: textFormFieldDecoration(hint, suffixIcon)));
   }
 }
