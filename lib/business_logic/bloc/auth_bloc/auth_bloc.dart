@@ -2,10 +2,10 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:fumiya_flutter/data/model/user_model.dart';
 
-import '../../domain/use_case/app_use_cases.dart';
-import '../../util/string_constants.dart';
+import '../../../data/model/user_model.dart';
+import '../../../domain/use_case/app_use_cases.dart';
+import '../../../util/string_constants.dart';
 
 part 'auth_event.dart';
 

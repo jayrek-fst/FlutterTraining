@@ -4,9 +4,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'bloc/auth_bloc/auth_bloc.dart';
-import 'bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
-import 'bloc/toggle_bloc/toggle_bloc.dart';
+import 'business_logic/bloc/auth_bloc/auth_bloc.dart';
+import 'business_logic/bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
+import 'business_logic/bloc/toggle_bloc/toggle_bloc.dart';
 import 'business_logic/cubit/password_toggle_cubit/password_toggle_cubit.dart';
 import 'domain/use_case/app_use_cases.dart';
 import 'l10n/l10n.dart';
@@ -73,8 +73,7 @@ class MyApp extends StatelessWidget {
                         textColor: Colors.white,
                         iconColor: Colors.white,
                         enableFeedback: false,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 5))),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 5))),
                 onGenerateRoute: RouteGenerator.generateRoute,
                 initialRoute: RouteUtil.splash,
                 supportedLocales: L10n.lang,

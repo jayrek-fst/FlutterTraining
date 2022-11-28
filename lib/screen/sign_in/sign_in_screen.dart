@@ -4,8 +4,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../bloc/auth_bloc/auth_bloc.dart';
-import '../../bloc/toggle_bloc/toggle_bloc.dart';
+import '../../business_logic/bloc/auth_bloc/auth_bloc.dart';
+import '../../business_logic/bloc/toggle_bloc/toggle_bloc.dart';
 import '../../business_logic/cubit/password_toggle_cubit/password_toggle_cubit.dart';
 import '../../util/app_color_util.dart';
 import '../../util/route_util.dart';

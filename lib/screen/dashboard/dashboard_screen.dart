@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
+import '../../business_logic/bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
 import '../../util/app_color_util.dart';
 import '../../util/asset_path_util.dart';
 import '../../util/string_constants.dart';

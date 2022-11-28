@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/auth_bloc/auth_bloc.dart';
+import '../../business_logic/bloc/auth_bloc/auth_bloc.dart';
 import '../../domain/use_case/app_use_cases.dart';
 import '../../util/route_util.dart';
 import '../../widget/common_widget.dart';

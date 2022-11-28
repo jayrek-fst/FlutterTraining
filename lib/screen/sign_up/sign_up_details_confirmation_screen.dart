@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../bloc/auth_bloc/auth_bloc.dart';
+import '../../business_logic/bloc/auth_bloc/auth_bloc.dart';
 import '../../data/model/user_model.dart';
 import '../../util/app_color_util.dart';
 import '../../util/gender_value_util.dart';
