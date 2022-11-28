@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:fumiya_flutter/common/exception/auth_exception.dart';
 
-import '../../common/exception/send_reset_password_exception.dart';
-import '../../common/exception/sign_in_with_email_and_password_exception.dart';
-import '../../common/exception/sign_up_with_email_and_password_exception.dart';
 import '../../data/datasource/remote/auth/auth_remote_datasource_impl.dart';
 import '../../data/datasource/remote/user/user_remote_datasource_impl.dart';
 import '../../data/model/user_model.dart';
@@ -23,7 +20,7 @@ class AppUseCases {
       {required String email, required String password}) async {
     try {
       return await authRepository.signIn(email: email, password: password);
-    } on SignInWithEmailAndPasswordException catch (e) {
+    } on AuthException catch (e) {
       throw Exception(e.message);
     }
   }
@@ -33,7 +30,7 @@ class AppUseCases {
     try {
       await authRepository.signUp(email: email, password: password);
       await sendEmailVerificationUseCase();
-    } on SignUpWithEmailAndPasswordException catch (e) {
+    } on AuthException catch (e) {
       throw Exception(e.message);
     }
   }
@@ -82,7 +79,7 @@ class AppUseCases {
   Future resetPasswordUseCase(String email) async {
     try {
       await authRepository.resetPassword(email);
-    } on SendResetPasswordException catch (e) {
+    } on AuthException catch (e) {
       throw Exception(e.message);
     }
   }
@@ -94,9 +91,8 @@ class AppUseCases {
   Future reSignInUseCase(String password) async {
     try {
       String email = await userRepository.getUserEmail();
-      debugPrint('email: $email');
       await signInUseCase(email: email, password: password);
-    } on SignInWithEmailAndPasswordException catch (e) {
+    } on AuthException catch (e) {
       throw Exception(e.message);
     }
   }
@@ -104,7 +100,7 @@ class AppUseCases {
   Future updateUserEmailUseCase(String newEmail) async {
     try {
       await userRepository.updateUserEmail(newEmail);
-    } on SignInWithEmailAndPasswordException catch (e) {
+    } on AuthException catch (e) {
       throw Exception(e.message);
     }
   }
@@ -112,7 +108,7 @@ class AppUseCases {
   Future updateUserPasswordUseCase(String password) async {
     try {
       await userRepository.updateUserPassword(password);
-    } on SignInWithEmailAndPasswordException catch (e) {
+    } on AuthException catch (e) {
       throw Exception(e.message);
     }
   }

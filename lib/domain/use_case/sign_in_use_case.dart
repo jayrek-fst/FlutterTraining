@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../common/exception/sign_in_with_email_and_password_exception.dart';
+import '../../common/exception/auth_exception.dart';
 import '../repository/auth_repository.dart';
 
 class SignInUseCase {
@@ -15,7 +15,7 @@ class SignInUseCase {
       {required String email, required String password}) async {
     try {
       return await authRepository.signIn(email: email, password: password);
-    } on SignInWithEmailAndPasswordException catch (e) {
+    } on AuthException catch (e) {
       throw Exception(e.message);
     }
   }

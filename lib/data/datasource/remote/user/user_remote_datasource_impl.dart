@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../../common/exception/sign_in_with_email_and_password_exception.dart';
+import '../../../../common/exception/auth_exception.dart';
 import '../../../model/user_model.dart';
 import 'user_remote_datasource.dart';
 
@@ -133,9 +133,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
           .doc(uid)
           .set(userMap, SetOptions(merge: true));
     } on FirebaseAuthException catch (e) {
-      throw SignInWithEmailAndPasswordException.fromCode(e.code);
+      throw AuthException.fromCode(e.code);
     } catch (e) {
-      throw const SignInWithEmailAndPasswordException();
+      throw const AuthException();
     }
   }
 
@@ -145,9 +145,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       var user = await _getFirebaseUser();
       await user.updatePassword(password);
     } on FirebaseAuthException catch (e) {
-      throw SignInWithEmailAndPasswordException.fromCode(e.code);
+      throw AuthException.fromCode(e.code);
     } catch (e) {
-      throw const SignInWithEmailAndPasswordException();
+      throw const AuthException();
     }
   }
 }

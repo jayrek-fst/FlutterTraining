@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
-import '../../../../common/exception/send_reset_password_exception.dart';
-import '../../../../common/exception/sign_in_with_email_and_password_exception.dart';
-import '../../../../common/exception/sign_up_with_email_and_password_exception.dart';
+import '../../../../common/exception/auth_exception.dart';
 import '../user/user_remote_datasource.dart';
 import '../user/user_remote_datasource_impl.dart';
 import 'auth_remote_datasource.dart';
@@ -20,11 +17,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDateSource {
           email: email, password: password);
       return response;
     } on FirebaseAuthException catch (e) {
-      debugPrint('AuthRemoteDataSourceImpl1: ${e.code}');
-      throw SignInWithEmailAndPasswordException.fromCode(e.code);
+      throw AuthException.fromCode(e.code);
     } catch (e) {
-      debugPrint('AuthRemoteDataSourceImpl2: ${e.toString()}');
-      throw const SignInWithEmailAndPasswordException();
+      throw const AuthException();
     }
   }
 
@@ -34,9 +29,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDateSource {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      throw SignUpWithEmailAndPasswordException.fromCode(e.code);
+      throw AuthException.fromCode(e.code);
     } catch (_) {
-      throw const SignUpWithEmailAndPasswordException();
+      throw const AuthException();
     }
   }
 
@@ -54,9 +49,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDateSource {
     try {
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
-      throw SendResetPasswordException.fromCode(e.code);
+      throw AuthException.fromCode(e.code);
     } catch (_) {
-      throw const SendResetPasswordException();
+      throw const AuthException();
     }
   }
 
