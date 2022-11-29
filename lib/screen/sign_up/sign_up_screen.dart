@@ -10,9 +10,9 @@ import '../../util/asset_path_util.dart';
 import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
 import '../../widget/alert_dialog_widget.dart';
+import '../../widget/text_form_field_email_widget.dart';
 import '../../widget/text_form_field_password_widget.dart';
 import '../../widget/elevated_button_widget.dart';
-import '../../widget/text_form_field_widget.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({Key? key}) : super(key: key);
@@ -68,7 +68,17 @@ class SignUpScreen extends StatelessWidget {
       AuthState state) {
     return Stack(children: [
       Column(children: [
-        _emailFormBuilderTextField(context, appLocalizations),
+        TextFormFieldEmailWidget(
+            name: StringConstants.email,
+            title: appLocalizations.raw_common_email,
+            validator: FormBuilderValidators.compose([
+              FormBuilderValidators.required(
+                  errorText: appLocalizations
+                      .raw_common_validation_invalid_empty_email),
+              FormBuilderValidators.email(
+                  errorText: appLocalizations
+                      .raw_common_validation_invalid_format_email)
+            ])),
         const SizedBox(height: 10),
         TextFormFieldPasswordWidget(
             name: StringConstants.password,
@@ -148,25 +158,5 @@ class SignUpScreen extends StatelessWidget {
                       },
                       child: Text(appLocalizations.raw_common_ok))
                 ]));
-  }
-
-  Widget _emailFormBuilderTextField(
-      BuildContext context, AppLocalizations appLocalizations) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(appLocalizations.raw_common_email)),
-      TextFormFieldWidget(
-          name: StringConstants.email,
-          textInputType: TextInputType.emailAddress,
-          validator: FormBuilderValidators.compose([
-            FormBuilderValidators.required(
-                errorText:
-                    appLocalizations.raw_common_validation_invalid_empty_email),
-            FormBuilderValidators.email(
-                errorText:
-                    appLocalizations.raw_common_validation_invalid_format_email)
-          ]))
-    ]);
   }
 }

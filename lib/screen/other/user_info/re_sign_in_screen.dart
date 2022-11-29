@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:fumiya_flutter/util/route_util.dart';
-import 'package:fumiya_flutter/widget/common_widget.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../business_logic/bloc/auth_bloc/auth_bloc.dart';
-import '../../../business_logic/bloc/toggle_bloc/toggle_bloc.dart';
+import '../../../util/route_util.dart';
 import '../../../util/string_constants.dart';
 import '../../../util/style_util.dart';
+import '../../../widget/common_widget.dart';
 import '../../../widget/elevated_button_widget.dart';
-import '../../../widget/text_form_field_widget.dart';
-import '../../../widget/toggle_password_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../../widget/text_form_field_password_widget.dart';
 
 class ReSignInScreen extends StatelessWidget {
   ReSignInScreen({Key? key, required this.type}) : super(key: key);
@@ -64,8 +62,18 @@ class ReSignInScreen extends StatelessWidget {
                         FormBuilder(
                             key: formKey,
                             child: Column(children: [
-                              _passwordFormBuilderTextField(
-                                  context, appLocalizations),
+                              TextFormFieldPasswordWidget(
+                                  name: StringConstants.password,
+                                  title: appLocalizations.raw_common_password,
+                                  validator: FormBuilderValidators.compose([
+                                    FormBuilderValidators.required(
+                                        errorText: appLocalizations
+                                            .raw_common_validation_invalid_empty_password),
+                                    FormBuilderValidators.match(
+                                        StringConstants.passwordPatternRegEx,
+                                        errorText: appLocalizations
+                                            .raw_common_validation_invalid_format_password)
+                                  ])),
                               const SizedBox(height: 10),
                               Align(
                                   alignment: Alignment.topLeft,
@@ -95,37 +103,5 @@ class ReSignInScreen extends StatelessWidget {
             if (state is AuthLoading) progressDialog()
           ]);
         }));
-  }
-
-  Widget _passwordFormBuilderTextField(
-      BuildContext context, AppLocalizations appLocalizations) {
-    var isPasswordToggle = true;
-
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(appLocalizations.raw_common_password)),
-      BlocBuilder<ToggleBloc, ToggleState>(builder: (context, state) {
-        if (state is ToggleSignInState) isPasswordToggle = state.togglePassword;
-        return TextFormFieldWidget(
-            name: StringConstants.password,
-            isObscure: isPasswordToggle,
-            textInputType: TextInputType.visiblePassword,
-            suffixIcon: InkWell(
-                onTap: () => context.read<ToggleBloc>().add(ToggleSignedIn(
-                    toggleState:
-                        ToggleSignInState(togglePassword: !isPasswordToggle))),
-                child:
-                    TogglePasswordSuffixIconWidget(isToggle: isPasswordToggle)),
-            validator: FormBuilderValidators.compose([
-              FormBuilderValidators.required(
-                  errorText: appLocalizations
-                      .raw_common_validation_invalid_empty_password),
-              FormBuilderValidators.match(StringConstants.passwordPatternRegEx,
-                  errorText: appLocalizations
-                      .raw_common_validation_invalid_format_password)
-            ]));
-      })
-    ]);
   }
 }

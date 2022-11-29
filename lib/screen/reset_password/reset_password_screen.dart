@@ -10,7 +10,7 @@ import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
 import '../../widget/common_widget.dart';
 import '../../widget/elevated_button_widget.dart';
-import '../../widget/text_form_field_widget.dart';
+import '../../widget/text_form_field_email_widget.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   ResetPasswordScreen({Key? key, required this.type}) : super(key: key);
@@ -63,7 +63,17 @@ class ResetPasswordScreen extends StatelessWidget {
                 FormBuilder(
                     key: formKey,
                     child: Column(children: [
-                      _emailFormBuilderTextField(context, appLocalizations),
+                      TextFormFieldEmailWidget(
+                          name: StringConstants.email,
+                          title: appLocalizations.raw_common_email,
+                          validator: FormBuilderValidators.compose([
+                            FormBuilderValidators.required(
+                                errorText: appLocalizations
+                                    .raw_common_validation_invalid_empty_email),
+                            FormBuilderValidators.email(
+                                errorText: appLocalizations
+                                    .raw_common_validation_invalid_format_email)
+                          ])),
                       const SizedBox(height: 10),
                       Text(appLocalizations.raw_common_reset_password_note),
                       const SizedBox(height: 10),
@@ -84,25 +94,5 @@ class ResetPasswordScreen extends StatelessWidget {
             ]);
           }),
         )));
-  }
-
-  Widget _emailFormBuilderTextField(
-      BuildContext context, AppLocalizations appLocalizations) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(appLocalizations.raw_common_email)),
-      TextFormFieldWidget(
-          name: StringConstants.email,
-          textInputType: TextInputType.emailAddress,
-          validator: FormBuilderValidators.compose([
-            FormBuilderValidators.required(
-                errorText:
-                    appLocalizations.raw_common_validation_invalid_empty_email),
-            FormBuilderValidators.email(
-                errorText:
-                    appLocalizations.raw_common_validation_invalid_format_email)
-          ]))
-    ]);
   }
 }

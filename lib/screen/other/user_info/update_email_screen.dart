@@ -9,7 +9,7 @@ import '../../../util/string_constants.dart';
 import '../../../util/style_util.dart';
 import '../../../widget/common_widget.dart';
 import '../../../widget/elevated_button_widget.dart';
-import '../../../widget/text_form_field_widget.dart';
+import '../../../widget/text_form_field_email_widget.dart';
 
 class UpdateEmailScreen extends StatelessWidget {
   UpdateEmailScreen({Key? key}) : super(key: key);
@@ -61,11 +61,51 @@ class UpdateEmailScreen extends StatelessWidget {
                                         .raw_update_email_current_email(
                                             "test@mailinator.com", '\n')),
                                     const SizedBox(height: 20),
-                                    _emailFormBuilderTextField(
-                                        context, appLocalizations),
+                                    TextFormFieldEmailWidget(
+                                        name: StringConstants.newEmail,
+                                        title: appLocalizations
+                                            .raw_common_new_email,
+                                        hint: appLocalizations
+                                            .raw_common_new_email,
+                                        validator:
+                                            FormBuilderValidators.compose([
+                                          FormBuilderValidators.required(
+                                              errorText: appLocalizations
+                                                  .raw_common_validation_invalid_empty_email),
+                                          FormBuilderValidators.email(
+                                              errorText: appLocalizations
+                                                  .raw_common_validation_invalid_format_email)
+                                        ])),
                                     const SizedBox(height: 10),
-                                    _confirmEmailFormBuilderTextField(
-                                        context, appLocalizations),
+                                    TextFormFieldEmailWidget(
+                                        name: StringConstants
+                                            .newEmailConfirmation,
+                                        title: appLocalizations
+                                            .raw_common_new_email_confirmation,
+                                        hint: appLocalizations
+                                            .raw_common_new_email_confirmation,
+                                        validator:
+                                            FormBuilderValidators.compose([
+                                          FormBuilderValidators.required(
+                                              errorText: appLocalizations
+                                                  .raw_common_validation_invalid_empty_email),
+                                          FormBuilderValidators.email(
+                                              errorText: appLocalizations
+                                                  .raw_common_validation_invalid_format_email),
+                                          (val) {
+                                            if (val !=
+                                                _formKey
+                                                    .currentState!
+                                                    .fields[StringConstants
+                                                        .newEmail]!
+                                                    .value
+                                                    .toString()) {
+                                              return appLocalizations
+                                                  .raw_common_invalid_confirm_email;
+                                            }
+                                            return null;
+                                          }
+                                        ])),
                                     const SizedBox(height: 10),
                                     ElevatedButtonWidget(
                                         label:
@@ -88,55 +128,5 @@ class UpdateEmailScreen extends StatelessWidget {
             if (state is AuthLoading) progressDialog()
           ]);
         }));
-  }
-
-  Widget _emailFormBuilderTextField(
-      BuildContext context, AppLocalizations appLocalizations) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(appLocalizations.raw_common_new_email)),
-      TextFormFieldWidget(
-          name: StringConstants.newEmail,
-          hint: appLocalizations.raw_common_new_email,
-          textInputType: TextInputType.emailAddress,
-          validator: FormBuilderValidators.compose([
-            FormBuilderValidators.required(
-                errorText:
-                    appLocalizations.raw_common_validation_invalid_empty_email),
-            FormBuilderValidators.email(
-                errorText:
-                    appLocalizations.raw_common_validation_invalid_format_email)
-          ]))
-    ]);
-  }
-
-  Widget _confirmEmailFormBuilderTextField(
-      BuildContext context, AppLocalizations appLocalizations) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(appLocalizations.raw_common_new_email_confirmation)),
-      TextFormFieldWidget(
-          name: StringConstants.newEmailConfirmation,
-          hint: appLocalizations.raw_common_new_email_confirmation,
-          textInputType: TextInputType.emailAddress,
-          validator: FormBuilderValidators.compose([
-            FormBuilderValidators.required(
-                errorText:
-                    appLocalizations.raw_common_validation_invalid_empty_email),
-            FormBuilderValidators.email(
-                errorText: appLocalizations
-                    .raw_common_validation_invalid_format_email),
-            (val) {
-              if (val !=
-                  _formKey.currentState!.fields[StringConstants.newEmail]!.value
-                      .toString()) {
-                return appLocalizations.raw_common_invalid_confirm_email;
-              }
-              return null;
-            }
-          ]))
-    ]);
   }
 }
