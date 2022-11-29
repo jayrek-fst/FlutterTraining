@@ -5,15 +5,13 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../business_logic/bloc/auth_bloc/auth_bloc.dart';
-import '../../business_logic/bloc/toggle_bloc/toggle_bloc.dart';
-import '../../business_logic/cubit/password_toggle_cubit/password_toggle_cubit.dart';
 import '../../util/app_color_util.dart';
 import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
 import '../../util/style_util.dart';
 import '../../widget/alert_dialog_widget.dart';
 import '../../widget/common_widget.dart';
-import '../../widget/toggle_password_widget.dart';
+import '../../widget/text_form_field_password_widget.dart';
 import '../../widget/elevated_button_widget.dart';
 import '../../widget/text_form_field_widget.dart';
 
@@ -98,8 +96,9 @@ class SignInScreen extends StatelessWidget {
                           key: _formKey,
                           child: _signInForm(context, appLocalizations, state)),
                       TextButton(
-                          onPressed: () => Navigator.of(context)
-                              .pushNamed(RouteUtil.resetPassword, arguments: RouteUtil.signIn),
+                          onPressed: () => Navigator.of(context).pushNamed(
+                              RouteUtil.resetPassword,
+                              arguments: RouteUtil.signIn),
                           child: Text(
                               appLocalizations.raw_common_forgot_password,
                               style: underlineTextStyle))
@@ -114,7 +113,17 @@ class SignInScreen extends StatelessWidget {
     return Column(children: [
       _emailFormBuilderTextField(context, appLocalizations),
       const SizedBox(height: 10),
-      _passwordFormBuilderTextField(context, appLocalizations),
+      TextFormFieldPasswordWidget(
+          name: StringConstants.password,
+          title: appLocalizations.raw_common_password,
+          validator: FormBuilderValidators.compose([
+            FormBuilderValidators.required(
+                errorText: appLocalizations
+                    .raw_common_validation_invalid_empty_password),
+            FormBuilderValidators.match(StringConstants.passwordPatternRegEx,
+                errorText: appLocalizations
+                    .raw_common_validation_invalid_format_password)
+          ])),
       const SizedBox(height: 10),
       ElevatedButtonWidget(
           label: appLocalizations.raw_common_sign_in,
@@ -153,71 +162,6 @@ class SignInScreen extends StatelessWidget {
                 errorText:
                     appLocalizations.raw_common_validation_invalid_format_email)
           ]))
-    ]);
-  }
-
-  Widget _passwordFormBuilderTextField(
-      BuildContext context, AppLocalizations appLocalizations) {
-    var isPasswordToggle = true;
-
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(appLocalizations.raw_common_password)),
-      BlocBuilder<ToggleBloc, ToggleState>(builder: (context, state) {
-        if (state is ToggleSignInState) isPasswordToggle = state.togglePassword;
-        return TextFormFieldWidget(
-            name: StringConstants.password,
-            isObscure: isPasswordToggle,
-            textInputType: TextInputType.visiblePassword,
-            suffixIcon: InkWell(
-                onTap: () => context.read<ToggleBloc>().add(ToggleSignedIn(
-                    toggleState:
-                        ToggleSignInState(togglePassword: !isPasswordToggle))),
-                child:
-                    TogglePasswordSuffixIconWidget(isToggle: isPasswordToggle)),
-            validator: FormBuilderValidators.compose([
-              FormBuilderValidators.required(
-                  errorText: appLocalizations
-                      .raw_common_validation_invalid_empty_password),
-              FormBuilderValidators.match(StringConstants.passwordPatternRegEx,
-                  errorText: appLocalizations
-                      .raw_common_validation_invalid_format_password)
-            ]));
-      })
-    ]);
-  }
-
-  Widget _passwordCubitFormBuilderTextField(
-      BuildContext context, AppLocalizations appLocalizations) {
-    var isPasswordToggle = true;
-
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(appLocalizations.raw_common_password)),
-      BlocBuilder<PasswordToggleCubit, PasswordToggleState>(
-          builder: (context, state) {
-        if (state is PasswordToggleAction) isPasswordToggle = state.toggle;
-        return TextFormFieldWidget(
-            name: StringConstants.password,
-            isObscure: isPasswordToggle,
-            textInputType: TextInputType.visiblePassword,
-            suffixIcon: InkWell(
-                onTap: () => context
-                    .read<PasswordToggleCubit>()
-                    .passwordToggle(!isPasswordToggle),
-                child:
-                    TogglePasswordSuffixIconWidget(isToggle: isPasswordToggle)),
-            validator: FormBuilderValidators.compose([
-              FormBuilderValidators.required(
-                  errorText: appLocalizations
-                      .raw_common_validation_invalid_empty_password),
-              FormBuilderValidators.match(StringConstants.passwordPatternRegEx,
-                  errorText: appLocalizations
-                      .raw_common_validation_invalid_format_password)
-            ]));
-      })
     ]);
   }
 }

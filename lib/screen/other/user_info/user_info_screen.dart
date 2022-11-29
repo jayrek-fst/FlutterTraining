@@ -40,7 +40,7 @@ class UserInfoScreen extends StatelessWidget {
                               ])
                             ),
                             const SizedBox(height: 10),
-                            const Text('jayrek tabasa'),
+                            const Text('jayrek tabassdasddasa'),
                             const Text('jrektest@mailinator.com')
                           ]))),
                   const Divider(height: 0, thickness: 1, color: Colors.white),

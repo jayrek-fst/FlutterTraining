@@ -7,7 +7,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'business_logic/bloc/auth_bloc/auth_bloc.dart';
 import 'business_logic/bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
 import 'business_logic/bloc/toggle_bloc/toggle_bloc.dart';
-import 'business_logic/cubit/password_toggle_cubit/password_toggle_cubit.dart';
 import 'domain/use_case/app_use_cases.dart';
 import 'l10n/l10n.dart';
 import 'route_generator.dart';
@@ -35,8 +34,7 @@ class MyApp extends StatelessWidget {
                       appUseCases:
                           RepositoryProvider.of<AppUseCases>(context))),
               BlocProvider(create: (context) => ToggleBloc()),
-              BlocProvider(create: (context) => BottomNavBloc()),
-              BlocProvider(create: (context) => PasswordToggleCubit())
+              BlocProvider(create: (context) => BottomNavBloc())
             ],
             child: MaterialApp(
                 title: StringConstants.appName,

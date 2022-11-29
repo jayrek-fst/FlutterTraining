@@ -5,13 +5,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../../business_logic/bloc/auth_bloc/auth_bloc.dart';
-import '../../business_logic/bloc/toggle_bloc/toggle_bloc.dart';
 import '../../util/app_color_util.dart';
 import '../../util/asset_path_util.dart';
 import '../../util/route_util.dart';
 import '../../util/string_constants.dart';
 import '../../widget/alert_dialog_widget.dart';
-import '../../widget/toggle_password_widget.dart';
+import '../../widget/text_form_field_password_widget.dart';
 import '../../widget/elevated_button_widget.dart';
 import '../../widget/text_form_field_widget.dart';
 
@@ -71,9 +70,40 @@ class SignUpScreen extends StatelessWidget {
       Column(children: [
         _emailFormBuilderTextField(context, appLocalizations),
         const SizedBox(height: 10),
-        _passwordFormBuilderTextField(context, appLocalizations),
+        TextFormFieldPasswordWidget(
+            name: StringConstants.password,
+            title: appLocalizations.raw_common_password,
+            hint: appLocalizations.raw_common_hint_password,
+            validator: FormBuilderValidators.compose([
+              FormBuilderValidators.required(
+                  errorText: appLocalizations
+                      .raw_common_validation_invalid_empty_password),
+              FormBuilderValidators.match(StringConstants.passwordPatternRegEx,
+                  errorText: appLocalizations
+                      .raw_common_validation_invalid_format_password)
+            ])),
         const SizedBox(height: 10),
-        _confirmPasswordFormBuilderTextField(context, appLocalizations),
+        TextFormFieldPasswordWidget(
+            name: StringConstants.confirmPassword,
+            title: appLocalizations.raw_common_confirm_password,
+            hint: appLocalizations.raw_common_hint_password,
+            validator: FormBuilderValidators.compose([
+              FormBuilderValidators.required(
+                  errorText:
+                      appLocalizations.raw_common_input_confirm_password),
+              FormBuilderValidators.match(StringConstants.passwordPatternRegEx,
+                  errorText: appLocalizations
+                      .raw_common_validation_invalid_format_password),
+              (val) {
+                if (val !=
+                    _formKey
+                        .currentState!.fields[StringConstants.password]!.value
+                        .toString()) {
+                  return appLocalizations.raw_common_invalid_confirm_password;
+                }
+                return null;
+              }
+            ])),
         ElevatedButtonWidget(
             label: appLocalizations.raw_common_confirm,
             onPressed: () {
@@ -137,86 +167,6 @@ class SignUpScreen extends StatelessWidget {
                 errorText:
                     appLocalizations.raw_common_validation_invalid_format_email)
           ]))
-    ]);
-  }
-
-  Widget _passwordFormBuilderTextField(
-      BuildContext context, AppLocalizations appLocalizations) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(appLocalizations.raw_common_password)),
-      BlocBuilder<ToggleBloc, ToggleState>(builder: (context, state) {
-        var isPasswordToggle = true;
-        var isConfirmPasswordToggle = true;
-        if (state is ToggleSignUpState) {
-          isPasswordToggle = state.togglePassword;
-          isConfirmPasswordToggle = state.toggleConfirmPassword;
-        }
-        return TextFormFieldWidget(
-            name: StringConstants.password,
-            isObscure: isPasswordToggle,
-            textInputType: TextInputType.visiblePassword,
-            hint: appLocalizations.raw_common_hint_password,
-            suffixIcon: InkWell(
-                onTap: () => context.read<ToggleBloc>().add(ToggleSignedUp(
-                    toggleState: ToggleSignUpState(
-                        togglePassword: !isPasswordToggle,
-                        toggleConfirmPassword: isConfirmPasswordToggle))),
-                child:
-                    TogglePasswordSuffixIconWidget(isToggle: isPasswordToggle)),
-            validator: FormBuilderValidators.compose([
-              FormBuilderValidators.required(
-                  errorText: appLocalizations
-                      .raw_common_validation_invalid_empty_password),
-              FormBuilderValidators.match(StringConstants.passwordPatternRegEx,
-                  errorText: appLocalizations
-                      .raw_common_validation_invalid_format_password)
-            ]));
-      })
-    ]);
-  }
-
-  Widget _confirmPasswordFormBuilderTextField(
-      BuildContext context, AppLocalizations appLocalizations) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Text(appLocalizations.raw_common_confirm_password)),
-      BlocBuilder<ToggleBloc, ToggleState>(builder: (context, state) {
-        var isPasswordToggle = true;
-        var isConfirmPasswordToggle = true;
-
-        if (state is ToggleSignUpState) {
-          isPasswordToggle = state.togglePassword;
-          isConfirmPasswordToggle = state.toggleConfirmPassword;
-        }
-        return TextFormFieldWidget(
-            name: StringConstants.confirmPassword,
-            isObscure: isConfirmPasswordToggle,
-            textInputType: TextInputType.visiblePassword,
-            hint: appLocalizations.raw_common_hint_password,
-            suffixIcon: InkWell(
-                onTap: () => context.read<ToggleBloc>().add(ToggleSignedUp(
-                    toggleState: ToggleSignUpState(
-                        togglePassword: isPasswordToggle,
-                        toggleConfirmPassword: !isConfirmPasswordToggle))),
-                child: TogglePasswordSuffixIconWidget(
-                    isToggle: isConfirmPasswordToggle)),
-            validator: FormBuilderValidators.compose([
-              FormBuilderValidators.required(
-                  errorText:
-                      appLocalizations.raw_common_input_confirm_password),
-              FormBuilderValidators.match(StringConstants.passwordPatternRegEx,
-                  errorText: appLocalizations
-                      .raw_common_validation_invalid_format_password),
-              FormBuilderValidators.equal(
-                  _formKey.currentState!.fields[StringConstants.password]!.value
-                      .toString(),
-                  errorText:
-                      appLocalizations.raw_common_invalid_confirm_password)
-            ]));
-      })
     ]);
   }
 }

@@ -12,7 +12,8 @@ class AlertDialogWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        title: Text(title, style: const TextStyle(fontSize: 18)),
+        title: Text(title,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         content: Text(message, style: const TextStyle(fontSize: 14)),
         actions: widgetActions);
   }
