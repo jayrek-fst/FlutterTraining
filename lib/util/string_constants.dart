@@ -5,6 +5,9 @@ class StringConstants {
   static const String fontNotoSans = 'NotoSans';
   static const String fontFutura = 'Futura';
 
+  ///user collection
+  static const String userCollection = 'users';
+
   ///form builder text field name
   static const String email = 'email';
   static const String newEmail = 'newEmail';
