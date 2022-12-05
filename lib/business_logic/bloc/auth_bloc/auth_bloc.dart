@@ -19,10 +19,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthSignIn>((event, emit) => _onSignedIn(event, emit));
     on<AuthSignUp>((event, emit) => _onSignedUp(event, emit));
     on<AuthSendEmailVerification>(
-        (event, emit) => _onSendEmailVerification(event, emit));
+            (event, emit) => _onSendEmailVerification(event, emit));
     on<UserInfoRegistration>((event, emit) => _onUserRegistration(event, emit));
     on<AuthSendResetPassword>(
-        (event, emit) => _onSendResetPassword(event, emit));
+            (event, emit) => _onSendResetPassword(event, emit));
     on<AuthSignOut>((event, emit) => _onSignOut(event, emit));
     on<AuthReSignIn>((event, emit) => _onReSignIn(event, emit));
     on<AuthUpdateEmail>((event, emit) => _onUpdateEmail(event, emit));
@@ -32,9 +32,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _onCheckAuthUser(CheckAuthUser event, Emitter<AuthState> emitter) async {
     emitter(AuthLoading());
     try {
-      await appUseCases.checkUserAuthenticatedUseCase()
-          ? emitter(AuthUserAuthenticated())
-          : emitter(AuthUserUnAuthenticated());
+      var isAuthenticated = await appUseCases.checkUserAuthenticatedUseCase();
+      if (isAuthenticated) {
+        final user = await appUseCases.getUserInfoUseCase();
+        user != null
+            ? emitter(AuthUserAuthenticated(user: user))
+            : emitter(UserInfoNotExisted());
+      } else {
+        emitter(AuthUserUnAuthenticated());
+      }
     } catch (e) {
       emitter(AuthExceptionOccurred(e.toString()));
     }
@@ -53,7 +59,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (await appUseCases.isUserEmailVerifiedUseCase()) {
         final user = await appUseCases.getUserInfoUseCase();
         user != null
-            ? emitter(AuthUserAuthenticated())
+            ? emitter(AuthUserAuthenticated(user: user))
             : emitter(UserInfoNotExisted());
       } else {
         emitter(AuthUserEmailUnVerified());
@@ -78,8 +84,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  _onSendEmailVerification(
-      AuthSendEmailVerification event, Emitter<AuthState> emitter) async {
+  _onSendEmailVerification(AuthSendEmailVerification event,
+      Emitter<AuthState> emitter) async {
     emitter(AuthLoading());
 
     try {
@@ -90,8 +96,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  _onUserRegistration(
-      UserInfoRegistration event, Emitter<AuthState> emitter) async {
+  _onUserRegistration(UserInfoRegistration event,
+      Emitter<AuthState> emitter) async {
     emitter(AuthLoading());
 
     event.userModel.subscription = Subscription();
@@ -99,14 +105,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     try {
       await appUseCases.saveUserInfoUseCase(event.userModel);
-      emitter(AuthUserAuthenticated());
+      final user = await appUseCases.getUserInfoUseCase();
+      user != null
+          ? emitter(AuthUserAuthenticated(user: user))
+          : emitter(UserInfoNotExisted());
     } catch (e) {
       emitter(AuthExceptionOccurred(e.toString()));
     }
   }
 
-  _onSendResetPassword(
-      AuthSendResetPassword event, Emitter<AuthState> emitter) async {
+  _onSendResetPassword(AuthSendResetPassword event,
+      Emitter<AuthState> emitter) async {
     emitter(AuthLoading());
     try {
       await appUseCases.resetPasswordUseCase(event.email);
@@ -129,8 +138,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emitter(AuthLoading());
     try {
       await appUseCases.reSignInUseCase(event.password);
-
-      emitter(AuthUserAuthenticated());
+      final user = await appUseCases.getUserInfoUseCase();
+      user != null
+          ? emitter(AuthUserAuthenticated(user: user))
+          : emitter(UserInfoNotExisted());
     } catch (e) {
       emitter(AuthExceptionOccurred(e.toString()));
     }
@@ -147,8 +158,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  _onUpdatePassword(
-      AuthUpdatePassword event, Emitter<AuthState> emitter) async {
+  _onUpdatePassword(AuthUpdatePassword event,
+      Emitter<AuthState> emitter) async {
     emitter(AuthLoading());
     try {
       await appUseCases.updateUserPasswordUseCase(event.password);

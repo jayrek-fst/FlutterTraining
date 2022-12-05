@@ -29,7 +29,8 @@ class RouteGenerator {
       case RouteUtil.splash:
         return MaterialPageRoute(builder: (_) => SplashScreen());
       case RouteUtil.tutorialOne:
-        return MaterialPageRoute(builder: (_) => const TutorialOneScreen());
+        return RouteAnimationUtil(
+            child: const TutorialOneScreen(), direction: AxisDirection.up);
       case RouteUtil.tutorialTwo:
         return RouteAnimationUtil(
             child: const TutorialTwoScreen(), direction: AxisDirection.left);
@@ -75,7 +76,7 @@ class RouteGenerator {
             child: const TermsOfServiceScreen(), direction: AxisDirection.left);
       case RouteUtil.userInfo:
         return RouteAnimationUtil(
-            child: const UserInfoScreen(), direction: AxisDirection.left);
+            child: UserInfoScreen(), direction: AxisDirection.left);
       case RouteUtil.reSignIn:
         return RouteAnimationUtil(
             child: ReSignInScreen(type: args.toString()),

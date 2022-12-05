@@ -63,29 +63,44 @@ class UserModel {
   ) {
     final data = snapshot.data();
     return UserModel(
-      uid: data?['uid'],
-      sex: data?['sex'],
-      mail: data?['mail'],
-      icon: data?['icon'],
-      phoneNumber: data?['phoneNumber'],
-      platform: data?['platform'],
-      role: data?['role'],
-      createdAt: data?['createdAt'],
-      updatedAt: data?['updatedAt'],
-    );
+        uid: data?['uid'],
+        sex: data?['sex'],
+        mail: data?['mail'],
+        icon: data?['icon'],
+        fullName: data?['fullName'] != null
+            ? FullName.fromJson(data!['fullName'])
+            : null,
+        kanaFullName: data?['kanaFullName'] != null
+            ? KanaFullName.fromJson(data!['kanaFullName'])
+            : null,
+        phoneNumber: data?['phoneNumber'],
+        platform: data?['platform'],
+        role: data?['role'],
+        address: data?['address'] != null
+            ? Address.fromJson(data!['address'])
+            : null,
+        createdAt: data?['createdAt'],
+        updatedAt: data?['updatedAt'],
+        subscription: data?['subscription'] != null
+            ? Subscription.fromJson(data!['subscription'])
+            : null);
   }
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (uid != null) "uid": uid,
-      if (sex != null) "sex": sex,
-      if (mail != null) "mail": mail,
-      if (icon != null) "icon": icon,
-      if (phoneNumber != null) "phoneNumber": phoneNumber,
-      if (platform != null) "platform": platform,
-      if (role != null) "role": role,
-      if (createdAt != null) "role": createdAt,
-      if (updatedAt != null) "role": updatedAt,
+      if (uid != null) 'uid': uid,
+      if (sex != null) 'sex': sex,
+      if (mail != null) 'mail': mail,
+      if (icon != null) 'icon': icon,
+      if (fullName != null) 'fullName': fullName,
+      if (kanaFullName != null) 'kanaFullName': kanaFullName,
+      if (phoneNumber != null) 'phoneNumber': phoneNumber,
+      if (platform != null) 'platform': platform,
+      if (role != null) 'role': role,
+      if (address != null) 'address': address,
+      if (createdAt != null) 'role': createdAt,
+      if (updatedAt != null) 'role': updatedAt,
+      if (subscription != null) 'subscription': subscription
     };
   }
 
@@ -117,6 +132,13 @@ class UserModel {
     }
     return data;
   }
+
+  @override
+  String toString() {
+    return 'uid: $uid, sex: $sex, mail: $mail, fullName: $fullName, kanaFullName: $kanaFullName, '
+        'platform: $platform, address: $address, birthDate: $birthDate createdAt: $createdAt, '
+        'updatedAt: $updatedAt, subscription: $subscription';
+  }
 }
 
 class FullName {
@@ -139,6 +161,11 @@ class FullName {
     data['lastName'] = lastName;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'nickName: $nickName, firstName: $firstName, lastName: $lastName';
+  }
 }
 
 class KanaFullName {
@@ -157,6 +184,11 @@ class KanaFullName {
     data['firstNameKana'] = firstNameKana;
     data['lastNameKana'] = lastNameKana;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'firstNameKana: $firstNameKana, lastNameKana: $lastNameKana';
   }
 }
 
@@ -191,6 +223,11 @@ class Address {
     data['addressNumber'] = addressNumber;
     return data;
   }
+
+  @override
+  String toString() {
+    return 'postalCode: $postalCode, addressPrefecture: $addressPrefecture, addressCity: $addressCity, addressNumber: $addressNumber';
+  }
 }
 
 class BirthDate {
@@ -212,6 +249,11 @@ class BirthDate {
     data['birthMonth'] = birthMonth;
     data['birthDay'] = birthDay;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'birthYear: $birthYear, birthMonth: $birthMonth, birthDay: $birthDay';
   }
 }
 
@@ -253,5 +295,11 @@ class Subscription {
     data['subscriptionUpdateDate'] = subscriptionUpdateDate;
     data['withdraw'] = withdraw;
     return data;
+  }
+
+  @override
+  String toString() {
+    return 'firstBillingDate: $firstBillingDate, membersNo: $membersNo, subscription: $subscription, subscriptionPaused: $subscriptionPaused'
+        'subscriptionStartDate: $subscriptionStartDate, subscriptionUpdateDate: $subscriptionUpdateDate, withdraw: $withdraw';
   }
 }

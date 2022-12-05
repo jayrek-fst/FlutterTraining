@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fumiya_flutter/util/string_constants.dart';
 
 import '../../../../common/exception/auth_exception.dart';
 import '../../../model/user_model.dart';
@@ -80,23 +81,14 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   Future<UserModel?> getUserInfo() async {
     try {
       final uid = _getFirebaseUser().uid;
-      final ref = _firebaseFirestore.collection('users').doc(uid).withConverter(
-          fromFirestore: UserModel.fromFirestore,
-          toFirestore: (UserModel userModel, _) => userModel.toFirestore());
+      final ref = _firebaseFirestore
+          .collection(StringConstants.userCollection)
+          .doc(uid)
+          .withConverter<UserModel>(
+              fromFirestore: UserModel.fromFirestore,
+              toFirestore: (UserModel userModel, _) => userModel.toJson());
       final docSnap = await ref.get();
-      UserModel? user = docSnap.data(); // Convert to City object
-      // if (city != null) {
-      //   print(city);
-      // } else {
-      //   print("No such document.");
-      // }
-      //
-      //
-      // final uid = _getFirebaseUser().uid;
-      //  var snapshot = await _userCollection.doc(uid).get();
-      //  final userModel = snapshot.data() as Map<String, dynamic>;
-
-      return user;
+      return docSnap.data();
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -110,7 +102,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       userModel.createdAt = Timestamp.now();
       userModel.updatedAt = Timestamp.now();
       await _firebaseFirestore
-          .collection('users')
+          .collection(StringConstants.userCollection)
           .doc(userModel.uid)
           .set(userModel.toJson());
     } catch (e) {
@@ -129,7 +121,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
 
       var userMap = {'mail': email, 'updatedAt': Timestamp.now()};
       await _firebaseFirestore
-          .collection('users')
+          .collection(StringConstants.userCollection)
           .doc(uid)
           .set(userMap, SetOptions(merge: true));
     } on FirebaseAuthException catch (e) {

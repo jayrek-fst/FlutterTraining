@@ -41,7 +41,7 @@ Widget progressDialog() {
       top: 20,
       child: Center(
           child: CircularProgressIndicator(
-              backgroundColor: AppColorUtil.appBlueDarkColor)));
+              backgroundColor: AppColorUtil.appBlueDarkColor, color: Colors.white)));
 }
 
 Widget otherListItem(

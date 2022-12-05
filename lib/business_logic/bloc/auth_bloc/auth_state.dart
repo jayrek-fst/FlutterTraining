@@ -12,12 +12,12 @@ class AuthLoading extends AuthState {}
 class AuthUserUnAuthenticated extends AuthState {}
 
 class AuthUserAuthenticated extends AuthState {
-  // const AuthUserAuthenticated(this.user);
-  //
-  // final UserModel user;
-  //
-  // @override
-  // List<Object> get props => [user];
+  const AuthUserAuthenticated({required this.user});
+
+  final UserModel user;
+
+  @override
+  List<Object> get props => [user];
 }
 
 class AuthUserEmailUnVerified extends AuthState {}
