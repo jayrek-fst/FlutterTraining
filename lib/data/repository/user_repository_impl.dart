@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fumiya_flutter/data/datasource/remote/user/user_remote_datasource.dart';
 import 'package:fumiya_flutter/data/model/user_model.dart';
 
@@ -52,5 +54,15 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future updateUserPassword(String password) async {
     await userRemoteDataSource.updateUserPassword(password);
+  }
+
+  @override
+  Future updatePhoto(File imageFile) async {
+    await userRemoteDataSource.updatePhoto(imageFile);
+  }
+
+  @override
+  Future deletePhoto() async{
+    await userRemoteDataSource.deletePhoto();
   }
 }

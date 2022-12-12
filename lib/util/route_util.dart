@@ -20,4 +20,5 @@ class RouteUtil {
   static const String reSignIn = '/reSignIn';
   static const String updateEmail = '/updateEmail';
   static const String updatePassword = '/updatePassword';
+  static const String updateUserInfo = '/updateUserInfo';
 }

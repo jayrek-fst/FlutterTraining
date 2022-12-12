@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import '../../data/model/user_model.dart';
 
 abstract class UserRepository {
@@ -18,4 +20,8 @@ abstract class UserRepository {
   Future updateUserEmail(String newEmail);
 
   Future updateUserPassword(String password);
+
+  Future updatePhoto(File imageFile);
+
+  Future deletePhoto();
 }

@@ -272,8 +272,6 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
               context
                   .read<AuthBloc>()
                   .add(UserInfoRegistration(userModel: userModel));
-              // UserModel user = userModel;
-              // debugPrint('UserModel: ${user.toJson()}');
             })
       ]);
 }

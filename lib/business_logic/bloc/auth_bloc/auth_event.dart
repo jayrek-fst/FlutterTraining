@@ -75,3 +75,14 @@ class AuthUpdatePassword extends AuthEvent {
   @override
   List<Object?> get props => [password];
 }
+
+class AuthUpdatePhoto extends AuthEvent {
+  final File imageFile;
+
+  const AuthUpdatePhoto({required this.imageFile});
+
+  @override
+  List<Object?> get props => [imageFile];
+}
+
+class AuthDeletePhoto extends AuthEvent {}

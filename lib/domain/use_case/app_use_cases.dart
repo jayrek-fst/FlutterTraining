@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fumiya_flutter/common/exception/auth_exception.dart';
 
@@ -108,6 +110,22 @@ class AppUseCases {
   Future updateUserPasswordUseCase(String password) async {
     try {
       await userRepository.updateUserPassword(password);
+    } on AuthException catch (e) {
+      throw Exception(e.message);
+    }
+  }
+
+  Future uploadPhoto(File image) async {
+    try {
+      await userRepository.updatePhoto(image);
+    } on AuthException catch (e) {
+      throw Exception(e.message);
+    }
+  }
+
+  Future deletePhoto() async {
+    try {
+      await userRepository.deletePhoto();
     } on AuthException catch (e) {
       throw Exception(e.message);
     }

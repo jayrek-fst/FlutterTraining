@@ -7,6 +7,7 @@ import 'screen/other/terms_of_service_screen.dart';
 import 'screen/other/user_info/re_sign_in_screen.dart';
 import 'screen/other/user_info/update_email_screen.dart';
 import 'screen/other/user_info/update_password_screen.dart';
+import 'screen/other/user_info/update_user_info_screen.dart';
 import 'screen/other/user_info/user_info_screen.dart';
 import 'screen/reset_password/reset_password_screen.dart';
 import 'screen/reset_password/reset_password_verification_screen.dart';
@@ -87,6 +88,9 @@ class RouteGenerator {
       case RouteUtil.updatePassword:
         return RouteAnimationUtil(
             child: UpdatePasswordScreen(), direction: AxisDirection.left);
+      case RouteUtil.updateUserInfo:
+        return RouteAnimationUtil(
+            child: UpdateUserInfoScreen(), direction: AxisDirection.left);
       default:
         return MaterialPageRoute(
             builder: (_) =>

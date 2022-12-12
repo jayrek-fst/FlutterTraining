@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fumiya_flutter/util/string_constants.dart';
 
 import '../../../../common/exception/auth_exception.dart';
@@ -136,6 +139,46 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     try {
       var user = await _getFirebaseUser();
       await user.updatePassword(password);
+    } on FirebaseAuthException catch (e) {
+      throw AuthException.fromCode(e.code);
+    } catch (e) {
+      throw const AuthException();
+    }
+  }
+
+  @override
+  Future updatePhoto(File imageFile) async {
+    try {
+      var uid = await getUserUid();
+      Reference reference =
+          FirebaseStorage.instance.ref().child('profilePhoto/$uid/profile.jpg');
+      await reference.putFile(File(imageFile.path));
+      await reference.getDownloadURL().then((imageUrl) async {
+        var userMap = {'icon': imageUrl, 'updatedAt': Timestamp.now()};
+        await _firebaseFirestore
+            .collection(StringConstants.userCollection)
+            .doc(uid)
+            .set(userMap, SetOptions(merge: true));
+      });
+    } on FirebaseAuthException catch (e) {
+      throw AuthException.fromCode(e.code);
+    } catch (e) {
+      throw const AuthException();
+    }
+  }
+
+  @override
+  Future deletePhoto() async {
+    try {
+      var uid = await getUserUid();
+      Reference reference =
+          FirebaseStorage.instance.ref().child('profilePhoto/$uid/profile.jpg');
+      await reference.delete();
+      var userMap = {'icon': '', 'updatedAt': Timestamp.now()};
+      await _firebaseFirestore
+          .collection(StringConstants.userCollection)
+          .doc(uid)
+          .set(userMap, SetOptions(merge: true));
     } on FirebaseAuthException catch (e) {
       throw AuthException.fromCode(e.code);
     } catch (e) {

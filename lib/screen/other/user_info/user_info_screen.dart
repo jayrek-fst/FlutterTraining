@@ -1,7 +1,12 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../business_logic/bloc/auth_bloc/auth_bloc.dart';
 import '../../../data/model/user_model.dart';
 import '../../../domain/use_case/app_use_cases.dart';
@@ -12,6 +17,7 @@ import '../../../widget/common_widget.dart';
 
 class UserInfoScreen extends StatelessWidget {
   UserInfoScreen({Key? key}) : super(key: key);
+
   final userInfo = AuthBloc(appUseCases: AppUseCases());
 
   @override
@@ -39,19 +45,79 @@ class UserInfoScreen extends StatelessWidget {
                             child: SizedBox(
                                 height: 200,
                                 child: Column(children: [
-                                  GestureDetector(
+                                  ProfileIcon(
+                                    imageIcon: userInfo.icon.toString(),
+                                  ),
+                                  /*  GestureDetector(
                                       onTap: () {
-                                        debugPrint('dsf');
+                                        showModalBottomSheet<void>(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Wrap(children: [
+                                                _uploadPhotoItem(
+                                                    icon: Icons.delete_rounded,
+                                                    title:
+                                                        'Delete current image',
+                                                    onTap: () {},
+                                                    isEnable: false),
+                                                _uploadPhotoItem(
+                                                    icon: Icons
+                                                        .photo_library_rounded,
+                                                    title:
+                                                        'Select from library',
+                                                    onTap: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      pickImage(
+                                                          context: context,
+                                                          isOpenCamera: false);
+                                                    },
+                                                    isEnable: true),
+                                                _uploadPhotoItem(
+                                                    icon: Icons
+                                                        .camera_alt_rounded,
+                                                    title: 'Take a picture',
+                                                    onTap: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      pickImage(
+                                                          context: context,
+                                                          isOpenCamera: true);
+                                                    },
+                                                    isEnable: true)
+                                              ]);
+                                            });
                                       },
                                       child: Stack(children: [
-                                        const CircleAvatar(
+                                        CircleAvatar(
                                             backgroundColor: Colors.white,
-                                            radius: 60,
-                                            child: Icon(Icons.person,
-                                                size: 100,
-                                                color: Colors.black38)),
+                                            radius: 50,
+                                            child: userInfo.icon != ""
+                                                ? ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50),
+                                                    child: Image.network(
+                                                        userInfo.icon
+                                                            .toString(),
+                                                        fit: BoxFit.cover,
+                                                        width: 100,
+                                                        height: 100))
+                                                : iconFile != null
+                                                    ? ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(50),
+                                                        child: Image.file(
+                                                            iconFile!,
+                                                            fit: BoxFit.cover,
+                                                            width: 100,
+                                                            height: 100))
+                                                    : const Icon(Icons.person,
+                                                        size: 100,
+                                                        color: Colors.black38)),
                                         circularAddIcon()
-                                      ])),
+                                      ])),*/
                                   const SizedBox(height: 10),
                                   Text(
                                       '${userInfo.fullName?.firstName} ${userInfo.fullName?.lastName}'),
@@ -65,7 +131,8 @@ class UserInfoScreen extends StatelessWidget {
                             trailing: const Icon(
                                 Icons.arrow_forward_ios_outlined,
                                 size: 18),
-                            onTap: () async {}),
+                            onTap: () => Navigator.of(context)
+                                .pushNamed(RouteUtil.updateUserInfo)),
                         otherListItem(
                             title: appLocalizations.raw_common_update_email,
                             trailing: const Icon(
@@ -88,5 +155,123 @@ class UserInfoScreen extends StatelessWidget {
                     return Container();
                   },
                 ))));
+  }
+}
+
+class ProfileIcon extends StatefulWidget {
+  ProfileIcon({Key? key, this.imageIcon}) : super(key: key);
+
+  String? imageIcon;
+
+  @override
+  State<ProfileIcon> createState() => _ProfileIconState();
+}
+
+class _ProfileIconState extends State<ProfileIcon> {
+  File? iconFile;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () {
+          showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) {
+                return Wrap(children: [
+                  _uploadPhotoItem(
+                      icon: Icons.delete_rounded,
+                      title: 'Delete current image',
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        setState(() {
+                          iconFile = null;
+                          widget.imageIcon = '';
+                        });
+                        context.read<AuthBloc>().add(AuthDeletePhoto());
+                      },
+                      isEnable: widget.imageIcon != "" || iconFile != null
+                          ? true
+                          : false),
+                  _uploadPhotoItem(
+                      icon: Icons.photo_library_rounded,
+                      title: 'Select from library',
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        pickImage(context: context, isOpenCamera: false);
+                      },
+                      isEnable: true),
+                  _uploadPhotoItem(
+                      icon: Icons.camera_alt_rounded,
+                      title: 'Take a picture',
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        pickImage(context: context, isOpenCamera: true);
+                      },
+                      isEnable: true)
+                ]);
+              });
+        },
+        child: Stack(children: [
+          CircleAvatar(
+              backgroundColor: Colors.white,
+              radius: 50,
+              child: iconFile != null
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Image.file(iconFile!,
+                          fit: BoxFit.cover, width: 100, height: 100))
+                  : widget.imageIcon != ""
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: CachedNetworkImage(
+                              imageUrl: widget.imageIcon!,
+                              placeholder: (context, url) =>
+                                  const CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.error),
+                              fit: BoxFit.cover,
+                              width: 100,
+                              height: 100))
+                      : const Icon(Icons.person,
+                          size: 100, color: Colors.black38)),
+          circularAddIcon()
+        ]));
+  }
+
+  Future pickImage(
+      {required BuildContext context, required bool isOpenCamera}) async {
+    final contextRead = context.read<AuthBloc>();
+    try {
+      final image = await ImagePicker().pickImage(
+          source: isOpenCamera ? ImageSource.camera : ImageSource.gallery,
+          maxHeight: 512,
+          maxWidth: 512,
+          imageQuality: 75);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      setState(() {
+        iconFile = imageTemp;
+      });
+      contextRead.add(AuthUpdatePhoto(imageFile: imageTemp));
+    } on PlatformException catch (e) {
+      debugPrint('Failed to pick image: $e');
+    }
+  }
+
+  _uploadPhotoItem(
+      {required IconData icon,
+      required String title,
+      required Function() onTap,
+      required bool isEnable}) {
+    return ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+        leading: Icon(icon,
+            color: isEnable ? Colors.black : Colors.black38, size: 20),
+        title: Text(title,
+            style: TextStyle(
+                color: isEnable ? Colors.black : Colors.black38,
+                fontFamily: StringConstants.fontNotoSans,
+                fontSize: 15)),
+        onTap: isEnable ? onTap : null);
   }
 }

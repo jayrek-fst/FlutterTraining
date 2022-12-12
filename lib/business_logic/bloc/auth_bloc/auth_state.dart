@@ -40,3 +40,5 @@ class UserInfoNotExisted extends AuthState {}
 class AuthEmailUpdated extends AuthState {}
 
 class AutPasswordUpdated extends AuthState {}
+
+class AuthPhotoDeleted extends AuthState {}
