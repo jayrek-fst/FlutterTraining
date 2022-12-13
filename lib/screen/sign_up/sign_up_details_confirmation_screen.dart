@@ -263,7 +263,7 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
                     width: 1, color: AppColorUtil.appBlueDarkColor),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0))),
-            child: Text(appLocalizations.raw_sign_up_prelabel_back,
+            child: Text(appLocalizations.raw_sign_up_pre_label_back,
                 style: const TextStyle(
                     fontSize: 22, color: AppColorUtil.appBlueDarkColor))),
         ElevatedButtonWidget(

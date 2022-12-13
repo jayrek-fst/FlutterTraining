@@ -98,7 +98,7 @@
    "raw_invalid_lastname_empty": "姓を入力してください",
    "raw_invalid_firstname_empty": "名を入力してください",
    "raw_validation_invalid_agree_terms": "規約に同意してください",
-   "raw_sign_up_prelabel_back": "内容を修正",
+   "raw_sign_up_pre_label_back": "内容を修正",
    "raw_common_user_information": "ユーザー情報",
    "raw_common_language_setting": "BASE言語設定",
    "raw_common_about_app": "このアプリについて",
@@ -121,5 +121,9 @@
    "raw_common_new_password_confirmation": "新しいパスワード(確認)",
    "raw_common_invalid_confirm_email": "入力したメールアドレスが一致しません",
    "raw_common_update_password_success": "パスワードを変更しました",
-   "raw_common_update_email_success": "メールが更新されました"
+   "raw_common_update_email_success": "メールが更新されました",
+   "raw_dialog_sign_out_title": "ログアウトしますか？",
+   "raw_dialog_sign_out_message": "ログアウトするとアプリは終了します。",
+   "raw_common_dialog_button_no": "いいえ",
+   "raw_common_dialog_button_yes": "はい"
 }

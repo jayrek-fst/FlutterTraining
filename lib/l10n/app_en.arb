@@ -405,9 +405,9 @@
      "@raw_validation_invalid_agree_terms": {
          "description": "Invalid agree terms"
      },
-   "raw_sign_up_prelabel_back": "Correct Information",
-     "@raw_sign_up_prelabel_back": {
-         "description": "Correct inforamtion button"
+   "raw_sign_up_pre_label_back": "Correct Information",
+     "@raw_sign_up_pre_label_back": {
+         "description": "Correct information button"
      },
    "raw_common_user_information": "User Information",
      "@raw_common_user_information": {
@@ -514,5 +514,21 @@
    "raw_common_update_email_success": "Updated email",
      "@raw_common_update_email_success": {
          "description": "Common update email success"
+     },
+   "raw_dialog_sign_out_title": "Are you sure to logout?",
+     "@raw_dialog_sign_out_title": {
+         "description": "Dialog sign out title"
+     },
+   "raw_dialog_sign_out_message": "The app will exit.",
+     "@raw_dialog_sign_out_message": {
+         "description": "Dialog sign out message"
+     },
+   "raw_common_dialog_button_no": "No",
+     "@raw_common_dialog_button_no": {
+         "description": "Dialog common button no"
+     },
+   "raw_common_dialog_button_yes": "Yes",
+     "@raw_common_dialog_button_yes": {
+         "description": "Dialog common button yes"
      }
 }
