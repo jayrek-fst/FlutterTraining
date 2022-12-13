@@ -19,7 +19,6 @@ class SplashScreen extends StatelessWidget {
             bloc: checkBloc,
             listener: (context, state) {
               if (state is AuthUserAuthenticated) {
-                debugPrint('splashUserInfo: ${state.user}');
                 Navigator.of(context).pushNamedAndRemoveUntil(
                     RouteUtil.dashboard, (route) => false);
               }

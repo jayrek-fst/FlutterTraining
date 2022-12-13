@@ -17,9 +17,7 @@ import 'screen/auth/sign_up/sign_up_details_screen.dart';
 import 'screen/auth/sign_up/sign_up_screen.dart';
 import 'screen/auth/sign_up/sign_up_verification_screen.dart';
 import 'screen/tutorial/splash_screen.dart';
-import 'screen/tutorial/tutorial_one_screen.dart';
-import 'screen/tutorial/tutorial_three_screen.dart';
-import 'screen/tutorial/tutorial_two_screen.dart';
+import 'screen/tutorial/tutorial_screen.dart';
 import 'util/route_animation_util.dart';
 import 'util/route_util.dart';
 
@@ -34,10 +32,10 @@ class RouteGenerator {
             child: const TutorialOneScreen(), direction: AxisDirection.up);
       case RouteUtil.tutorialTwo:
         return RouteAnimationUtil(
-            child: const TutorialTwoScreen(), direction: AxisDirection.left);
+            child: const TutorialScreenTwo(), direction: AxisDirection.left);
       case RouteUtil.tutorialThree:
         return RouteAnimationUtil(
-            child: const TutorialThreeScreen(), direction: AxisDirection.left);
+            child: const TutorialScreenThree(), direction: AxisDirection.left);
       case RouteUtil.signIn:
         return RouteAnimationUtil(
             child: SignInScreen(), direction: AxisDirection.up);
