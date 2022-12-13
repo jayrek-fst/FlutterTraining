@@ -10,6 +10,7 @@ import 'app_text_theme.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
+      brightness: Brightness.light,
       fontFamily: StringConstants.fontNotoSans,
       primaryColor: AppColorUtil.appBlueColor,
       primarySwatch: Colors.blue,
@@ -21,5 +22,7 @@ class AppTheme {
       checkboxTheme: AppCheckboxTheme.lightCheckBoxTheme,
       listTileTheme: AppListTileTheme.lightListTileTheme);
 
-  static ThemeData darkTheme = ThemeData();
+  static ThemeData darkTheme = ThemeData(
+    brightness: Brightness.light,
+  );
 }

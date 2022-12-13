@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../util/app_color_util.dart';
-import '../../util/asset_path_util.dart';
-import '../../util/route_util.dart';
-import '../../util/style_util.dart';
+import '../../../util/app_color_util.dart';
+import '../../../util/asset_path_util.dart';
+import '../../../util/route_util.dart';
+import '../../../util/style_util.dart';
 
 class SignUpVerificationScreen extends StatelessWidget {
   const SignUpVerificationScreen({Key? key}) : super(key: key);

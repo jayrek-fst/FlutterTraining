@@ -4,13 +4,13 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import '../../business_logic/bloc/auth_bloc/auth_bloc.dart';
-import '../../util/app_color_util.dart';
-import '../../util/route_util.dart';
-import '../../util/string_constants.dart';
-import '../../widget/common_widget.dart';
-import '../../widget/elevated_button_widget.dart';
-import '../../widget/text_form_field_email_widget.dart';
+import '../../../business_logic/bloc/auth_bloc/auth_bloc.dart';
+import '../../../util/app_color_util.dart';
+import '../../../util/route_util.dart';
+import '../../../util/string_constants.dart';
+import '../../../widget/common_widget.dart';
+import '../../../widget/elevated_button_widget.dart';
+import '../../../widget/text_form_field_email_widget.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   ResetPasswordScreen({Key? key, required this.type}) : super(key: key);

@@ -3,16 +3,16 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../data/model/user_model.dart';
-import '../../util/app_color_util.dart';
-import '../../util/gender_value_util.dart';
-import '../../util/asset_path_util.dart';
-import '../../util/route_util.dart';
-import '../../util/string_constants.dart';
-import '../../util/style_util.dart';
-import '../../widget/common_widget.dart';
-import '../../widget/elevated_button_widget.dart';
-import '../../widget/text_form_field_widget.dart';
+import '../../../data/model/user_model.dart';
+import '../../../util/app_color_util.dart';
+import '../../../util/gender_value_util.dart';
+import '../../../util/asset_path_util.dart';
+import '../../../util/route_util.dart';
+import '../../../util/string_constants.dart';
+import '../../../util/style_util.dart';
+import '../../../widget/common_widget.dart';
+import '../../../widget/elevated_button_widget.dart';
+import '../../../widget/text_form_field_widget.dart';
 
 class SignUpDetailsScreen extends StatelessWidget {
   SignUpDetailsScreen({Key? key}) : super(key: key);

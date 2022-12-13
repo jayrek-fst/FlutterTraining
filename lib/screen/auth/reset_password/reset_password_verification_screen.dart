@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../util/app_color_util.dart';
-import '../../util/route_util.dart';
-import '../../util/style_util.dart';
+import '../../../util/app_color_util.dart';
+import '../../../util/route_util.dart';
+import '../../../util/style_util.dart';
 
 class ResetPasswordVerificationScreen extends StatelessWidget {
   const ResetPasswordVerificationScreen({Key? key, required this.type})
