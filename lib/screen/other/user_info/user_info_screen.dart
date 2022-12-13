@@ -46,78 +46,7 @@ class UserInfoScreen extends StatelessWidget {
                                 height: 200,
                                 child: Column(children: [
                                   ProfileIcon(
-                                    imageIcon: userInfo.icon.toString(),
-                                  ),
-                                  /*  GestureDetector(
-                                      onTap: () {
-                                        showModalBottomSheet<void>(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return Wrap(children: [
-                                                _uploadPhotoItem(
-                                                    icon: Icons.delete_rounded,
-                                                    title:
-                                                        'Delete current image',
-                                                    onTap: () {},
-                                                    isEnable: false),
-                                                _uploadPhotoItem(
-                                                    icon: Icons
-                                                        .photo_library_rounded,
-                                                    title:
-                                                        'Select from library',
-                                                    onTap: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                      pickImage(
-                                                          context: context,
-                                                          isOpenCamera: false);
-                                                    },
-                                                    isEnable: true),
-                                                _uploadPhotoItem(
-                                                    icon: Icons
-                                                        .camera_alt_rounded,
-                                                    title: 'Take a picture',
-                                                    onTap: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                      pickImage(
-                                                          context: context,
-                                                          isOpenCamera: true);
-                                                    },
-                                                    isEnable: true)
-                                              ]);
-                                            });
-                                      },
-                                      child: Stack(children: [
-                                        CircleAvatar(
-                                            backgroundColor: Colors.white,
-                                            radius: 50,
-                                            child: userInfo.icon != ""
-                                                ? ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                    child: Image.network(
-                                                        userInfo.icon
-                                                            .toString(),
-                                                        fit: BoxFit.cover,
-                                                        width: 100,
-                                                        height: 100))
-                                                : iconFile != null
-                                                    ? ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(50),
-                                                        child: Image.file(
-                                                            iconFile!,
-                                                            fit: BoxFit.cover,
-                                                            width: 100,
-                                                            height: 100))
-                                                    : const Icon(Icons.person,
-                                                        size: 100,
-                                                        color: Colors.black38)),
-                                        circularAddIcon()
-                                      ])),*/
+                                      imageIcon: userInfo.icon.toString()),
                                   const SizedBox(height: 10),
                                   Text(
                                       '${userInfo.fullName?.firstName} ${userInfo.fullName?.lastName}'),
@@ -249,9 +178,7 @@ class _ProfileIconState extends State<ProfileIcon> {
           imageQuality: 75);
       if (image == null) return;
       final imageTemp = File(image.path);
-      setState(() {
-        iconFile = imageTemp;
-      });
+      setState(() => iconFile = imageTemp);
       contextRead.add(AuthUpdatePhoto(imageFile: imageTemp));
     } on PlatformException catch (e) {
       debugPrint('Failed to pick image: $e');
