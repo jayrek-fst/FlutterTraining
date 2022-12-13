@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fumiya_flutter/common/exception/auth_exception.dart';
 
@@ -11,7 +9,7 @@ import '../../data/repository/user_repository_impl.dart';
 import '../repository/auth_repository.dart';
 import '../repository/user_repository.dart';
 
-class AppUseCases {
+class AuthUseCase {
   final AuthRepository authRepository = AuthRepositoryImpl(
       authRemoteDataSource: AuthRemoteDataSourceImpl(),
       userRemoteDataSource: UserRemoteDataSourceImpl());
@@ -61,14 +59,6 @@ class AppUseCases {
     }
   }
 
-  Future<void> saveUserInfoUseCase(UserModel userModel) async {
-    try {
-      await userRepository.saveUserInfo(userModel);
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
   Future<bool> checkUserAuthenticatedUseCase() async {
     try {
       final isVerified = await authRepository.checkUserAuthenticated();
@@ -78,7 +68,7 @@ class AppUseCases {
     }
   }
 
-  Future resetPasswordUseCase(String email) async {
+  Future<void> resetPasswordUseCase(String email) async {
     try {
       await authRepository.resetPassword(email);
     } on AuthException catch (e) {
@@ -94,38 +84,6 @@ class AppUseCases {
     try {
       String email = await userRepository.getUserEmail();
       await signInUseCase(email: email, password: password);
-    } on AuthException catch (e) {
-      throw Exception(e.message);
-    }
-  }
-
-  Future<void> updateUserEmailUseCase(String newEmail) async {
-    try {
-      await userRepository.updateUserEmail(newEmail);
-    } on AuthException catch (e) {
-      throw Exception(e.message);
-    }
-  }
-
-  Future<void> updateUserPasswordUseCase(String password) async {
-    try {
-      await userRepository.updateUserPassword(password);
-    } on AuthException catch (e) {
-      throw Exception(e.message);
-    }
-  }
-
-  Future<void> uploadPhotoUseCase(File image) async {
-    try {
-      await userRepository.updatePhoto(image);
-    } on AuthException catch (e) {
-      throw Exception(e.message);
-    }
-  }
-
-  Future<void> deletePhotoUseCase() async {
-    try {
-      await userRepository.deletePhoto();
     } on AuthException catch (e) {
       throw Exception(e.message);
     }

@@ -4,6 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../business_logic/bloc/auth_bloc/auth_bloc.dart';
+import '../../../business_logic/bloc/user_bloc/user_bloc.dart';
 import '../../../data/model/user_model.dart';
 import '../../../util/app_color_util.dart';
 import '../../../util/gender_value_util.dart';
@@ -34,12 +35,12 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
             backgroundColor: Colors.white,
             title: Text(appLocalizations.raw_sign_up_header,
                 style: const TextStyle(color: AppColorUtil.appBlueDarkColor))),
-        body: BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
-          if (state is AuthUserAuthenticated) {
+        body: BlocConsumer<UserBloc, UserState>(listener: (context, state) {
+          if (state is UserActionSuccess) {
             Navigator.of(context)
                 .pushNamedAndRemoveUntil(RouteUtil.dashboard, (route) => false);
           }
-          if (state is AuthExceptionOccurred) {
+          if (state is ExceptionOccurred) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message)));
           }
@@ -269,9 +270,7 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
         ElevatedButtonWidget(
             label: appLocalizations.raw_common_confirm,
             onPressed: () {
-              context
-                  .read<AuthBloc>()
-                  .add(UserInfoRegistration(userModel: userModel));
+              context.read<UserBloc>().add(SaveUserInfo(userModel: userModel));
             })
       ]);
 }

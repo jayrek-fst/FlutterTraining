@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../business_logic/bloc/auth_bloc/auth_bloc.dart';
-import '../../domain/use_case/app_use_cases.dart';
+import '../../domain/use_case/auth_use_case.dart';
 import '../../util/route_util.dart';
 import '../../widget/common_widget.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({Key? key}) : super(key: key);
-  final checkBloc = AuthBloc(appUseCases: AppUseCases());
+  final checkBloc = AuthBloc(appUseCases: AuthUseCase());
 
   @override
   Widget build(BuildContext context) {

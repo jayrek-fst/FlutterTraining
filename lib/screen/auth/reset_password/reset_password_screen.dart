@@ -83,7 +83,7 @@ class ResetPasswordScreen extends StatelessWidget {
                             FocusScope.of(context).unfocus();
                             if (formKey.currentState!.saveAndValidate()) {
                               context.read<AuthBloc>().add(
-                                  AuthSendResetPassword(
+                                  SendResetPassword(
                                       email: formKey.currentState
                                           ?.value[StringConstants.email]));
                             }

@@ -6,10 +6,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fumiya_flutter/business_logic/bloc/user_bloc/user_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../business_logic/bloc/auth_bloc/auth_bloc.dart';
 import '../../../data/model/user_model.dart';
-import '../../../domain/use_case/app_use_cases.dart';
+import '../../../domain/use_case/auth_use_case.dart';
 import '../../../util/route_util.dart';
 import '../../../util/string_constants.dart';
 import '../../../util/style_util.dart';
@@ -18,7 +19,7 @@ import '../../../widget/common_widget.dart';
 class UserInfoScreen extends StatelessWidget {
   UserInfoScreen({Key? key}) : super(key: key);
 
-  final userInfo = AuthBloc(appUseCases: AppUseCases());
+  final userInfo = AuthBloc(appUseCases: AuthUseCase());
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +117,7 @@ class _ProfileIconState extends State<ProfileIcon> {
                           iconFile = null;
                           widget.imageIcon = '';
                         });
-                        context.read<AuthBloc>().add(AuthDeletePhoto());
+                        context.read<UserBloc>().add(DeletePhoto());
                       },
                       isEnable: widget.imageIcon != "" || iconFile != null
                           ? true
@@ -169,7 +170,7 @@ class _ProfileIconState extends State<ProfileIcon> {
 
   Future pickImage(
       {required BuildContext context, required bool isOpenCamera}) async {
-    final contextRead = context.read<AuthBloc>();
+    final contextRead = context.read<UserBloc>();
     try {
       final image = await ImagePicker().pickImage(
           source: isOpenCamera ? ImageSource.camera : ImageSource.gallery,
@@ -179,7 +180,7 @@ class _ProfileIconState extends State<ProfileIcon> {
       if (image == null) return;
       final imageTemp = File(image.path);
       setState(() => iconFile = imageTemp);
-      contextRead.add(AuthUpdatePhoto(imageFile: imageTemp));
+      contextRead.add(UploadPhoto(imageFile: imageTemp));
     } on PlatformException catch (e) {
       debugPrint('Failed to pick image: $e');
     }

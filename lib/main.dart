@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fumiya_flutter/business_logic/bloc/user_bloc/user_bloc.dart';
+import 'package:fumiya_flutter/domain/use_case/user_use_case.dart';
 
 import 'business_logic/bloc/auth_bloc/auth_bloc.dart';
 import 'business_logic/bloc/bottom_nav_bloc/bottom_nav_bloc.dart';
 import 'business_logic/bloc/toggle_bloc/toggle_bloc.dart';
-import 'domain/use_case/app_use_cases.dart';
+import 'domain/use_case/auth_use_case.dart';
 import 'l10n/l10n.dart';
 import 'route_generator.dart';
 import 'util/route_util.dart';
@@ -26,13 +28,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
-        providers: [RepositoryProvider(create: (context) => AppUseCases())],
+        providers: [
+          RepositoryProvider(create: (context) => AuthUseCase()),
+          RepositoryProvider(create: (context) => UserUseCase())
+        ],
         child: MultiBlocProvider(
             providers: [
               BlocProvider(
-                  create: (context) => AuthBloc(
-                      appUseCases:
-                          RepositoryProvider.of<AppUseCases>(context))),
+                  create: (context) =>
+                      AuthBloc(
+                          appUseCases:
+                          RepositoryProvider.of<AuthUseCase>(context))),
+              BlocProvider(create: (context) =>
+                  UserBloc(
+                      userUseCase: RepositoryProvider.of<UserUseCase>(context))),
               BlocProvider(create: (context) => ToggleBloc()),
               BlocProvider(create: (context) => BottomNavBloc())
             ],

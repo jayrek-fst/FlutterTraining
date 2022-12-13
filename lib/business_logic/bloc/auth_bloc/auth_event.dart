@@ -9,19 +9,19 @@ abstract class AuthEvent extends Equatable {
 
 class CheckAuthUser extends AuthEvent {}
 
-class AuthSignIn extends AuthEvent {
+class SignIn extends AuthEvent {
   final GlobalKey<FormBuilderState> formKey;
 
-  const AuthSignIn({required this.formKey});
+  const SignIn({required this.formKey});
 
   @override
   List<Object?> get props => [formKey];
 }
 
-class AuthSignUp extends AuthEvent {
+class SignUp extends AuthEvent {
   final GlobalKey<FormBuilderState> formKey;
 
-  const AuthSignUp({required this.formKey});
+  const SignUp({required this.formKey});
 
   @override
   List<Object?> get props => [formKey];
@@ -38,21 +38,21 @@ class UserInfoRegistration extends AuthEvent {
   List<Object?> get props => [userModel];
 }
 
-class AuthSendResetPassword extends AuthEvent {
+class SendResetPassword extends AuthEvent {
   final String email;
 
-  const AuthSendResetPassword({required this.email});
+  const SendResetPassword({required this.email});
 
   @override
   List<Object?> get props => [email];
 }
 
-class AuthSignOut extends AuthEvent {}
+class SignOut extends AuthEvent {}
 
-class AuthReSignIn extends AuthEvent {
+class ReSignIn extends AuthEvent {
   final String password;
 
-  const AuthReSignIn({required this.password});
+  const ReSignIn({required this.password});
 
   @override
   List<Object?> get props => [password];

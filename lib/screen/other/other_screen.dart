@@ -140,7 +140,7 @@ class OtherScreen extends StatelessWidget {
                                         Navigator.of(context).pop();
                                         context
                                             .read<AuthBloc>()
-                                            .add(AuthSignOut());
+                                            .add(SignOut());
                                       },
                                       child: Text(appLocalizations
                                           .raw_common_dialog_button_yes))

@@ -154,7 +154,7 @@ class SignUpScreen extends StatelessWidget {
                         Navigator.of(context).pop();
                         context
                             .read<AuthBloc>()
-                            .add(AuthSignUp(formKey: _formKey));
+                            .add(SignUp(formKey: _formKey));
                       },
                       child: Text(appLocalizations.raw_common_ok))
                 ]));

@@ -4,7 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import '../../../business_logic/bloc/auth_bloc/auth_bloc.dart';
+import 'package:fumiya_flutter/business_logic/bloc/user_bloc/user_bloc.dart';
 import '../../../util/string_constants.dart';
 import '../../../util/style_util.dart';
 import '../../../widget/common_widget.dart';
@@ -24,15 +24,15 @@ class UpdatePasswordScreen extends StatelessWidget {
         appBar: AppBar(
             title: Text(appLocalizations.raw_common_update_password,
                 style: appBarTitleTextStyle)),
-        body: BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
-          if (state is AutPasswordUpdated) {
+        body: BlocConsumer<UserBloc, UserState>(listener: (context, state) {
+          if (state is UserActionSuccess) {
             int count = 0;
             Navigator.of(context).popUntil((_) => count++ >= 2);
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content:
                     Text(appLocalizations.raw_common_update_password_success)));
           }
-          if (state is AuthExceptionOccurred) {
+          if (state is ExceptionOccurred) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message)));
           }
@@ -115,8 +115,8 @@ class UpdatePasswordScreen extends StatelessWidget {
                                           FocusScope.of(context).unfocus();
                                           if (_formKey.currentState!
                                               .saveAndValidate()) {
-                                            context.read<AuthBloc>().add(
-                                                AuthUpdatePassword(
+                                            context.read<UserBloc>().add(
+                                                UpdatePassword(
                                                     password: _formKey
                                                             .currentState!
                                                             .value[
@@ -126,7 +126,7 @@ class UpdatePasswordScreen extends StatelessWidget {
                                         })
                                   ])
                             ]))))),
-            if (state is AuthLoading) progressDialog()
+            if (state is Loading) progressDialog()
           ]);
         }));
   }

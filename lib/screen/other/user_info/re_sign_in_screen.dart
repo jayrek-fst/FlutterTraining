@@ -94,7 +94,7 @@ class ReSignInScreen extends StatelessWidget {
                                       String password = formKey.currentState
                                           ?.value[StringConstants.password];
                                       context.read<AuthBloc>().add(
-                                          AuthReSignIn(password: password));
+                                          ReSignIn(password: password));
                                     }
                                   })
                             ]))

@@ -140,7 +140,7 @@ class SignInScreen extends StatelessWidget {
           onPressed: () {
             FocusScope.of(context).unfocus();
             if (_formKey.currentState!.saveAndValidate()) {
-              context.read<AuthBloc>().add(AuthSignIn(formKey: _formKey));
+              context.read<AuthBloc>().add(SignIn(formKey: _formKey));
             }
           })
     ]);
