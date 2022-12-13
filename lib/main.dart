@@ -10,9 +10,9 @@ import 'business_logic/bloc/toggle_bloc/toggle_bloc.dart';
 import 'domain/use_case/app_use_cases.dart';
 import 'l10n/l10n.dart';
 import 'route_generator.dart';
-import 'util/app_color_util.dart';
 import 'util/route_util.dart';
 import 'util/string_constants.dart';
+import 'util/theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,40 +38,9 @@ class MyApp extends StatelessWidget {
             ],
             child: MaterialApp(
                 title: StringConstants.appName,
-                theme: ThemeData(
-                    fontFamily: StringConstants.fontNotoSans,
-                    primaryColor: AppColorUtil.appBlueColor,
-                    primarySwatch: Colors.blue,
-                    scaffoldBackgroundColor: AppColorUtil.appBlueColor,
-                    errorColor: AppColorUtil.appOrangeColor,
-                    textTheme: const TextTheme(
-                        headline6: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.w400),
-                        bodyText2: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white)),
-                    appBarTheme: const AppBarTheme(
-                        titleTextStyle: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w700),
-                        backgroundColor: AppColorUtil.appBlueDarkColor),
-                    elevatedButtonTheme: ElevatedButtonThemeData(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColorUtil.appBlueDarkColor,
-                            minimumSize: const Size(double.infinity, 50),
-                            side:
-                                const BorderSide(width: 1, color: Colors.white),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0)))),
-                    checkboxTheme: CheckboxThemeData(
-                        checkColor: MaterialStateProperty.all(
-                            AppColorUtil.appBlueColor),
-                        fillColor: MaterialStateProperty.all(Colors.white)),
-                    listTileTheme: const ListTileThemeData(
-                        textColor: Colors.white,
-                        iconColor: Colors.white,
-                        enableFeedback: false,
-                        contentPadding: EdgeInsets.symmetric(horizontal: 5))),
+                theme: AppTheme.lightTheme,
+                darkTheme: AppTheme.darkTheme,
+                themeMode: ThemeMode.system,
                 onGenerateRoute: RouteGenerator.generateRoute,
                 initialRoute: RouteUtil.splash,
                 supportedLocales: L10n.lang,
