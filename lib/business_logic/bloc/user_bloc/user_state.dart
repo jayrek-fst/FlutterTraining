@@ -11,6 +11,14 @@ class UserInitial extends UserState {}
 
 class Loading extends UserState {}
 
+class UserInformationLoaded extends UserState {
+  const UserInformationLoaded({required this.userModel});
+
+  final UserModel userModel;
+
+  @override
+  List<Object> get props => [userModel];}
+
 class UserActionSuccess extends UserState {}
 
 class ExceptionOccurred extends UserState {

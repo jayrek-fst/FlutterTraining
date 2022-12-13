@@ -305,7 +305,6 @@ class SignUpDetailsScreen extends StatelessWidget {
 
   UserModel _passUserInfoToConfirm() {
     return UserModel(
-        uid: 'testuid',
         fullName: FullName(
             nickName: _formKey.currentState?.value[StringConstants.nickName],
             firstName: _formKey.currentState?.value[StringConstants.firstName],

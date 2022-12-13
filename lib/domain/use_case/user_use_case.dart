@@ -65,4 +65,12 @@ class UserUseCase {
       throw Exception(e.message);
     }
   }
+
+  Future<void> updateUserInfoUseCase(UserModel userModel) async {
+    try {
+      await userRepository.updateUserInfo(userModel);
+    } on AuthException catch (e) {
+      throw Exception(e.message);
+    }
+  }
 }

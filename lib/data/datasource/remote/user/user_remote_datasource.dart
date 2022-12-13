@@ -24,4 +24,6 @@ abstract class UserRemoteDataSource {
   Future<void> updatePhoto(File imageFile);
 
   Future<void> deletePhoto();
+
+  Future<void> updateUserInfo(UserModel userModel);
 }

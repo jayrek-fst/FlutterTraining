@@ -7,6 +7,8 @@ abstract class UserEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class GetUserInfo extends UserEvent {}
+
 class SendEmailVerification extends UserEvent {}
 
 class SaveUserInfo extends UserEvent {
@@ -46,3 +48,12 @@ class UploadPhoto extends UserEvent {
 }
 
 class DeletePhoto extends UserEvent {}
+
+class UpdateUserInfo extends UserEvent {
+  final UserModel userModel;
+
+  const UpdateUserInfo({required this.userModel});
+
+  @override
+  List<Object?> get props => [userModel];
+}

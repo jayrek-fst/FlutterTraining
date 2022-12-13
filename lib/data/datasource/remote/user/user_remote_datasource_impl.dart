@@ -174,4 +174,19 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       throw const AuthException();
     }
   }
+
+  @override
+  Future<void> updateUserInfo(UserModel userModel) async {
+    try {
+      userModel.uid = _getFirebaseUser().uid;
+      userModel.mail = _getFirebaseUser().email;
+      userModel.updatedAt = Timestamp.now();
+      await _firebaseFirestore
+          .collection(StringConstants.userCollection)
+          .doc(userModel.uid)
+          .set(userModel.toJson());
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
 }

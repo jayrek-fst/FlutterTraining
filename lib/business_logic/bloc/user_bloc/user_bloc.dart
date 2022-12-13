@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fumiya_flutter/domain/use_case/user_use_case.dart';
 
 import '../../../data/model/user_model.dart';
@@ -14,6 +14,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final UserUseCase userUseCase;
 
   UserBloc({required this.userUseCase}) : super(UserInitial()) {
+    on<GetUserInfo>((event, emit) => _onGetUserInfo(event, emit));
     on<SendEmailVerification>(
         (event, emit) => _onSendEmailVerification(event, emit));
     on<SaveUserInfo>((event, emit) => _onSaveUser(event, emit));
@@ -21,6 +22,17 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<UpdatePassword>((event, emit) => _onUpdatePassword(event, emit));
     on<UploadPhoto>((event, emit) => _onUploadPhoto(event, emit));
     on<DeletePhoto>((event, emit) => _onDeletePhoto(event, emit));
+    on<UpdateUserInfo>((event, emit) => _updateUserInfo(event, emit));
+  }
+
+  _onGetUserInfo(GetUserInfo event, Emitter<UserState> emitter) async {
+    emitter(Loading());
+    try {
+      final user = await userUseCase.getUserInfoUseCase();
+      emitter(UserInformationLoaded(userModel: user!));
+    } catch (e) {
+      emitter(ExceptionOccurred(e.toString()));
+    }
   }
 
   _onSendEmailVerification(
@@ -84,6 +96,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     emitter(Loading());
     try {
       await userUseCase.deletePhotoUseCase();
+      emitter(UserActionSuccess());
+    } catch (e) {
+      emitter(ExceptionOccurred(e.toString()));
+    }
+  }
+
+  _updateUserInfo(UpdateUserInfo event, Emitter<UserState> emitter) async {
+    emitter(Loading());
+    try {
+      await userUseCase.updateUserInfoUseCase(event.userModel);
       emitter(UserActionSuccess());
     } catch (e) {
       emitter(ExceptionOccurred(e.toString()));

@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:fumiya_flutter/data/datasource/remote/user/user_remote_datasource.dart';
-import 'package:fumiya_flutter/data/model/user_model.dart';
-
 import '../../domain/repository/user_repository.dart';
+import '../datasource/remote/user/user_remote_datasource.dart';
+import '../model/user_model.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final UserRemoteDataSource userRemoteDataSource;
@@ -62,7 +61,12 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<void> deletePhoto() async{
+  Future<void> deletePhoto() async {
     await userRemoteDataSource.deletePhoto();
+  }
+
+  @override
+  Future<void> updateUserInfo(UserModel userModel) async {
+    await userRemoteDataSource.updateUserInfo(userModel);
   }
 }

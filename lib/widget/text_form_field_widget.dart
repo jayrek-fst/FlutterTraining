@@ -11,7 +11,8 @@ class TextFormFieldWidget extends StatelessWidget {
       this.validator,
       this.hint = '',
       this.suffixIcon,
-      this.isObscure = false})
+      this.isObscure = false,
+      this.initialValue = ''})
       : super(key: key);
   final String name;
   final TextInputType textInputType;
@@ -19,6 +20,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final Widget? suffixIcon;
   final bool isObscure;
   final String hint;
+  final String initialValue;
 
   // final Function(String?)? onChange;
 
@@ -30,7 +32,7 @@ class TextFormFieldWidget extends StatelessWidget {
             validator: validator,
             keyboardType: textInputType,
             obscureText: isObscure,
-            initialValue: '',
+            initialValue: initialValue,
             style: inputTextFormFieldTextStyle,
             onChanged: (_) => setState(() {}),
             decoration: textFormFieldDecoration(hint, suffixIcon)));
