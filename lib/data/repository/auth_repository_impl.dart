@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fumiya_flutter/data/datasource/remote/user/user_remote_datasource.dart';
 
 import '../../domain/repository/auth_repository.dart';
 import '../datasource/remote/auth/auth_remote_datasource.dart';
+import '../datasource/remote/user/user_remote_datasource.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDateSource authRemoteDataSource;
@@ -14,14 +14,13 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<UserCredential> signIn(
       {required String email, required String password}) async {
-
     UserCredential userCredential =
         await authRemoteDataSource.signIn(email: email, password: password);
     return userCredential;
   }
 
   @override
-  Future signUp({required String email, required String password}) async {
+  Future<void> signUp({required String email, required String password}) async {
     await authRemoteDataSource.signUp(email: email, password: password);
   }
 
@@ -31,12 +30,12 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future resetPassword(String email) async {
+  Future<void> resetPassword(String email) async {
     await authRemoteDataSource.resetPassword(email);
   }
 
   @override
-  Future signOut() async {
+  Future<void> signOut() async {
     await authRemoteDataSource.signOut();
   }
 }

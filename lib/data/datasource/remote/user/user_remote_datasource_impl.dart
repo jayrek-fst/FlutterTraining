@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:fumiya_flutter/util/string_constants.dart';
 
 import '../../../../common/exception/auth_exception.dart';
+import '../../../../util/string_constants.dart';
 import '../../../model/user_model.dart';
 import 'user_remote_datasource.dart';
 
@@ -60,19 +60,8 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future sendEmailVerificationLink() async {
+  Future<void> sendEmailVerificationLink() async {
     try {
-      /*final settings = ActionCodeSettings(
-          url: 'https://devjayrek.page.link/c2Sd',
-          androidPackageName: 'com.jayrek.flutter_training',
-          handleCodeInApp: true,
-          androidMinimumVersion: '28',
-          dynamicLinkDomain: 'devjayrek.page.link',
-          iOSBundleId: 'com.jayrek.flutterTraining',
-          androidInstallApp: true);
-      final String email = _getFirebaseUser().email;
-      await _auth.sendSignInLinkToEmail(
-          email: email, actionCodeSettings: settings);*/
       var user = await _getFirebaseUser();
       await user.sendEmailVerification();
     } catch (e) {
@@ -114,7 +103,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future updateUserEmail(String newEmail) async {
+  Future<void> updateUserEmail(String newEmail) async {
     try {
       var user = await _getFirebaseUser();
       await user.updateEmail(newEmail);
@@ -135,7 +124,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future updateUserPassword(String password) async {
+  Future<void> updateUserPassword(String password) async {
     try {
       var user = await _getFirebaseUser();
       await user.updatePassword(password);
@@ -147,7 +136,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future updatePhoto(File imageFile) async {
+  Future<void> updatePhoto(File imageFile) async {
     try {
       var uid = await getUserUid();
       Reference reference =
@@ -168,7 +157,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future deletePhoto() async {
+  Future<void> deletePhoto() async {
     try {
       var uid = await getUserUid();
       Reference reference =

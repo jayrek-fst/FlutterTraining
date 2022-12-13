@@ -17,35 +17,40 @@ class TutorialOneScreen extends StatelessWidget {
 
     return Scaffold(
         body: SafeArea(
-      child: SingleChildScrollView(
-          child: Container(
-              height: MediaQuery.of(context).size.height,
-              color: AppColorUtil.appBlueColor,
-              child: Column(children: [
-                Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 180,
-                    color: Colors.white,
-                    child: Image.asset(AssetPathUtil.appImagePath)),
-                Expanded(
-                  child: Container(
-                      padding: const EdgeInsets.all(20),
-                      child: Column(children: [
-                        Text(appLocalizations.raw_tutorial_welcome_message,
-                            style: Theme.of(context).textTheme.bodyText2),
-                        _subscriptionBenefits(context, appLocalizations),
-                        Text(appLocalizations.raw_common_subscribe_payment_note,
-                            style: Theme.of(context).textTheme.bodyText2),
-                        ElevatedButtonWidget(
-                            fontFamily: StringConstants.fontFutura,
-                            label:
-                                appLocalizations.raw_common_next.toUpperCase(),
-                            onPressed: () => Navigator.of(context)
-                                .pushNamed(RouteUtil.tutorialTwo))
-                      ])),
-                )
-              ]))),
-    ));
+            child: SingleChildScrollView(
+                child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    color: AppColorUtil.appBlueColor,
+                    child: Column(children: [
+                      Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 180,
+                          color: Colors.white,
+                          child: Image.asset(AssetPathUtil.appImagePath)),
+                      Expanded(
+                          child: Container(
+                              padding: const EdgeInsets.all(20),
+                              child: Column(children: [
+                                Text(
+                                    appLocalizations
+                                        .raw_tutorial_welcome_message,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2),
+                                _subscriptionBenefits(
+                                    context, appLocalizations),
+                                Text(
+                                    appLocalizations
+                                        .raw_common_subscribe_payment_note,
+                                    style:
+                                        Theme.of(context).textTheme.bodyText2),
+                                ElevatedButtonWidget(
+                                    fontFamily: StringConstants.fontFutura,
+                                    label: appLocalizations.raw_common_next
+                                        .toUpperCase(),
+                                    onPressed: () => Navigator.of(context)
+                                        .pushNamed(RouteUtil.tutorialTwo))
+                              ])))
+                    ])))));
   }
 
   Widget _subscriptionBenefits(

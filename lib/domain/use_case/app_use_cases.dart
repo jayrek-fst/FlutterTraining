@@ -86,11 +86,11 @@ class AppUseCases {
     }
   }
 
-  Future signOutUseCase() async {
+  Future<void> signOutUseCase() async {
     await authRepository.signOut();
   }
 
-  Future reSignInUseCase(String password) async {
+  Future<void> reSignInUseCase(String password) async {
     try {
       String email = await userRepository.getUserEmail();
       await signInUseCase(email: email, password: password);
@@ -99,7 +99,7 @@ class AppUseCases {
     }
   }
 
-  Future updateUserEmailUseCase(String newEmail) async {
+  Future<void> updateUserEmailUseCase(String newEmail) async {
     try {
       await userRepository.updateUserEmail(newEmail);
     } on AuthException catch (e) {
@@ -107,7 +107,7 @@ class AppUseCases {
     }
   }
 
-  Future updateUserPasswordUseCase(String password) async {
+  Future<void> updateUserPasswordUseCase(String password) async {
     try {
       await userRepository.updateUserPassword(password);
     } on AuthException catch (e) {
@@ -115,7 +115,7 @@ class AppUseCases {
     }
   }
 
-  Future uploadPhoto(File image) async {
+  Future<void> uploadPhotoUseCase(File image) async {
     try {
       await userRepository.updatePhoto(image);
     } on AuthException catch (e) {
@@ -123,7 +123,7 @@ class AppUseCases {
     }
   }
 
-  Future deletePhoto() async {
+  Future<void> deletePhotoUseCase() async {
     try {
       await userRepository.deletePhoto();
     } on AuthException catch (e) {

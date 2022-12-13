@@ -176,7 +176,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _onUpdatePhoto(AuthUpdatePhoto event, Emitter<AuthState> emitter) async {
     emitter(AuthLoading());
     try {
-      await appUseCases.uploadPhoto(event.imageFile);
+      await appUseCases.uploadPhotoUseCase(event.imageFile);
     } catch (e) {
       emitter(AuthExceptionOccurred(e.toString()));
     }
@@ -185,7 +185,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   _onDeletePhoto(AuthDeletePhoto event, Emitter<AuthState> emitter) async {
     emitter(AuthLoading());
     try {
-      await appUseCases.deletePhoto();
+      await appUseCases.deletePhotoUseCase();
       emitter(AuthPhotoDeleted());
     } catch (e) {
       emitter(AuthExceptionOccurred(e.toString()));

@@ -24,7 +24,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDateSource {
   }
 
   @override
-  Future signUp({required String email, required String password}) async {
+  Future<void> signUp({required String email, required String password}) async {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -45,7 +45,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDateSource {
   }
 
   @override
-  Future resetPassword(String email) async {
+  Future<void> resetPassword(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
@@ -56,7 +56,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDateSource {
   }
 
   @override
-  Future signOut() async {
+  Future<void> signOut() async {
     await _auth.signOut();
   }
 }

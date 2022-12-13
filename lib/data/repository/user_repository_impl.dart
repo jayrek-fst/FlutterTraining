@@ -31,7 +31,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future sendEmailVerificationLink() {
+  Future<void> sendEmailVerificationLink() {
     return userRemoteDataSource.sendEmailVerificationLink();
   }
 
@@ -47,22 +47,22 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future updateUserEmail(String newEmail) async {
+  Future<void> updateUserEmail(String newEmail) async {
     await userRemoteDataSource.updateUserEmail(newEmail);
   }
 
   @override
-  Future updateUserPassword(String password) async {
+  Future<void> updateUserPassword(String password) async {
     await userRemoteDataSource.updateUserPassword(password);
   }
 
   @override
-  Future updatePhoto(File imageFile) async {
+  Future<void> updatePhoto(File imageFile) async {
     await userRemoteDataSource.updatePhoto(imageFile);
   }
 
   @override
-  Future deletePhoto() async{
+  Future<void> deletePhoto() async{
     await userRemoteDataSource.deletePhoto();
   }
 }

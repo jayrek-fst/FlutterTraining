@@ -11,17 +11,17 @@ abstract class UserRemoteDataSource {
 
   Future<bool> isUserEmailVerified();
 
-  Future sendEmailVerificationLink();
+  Future<void> sendEmailVerificationLink();
 
   Future<UserModel?> getUserInfo();
 
   Future<void> saveUserInfo(UserModel userModel);
 
-  Future updateUserEmail(String newEmail);
+  Future<void> updateUserEmail(String newEmail);
 
-  Future updateUserPassword(String password);
+  Future<void> updateUserPassword(String password);
 
-  Future updatePhoto(File imageFile);
+  Future<void> updatePhoto(File imageFile);
 
-  Future deletePhoto();
+  Future<void> deletePhoto();
 }
