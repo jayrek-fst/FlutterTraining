@@ -6,9 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:fumiya_flutter/business_logic/bloc/user_bloc/user_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../business_logic/bloc/auth_bloc/auth_bloc.dart';
+import '../../../business_logic/bloc/user_bloc/user_bloc.dart';
 import '../../../data/model/user_model.dart';
 import '../../../domain/use_case/auth_use_case.dart';
 import '../../../util/route_util.dart';
@@ -102,6 +102,8 @@ class _ProfileIconState extends State<ProfileIcon> {
 
   @override
   Widget build(BuildContext context) {
+    var appLocalizations = AppLocalizations.of(context)!;
+
     return GestureDetector(
         onTap: () {
           showModalBottomSheet<void>(
@@ -110,7 +112,8 @@ class _ProfileIconState extends State<ProfileIcon> {
                 return Wrap(children: [
                   _uploadPhotoItem(
                       icon: Icons.delete_rounded,
-                      title: 'Delete current image',
+                      title: appLocalizations
+                          .raw_bottom_sheet_photo_options_item_delete_photo,
                       onTap: () {
                         Navigator.of(context).pop();
                         setState(() {
@@ -124,7 +127,8 @@ class _ProfileIconState extends State<ProfileIcon> {
                           : false),
                   _uploadPhotoItem(
                       icon: Icons.photo_library_rounded,
-                      title: 'Select from library',
+                      title: appLocalizations
+                          .raw_bottom_sheet_photo_options_item_gallery,
                       onTap: () {
                         Navigator.of(context).pop();
                         pickImage(context: context, isOpenCamera: false);
@@ -132,7 +136,8 @@ class _ProfileIconState extends State<ProfileIcon> {
                       isEnable: true),
                   _uploadPhotoItem(
                       icon: Icons.camera_alt_rounded,
-                      title: 'Take a picture',
+                      title: appLocalizations
+                          .raw_bottom_sheet_photo_options_item_camera,
                       onTap: () {
                         Navigator.of(context).pop();
                         pickImage(context: context, isOpenCamera: true);

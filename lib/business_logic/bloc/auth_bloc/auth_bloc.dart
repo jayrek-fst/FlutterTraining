@@ -118,6 +118,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emitter(AuthLoading());
     try {
       await appUseCases.reSignInUseCase(event.password);
+      final user = await appUseCases.getUserInfoUseCase();
+      user != null
+          ? emitter(AuthUserAuthenticated(user: user))
+          : emitter(UserInfoNotExisted());
     } catch (e) {
       emitter(AuthExceptionOccurred(e.toString()));
     }

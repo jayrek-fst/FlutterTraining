@@ -53,7 +53,7 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
                       Padding(
                           padding: const EdgeInsets.symmetric(vertical: 20),
                           child:
-                              Text(appLocalizations.raw_sign_up_input_header)),
+                          Text(appLocalizations.raw_sign_up_input_header)),
                       Padding(
                           padding: const EdgeInsets.only(bottom: 30),
                           child: Image.asset(AssetPathUtil.stepFivePath)),
@@ -89,8 +89,8 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
     ]);
   }
 
-  Widget _nickNameWidget(
-          AppLocalizations appLocalizations, UserModel userModel) =>
+  Widget _nickNameWidget(AppLocalizations appLocalizations,
+      UserModel userModel) =>
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
@@ -105,8 +105,8 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
         Text(appLocalizations.raw_common_nick_name_note)
       ]);
 
-  Widget _fullNameWidget(
-          AppLocalizations appLocalizations, UserModel userModel) =>
+  Widget _fullNameWidget(AppLocalizations appLocalizations,
+      UserModel userModel) =>
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
           Padding(
@@ -124,11 +124,15 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
         ])
       ]);
 
-  Widget _kanaFullNameWidget(
-      AppLocalizations appLocalizations, KanaFullName kanaFullName) {
+  Widget _kanaFullNameWidget(AppLocalizations appLocalizations,
+      KanaFullName kanaFullName) {
     return Visibility(
-        visible: kanaFullName.firstNameKana.toString().isNotEmpty ||
-                kanaFullName.lastNameKana.toString().isNotEmpty
+        visible: kanaFullName.firstNameKana
+            .toString()
+            .isNotEmpty ||
+            kanaFullName.lastNameKana
+                .toString()
+                .isNotEmpty
             ? true
             : false,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -144,33 +148,43 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
   }
 
   Widget _genderWidget(BuildContext context, AppLocalizations appLocalizations,
-          UserModel userModel) =>
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(appLocalizations.raw_common_gender),
-        FormBuilderSegmentedControl<String>(
-            padding: const EdgeInsets.all(0),
-            initialValue: userModel.sex,
-            name: StringConstants.gender,
-            enabled: false,
-            selectedColor: AppColorUtil.appBlueDarkColor,
-            options: GenderValueUtil()
-                .genderList(context)
-                .map((gender) => FormBuilderFieldOption(
-                    value: gender,
-                    child: SizedBox(
-                        height: 30, child: Center(child: Text(gender)))))
-                .toList(),
-            decoration:
-                const InputDecoration(border: InputBorder.none, filled: false))
-      ]);
+      UserModel userModel) {
+    final sex = StringConstants.genderList
+        .indexOf(userModel.sex.toString());
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(appLocalizations.raw_common_gender),
+      FormBuilderSegmentedControl<String>(
+          padding: const EdgeInsets.all(0),
+          initialValue: userModel.sex,
+              // .toString()
+              // .isNotEmpty
+              // ? GenderValueUtil()
+              // .genderList(context)[]
+              // : GenderValueUtil().genderList(context)[2],
+          name: StringConstants.gender,
+          enabled: false,
+          selectedColor: AppColorUtil.appBlueDarkColor,
+          options: GenderValueUtil()
+              .genderList(context)
+              .map((gender) =>
+              FormBuilderFieldOption(
+                  value: gender,
+                  child:
+                  SizedBox(height: 30, child: Center(child: Text(gender)))))
+              .toList(),
+          decoration:
+          const InputDecoration(border: InputBorder.none, filled: false))
+    ]);
+  }
 
-  Widget _addressNote(AppLocalizations appLocalizations) => Container(
-      padding: const EdgeInsets.all(5),
-      decoration: BoxDecoration(border: Border.all(color: Colors.white)),
-      child: Text(appLocalizations.raw_sign_up_input_note_address));
+  Widget _addressNote(AppLocalizations appLocalizations) =>
+      Container(
+          padding: const EdgeInsets.all(5),
+          decoration: BoxDecoration(border: Border.all(color: Colors.white)),
+          child: Text(appLocalizations.raw_sign_up_input_note_address));
 
-  Widget _addressInfoListWidget(
-      AppLocalizations appLocalizations, Address address) {
+  Widget _addressInfoListWidget(AppLocalizations appLocalizations,
+      Address address) {
     var prefecture = address.addressPrefecture ?? '';
 
     return Column(children: [
@@ -205,24 +219,26 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
         ]));
   }
 
-  Widget _phoneNumberWidget(
-          AppLocalizations appLocalizations, UserModel userModel) =>
+  Widget _phoneNumberWidget(AppLocalizations appLocalizations,
+      UserModel userModel) =>
       Visibility(
-          visible: userModel.phoneNumber.toString().isNotEmpty ? true : false,
+          visible: userModel.phoneNumber
+              .toString()
+              .isNotEmpty ? true : false,
           child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Text(appLocalizations.raw_common_phone_number)),
             _setUserValue(userModel.phoneNumber.toString())
           ]));
 
-  Widget _linksWidget(
-          AppLocalizations appLocalizations, BuildContext context) =>
+  Widget _linksWidget(AppLocalizations appLocalizations,
+      BuildContext context) =>
       Padding(
           padding: const EdgeInsets.symmetric(vertical: 30),
           child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: Row(children: [
@@ -234,14 +250,15 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
                 ])),
             itemLinkWidget(
                 appLocalizations.raw_common_terms_of_service,
-                () =>
+                    () =>
                     Navigator.of(context).pushNamed(RouteUtil.termsOfService)),
             itemLinkWidget(appLocalizations.raw_common_privacy,
-                () => Navigator.of(context).pushNamed(RouteUtil.privacyPolicy))
+                    () =>
+                    Navigator.of(context).pushNamed(RouteUtil.privacyPolicy))
           ]));
 
   Widget _buttonWidget(BuildContext context, AppLocalizations appLocalizations,
-          UserModel userModel) =>
+      UserModel userModel) =>
       Column(children: [
         Align(
             alignment: Alignment.center,
@@ -270,6 +287,12 @@ class SignUpDetailsConfirmationScreen extends StatelessWidget {
         ElevatedButtonWidget(
             label: appLocalizations.raw_common_confirm,
             onPressed: () {
+              FocusScope.of(context).unfocus();
+              final indexSex = GenderValueUtil()
+                  .genderList(context)
+                  .indexOf(userModel.sex.toString());
+              final sex = StringConstants.genderList[indexSex];
+              userModel.sex = sex;
               context.read<UserBloc>().add(SaveUserInfo(userModel: userModel));
             })
       ]);

@@ -28,8 +28,8 @@ class UpdateUserInfoScreen extends StatelessWidget {
     var appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
         appBar: AppBar(
-            title:
-                Text('Change User Information', style: appBarTitleTextStyle)),
+            title: Text(appLocalizations.raw_update_user_info_screen_title,
+                style: appBarTitleTextStyle)),
         body: BlocConsumer<UserBloc, UserState>(
             bloc: userBloc,
             listener: (context, state) {
@@ -81,13 +81,14 @@ class UpdateUserInfoScreen extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 20),
                                   child: Column(children: [
-                                    const Padding(
-                                        padding: EdgeInsets.only(
+                                    Padding(
+                                        padding: const EdgeInsets.only(
                                             top: 20, bottom: 30),
-                                        child: Text('Change User Information',
-                                            style: TextStyle(
+                                        child: Text(
+                                            appLocalizations
+                                                .raw_update_user_info_screen_title,
+                                            style: const TextStyle(
                                                 fontWeight: FontWeight.bold))),
-
                                     _nickNameWidget(appLocalizations,
                                         user.fullName!.nickName.toString()),
                                     const SizedBox(height: 20),
@@ -233,25 +234,27 @@ class UpdateUserInfoScreen extends StatelessWidget {
         ])
       ]);
 
-  _genderWidget(BuildContext context, AppLocalizations appLocalizations,
-          String gender) =>
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(appLocalizations.raw_common_gender),
-        FormBuilderSegmentedControl<String>(
-            padding: const EdgeInsets.all(0),
-            initialValue: gender,
-            name: StringConstants.gender,
-            selectedColor: AppColorUtil.appBlueDarkColor,
-            options: GenderValueUtil()
-                .genderList(context)
-                .map((gender) => FormBuilderFieldOption(
-                    value: gender,
-                    child: SizedBox(
-                        height: 30, child: Center(child: Text(gender)))))
-                .toList(),
-            decoration:
-                const InputDecoration(border: InputBorder.none, filled: false))
-      ]);
+  _genderWidget(
+      BuildContext context, AppLocalizations appLocalizations, String gender) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(appLocalizations.raw_common_gender),
+      FormBuilderSegmentedControl<String>(
+          padding: const EdgeInsets.all(0),
+          initialValue: GenderValueUtil()
+              .genderList(context)[StringConstants.genderList.indexOf(gender)],
+          name: StringConstants.gender,
+          selectedColor: AppColorUtil.appBlueDarkColor,
+          options: GenderValueUtil()
+              .genderList(context)
+              .map((gender) => FormBuilderFieldOption(
+                  value: gender,
+                  child:
+                      SizedBox(height: 30, child: Center(child: Text(gender)))))
+              .toList(),
+          decoration:
+              const InputDecoration(border: InputBorder.none, filled: false))
+    ]);
+  }
 
   _addressNote(AppLocalizations appLocalizations) => Container(
       padding: const EdgeInsets.all(5),
@@ -270,27 +273,31 @@ class UpdateUserInfoScreen extends StatelessWidget {
             textInputType: TextInputType.number)
       ]);
 
-  _prefectureWidget(AppLocalizations appLocalizations, String prefecture) =>
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-                appLocalizations.raw_sign_up_input_label_address_prefecture)),
-        FormBuilderDropdown(
-            initialValue: prefecture,
-            name: StringConstants.prefecture,
-            isExpanded: false,
-            items: StringConstants.prefectureList
-                .map((prefecture) => DropdownMenuItem(
-                    value: prefecture, child: Text(prefecture)))
-                .toList(),
-            decoration: InputDecoration(
-                fillColor: Colors.white,
-                filled: true,
-                hintStyle: hintTextStyle,
-                hintText:
-                    appLocalizations.raw_sign_up_input_hint_address_prefecture))
-      ]);
+  _prefectureWidget(AppLocalizations appLocalizations, String prefecture) {
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Text(
+              appLocalizations.raw_sign_up_input_label_address_prefecture)),
+      FormBuilderDropdown(
+          initialValue: prefecture.isNotEmpty
+              ? StringConstants.prefectureList[
+                  StringConstants.prefectureList.indexOf(prefecture)]
+              : null,
+          name: StringConstants.prefecture,
+          isExpanded: false,
+          items: StringConstants.prefectureList
+              .map((prefecture) =>
+                  DropdownMenuItem(value: prefecture, child: Text(prefecture)))
+              .toList(),
+          decoration: InputDecoration(
+              fillColor: Colors.white,
+              filled: true,
+              hintStyle: hintTextStyle,
+              hintText:
+                  appLocalizations.raw_sign_up_input_hint_address_prefecture))
+    ]);
+  }
 
   _cityWidget(AppLocalizations appLocalizations, String city) =>
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

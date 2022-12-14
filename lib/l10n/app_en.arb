@@ -530,5 +530,21 @@
    "raw_common_dialog_button_yes": "Yes",
      "@raw_common_dialog_button_yes": {
          "description": "Dialog common button yes"
+     },
+   "raw_bottom_sheet_photo_options_item_delete_photo": "Delete current image",
+     "@raw_bottom_sheet_photo_options_item_delete_photo": {
+         "description": "Bottom sheet options item delete photo"
+     },
+   "raw_bottom_sheet_photo_options_item_gallery": "Select from library",
+     "@raw_bottom_sheet_photo_options_item_gallery": {
+         "description": "Bottom sheet options item gallery"
+     },
+   "raw_bottom_sheet_photo_options_item_camera": "Take a picture",
+     "@raw_bottom_sheet_photo_options_item_camera": {
+         "description": "Bottom sheet options item camera"
+     },
+   "raw_update_user_info_screen_title": "Change User Information",
+     "@raw_update_user_info_screen_title": {
+         "description": "Update user information title"
      }
 }

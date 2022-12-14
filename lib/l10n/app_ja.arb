@@ -125,5 +125,9 @@
    "raw_dialog_sign_out_title": "ログアウトしますか？",
    "raw_dialog_sign_out_message": "ログアウトするとアプリは終了します。",
    "raw_common_dialog_button_no": "いいえ",
-   "raw_common_dialog_button_yes": "はい"
+   "raw_common_dialog_button_yes": "はい",
+   "raw_bottom_sheet_photo_options_item_delete_photo": "現在の写真を削除",
+   "raw_bottom_sheet_photo_options_item_gallery": "ライブラリから選択",
+   "raw_bottom_sheet_photo_options_item_camera": "写真を撮る",
+   "raw_update_user_info_screen_title": "ユーザー情報変更"
 }

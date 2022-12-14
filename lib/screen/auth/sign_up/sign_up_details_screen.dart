@@ -151,24 +151,28 @@ class SignUpDetailsScreen extends StatelessWidget {
         ])
       ]);
 
-  _genderWidget(BuildContext context, AppLocalizations appLocalizations) =>
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(appLocalizations.raw_common_gender),
-        FormBuilderSegmentedControl<String>(
-            padding: const EdgeInsets.all(0),
-            initialValue: GenderValueUtil().genderList(context).asMap()[2],
-            name: StringConstants.gender,
-            selectedColor: AppColorUtil.appBlueDarkColor,
-            options: GenderValueUtil()
-                .genderList(context)
-                .map((gender) => FormBuilderFieldOption(
-                    value: gender,
-                    child: SizedBox(
-                        height: 30, child: Center(child: Text(gender)))))
-                .toList(),
-            decoration:
-                const InputDecoration(border: InputBorder.none, filled: false))
-      ]);
+  _genderWidget(BuildContext context, AppLocalizations appLocalizations) {
+    String dsf = GenderValueUtil().genderList(context).asMap()[2].toString();
+    debugPrint('dsf: $dsf');
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(appLocalizations.raw_common_gender),
+      FormBuilderSegmentedControl<String>(
+          padding: const EdgeInsets.all(0),
+          initialValue:
+              GenderValueUtil().genderList(context).asMap()[2].toString(),
+          name: StringConstants.gender,
+          selectedColor: AppColorUtil.appBlueDarkColor,
+          options: GenderValueUtil()
+              .genderList(context)
+              .map((gender) => FormBuilderFieldOption(
+                  value: gender,
+                  child:
+                      SizedBox(height: 30, child: Center(child: Text(gender)))))
+              .toList(),
+          decoration:
+              const InputDecoration(border: InputBorder.none, filled: false))
+    ]);
+  }
 
   _addressNote(AppLocalizations appLocalizations) => Container(
       padding: const EdgeInsets.all(5),
@@ -320,7 +324,7 @@ class SignUpDetailsScreen extends StatelessWidget {
             postalCode:
                 _formKey.currentState?.value[StringConstants.postalCode],
             addressPrefecture:
-                _formKey.currentState?.value[StringConstants.prefecture],
+                _formKey.currentState?.value[StringConstants.prefecture] ?? '',
             addressCity: _formKey.currentState?.value[StringConstants.city],
             addressNumber:
                 _formKey.currentState?.value[StringConstants.addressNumber],
