@@ -23,6 +23,12 @@ dependencies:
   cloud_firestore: ^4.0.4
   firebase_auth: ^4.1.1
   firebase_dynamic_links: ^5.0.4
+  webview_flutter: ^3.0.4
+  url_launcher: ^6.1.6
+  package_info_plus: ^3.0.2
+  firebase_storage: ^11.0.7
+  image_picker: ^0.8.6
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
@@ -36,6 +42,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/local_html/
 
   fonts:
     - family: Futura
