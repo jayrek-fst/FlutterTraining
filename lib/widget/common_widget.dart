@@ -93,7 +93,7 @@ Widget tutorialBody(
                     decoration: backgroundGradient(),
                     padding: const EdgeInsets.all(20),
                     child: Column(children: [
-                      SizedBox(height: 500, child: Image.asset(image)),
+                      SizedBox(height: 400, child: Image.asset(image)),
                       ElevatedButtonWidget(
                           fontFamily: StringConstants.fontFutura,
                           label: label.toUpperCase(),
